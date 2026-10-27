@@ -43,13 +43,19 @@ function assign(previous,squares,count){
 export function measureArticulated(scene,input,{resolution=96,samples=17}={}){
   scene=validateArticulatedScene(scene);const targets=validateTargets(input);
   if(!Number.isInteger(resolution)||resolution<16||resolution>256||!Number.isInteger(samples)||samples<2||samples>101)throw new Error('Invalid measurement resolution or sample count.');
-  const b=bounds([...targets.map(k=>k.polygon),...targets.flatMap(k=>projectArticulated(scene,k.t))]);
-  const evaluate=(t,polygon)=>({t,maskError:maskError(mask(projectArticulated(scene,t),b,resolution),mask([polygon],b,resolution))});
+  const sampleTimes=Array.from({length:samples},(_,i)=>i/(samples-1));
+  const b=bounds([...targets.map(k=>k.polygon),...targets.flatMap(k=>projectArticulated(scene,k.t)),...sampleTimes.flatMap(t=>projectArticulated(scene,t))]);
+  function observedTarget(polygon){
+    const observed=mask([polygon],b,resolution),occupied=observed.filter(Boolean).length;
+    if(occupied<4)throw new Error('Measurement unresolved: target occupies fewer than four raster cells. Increase resolution or reduce scene extent.');
+    return observed;
+  }
+  const evaluate=(t,polygon)=>{const targetMask=observedTarget(polygon);return {t,maskError:maskError(mask(projectArticulated(scene,t),b,resolution),targetMask),targetOccupiedCells:targetMask.filter(Boolean).length};};
   const authoredKeys=targets.map(k=>evaluate(k.t,k.polygon));
-  const interpolatedTargets=Array.from({length:samples},(_,i)=>{const t=i/(samples-1);return evaluate(t,targetAt(targets,t));});
-  const baseline=mask([targets[0].polygon],b,resolution);
+  const interpolatedTargets=sampleTimes.map(t=>evaluate(t,targetAt(targets,t)));
+  const baseline=observedTarget(targets[0].polygon);
   const mean=rows=>rows.reduce((s,r)=>s+r.maskError,0)/rows.length;
-  const baselineError=targets.reduce((sum,k)=>sum+maskError(baseline,mask([k.polygon],b,resolution)),0)/targets.length;
+  const baselineError=targets.reduce((sum,k)=>sum+maskError(baseline,observedTarget(k.polygon)),0)/targets.length;
   let maximumStep=0;for(let i=1;i<=64;i++){const a=projectArticulated(scene,(i-1)/64),c=projectArticulated(scene,i/64);a.forEach((p,j)=>p.forEach((v,k)=>{maximumStep=Math.max(maximumStep,Math.hypot(v[0]-c[j][k][0],v[1]-c[j][k][1]));}));}
   return {authoredKeys,authoredMaskError:mean(authoredKeys),interpolatedTargets,interpolatedMaskError:mean(interpolatedTargets),noSolveBaselineMaskError:baselineError,complexity:{occluders:scene.occluders.length,vertices:scene.occluders.reduce((s,p)=>s+p.vertices.length,0)},geometricallyValid:true,persistentGeometry:true,maximumSampledVertexStep:maximumStep,metric:'Raster union symmetric difference / union; lower is better. Finite-resolution estimate.',targetInterpolation:'Boundary morph is an authoring choice, not observed intermediate ground truth.',limitations:'Rigid square-piece approximation; finite resolution and piece budget leave boundary residual. Continuous tracks need not match intermediate silhouettes. No seamless-loop guarantee. Cutouts may intersect in 3D; collision clearance and fabricability are not enforced.'};
 }
@@ -68,12 +74,16 @@ export function fitArticulated(input,{maxPieces=24,resolution=32,duration=8,cove
 
 // Refine a supplied physical construction without changing its fixed geometry,
 // piece count, light path, target data, or replacing it with the cover solution.
-export function refineArticulated(input,initialScene,{iterations=4,resolution=32,maxEvaluations=1000}={}){
+export function refineArticulated(input,initialScene,{iterations=4,resolution=32,maxEvaluations=1000,lockedIds=[]}={}){
   const targets=validateTargets(input),original=validateArticulatedScene(initialScene);
   if(!Number.isInteger(iterations)||iterations<1||iterations>16||!Number.isInteger(resolution)||resolution<16||resolution>96||!Number.isInteger(maxEvaluations)||maxEvaluations<1||maxEvaluations>20000)throw new Error('Invalid refinement budget.');
-  const scene={...original,light:structuredClone(original.light),occluders:original.occluders.map(piece=>({...piece,vertices:piece.vertices.map(v=>v.slice()),keys:targets.map(k=>{const pose=sampleScene(single(original,piece),k.t).occluder;return {t:k.t,x:pose.x,y:pose.y,z:pose.z,angle:pose.angle};})}))};
+  const ids=new Set(original.occluders.map(p=>p.id));
+  if(!Array.isArray(lockedIds)||lockedIds.some(id=>typeof id!=='string'||!ids.has(id))||new Set(lockedIds).size!==lockedIds.length)throw new Error('Locked IDs must be distinct existing cutout IDs.');
+  const locked=new Set(lockedIds);
+  const scene={...original,light:structuredClone(original.light),occluders:original.occluders.map(piece=>locked.has(piece.id)?structuredClone(piece):({...piece,vertices:piece.vertices.map(v=>v.slice()),keys:targets.map(k=>{const pose=sampleScene(single(original,piece),k.t).occluder;return {t:k.t,x:pose.x,y:pose.y,z:pose.z,angle:pose.angle};})}))};
   const domain=bounds(targets.map(k=>k.polygon),.5),desired=targets.map(k=>mask([k.polygon],domain,resolution));
-  let evaluations=0;
+  if(desired.some(m=>m.filter(Boolean).length<4))throw new Error('Optimization unresolved: target occupies fewer than four raster cells.');
+  let evaluations=0,candidateRasterEvaluations=0;
   function objective(index){
     const polygons=projectArticulated(scene,targets[index].t);
     let outside=0;
@@ -85,18 +95,17 @@ export function refineArticulated(input,initialScene,{iterations=4,resolution=32
   outer:for(let iteration=0;iteration<iterations;iteration++){
     const fraction=.16*2**(-iteration);
     for(let index=0;index<targets.length;index++)for(let pieceIndex=0;pieceIndex<scene.occluders.length;pieceIndex++){
+      if(locked.has(scene.occluders[pieceIndex].id))continue;
       const piece=scene.occluders[pieceIndex],key=piece.keys[index],light=sampleScene(single(scene,piece),key.t).light;
       const m=light.z/(light.z-key.z),step=domain.side*fraction/m;
       for(const [field,amount] of [['x',step],['y',step],['z',Math.min(.5,(light.z-key.z)*fraction*2)],['angle',Math.PI*fraction]]){
         const old=key[field];let selected=old,best=scores[index];
         for(const direction of [-1,1]){
           if(evaluations>=maxEvaluations){key[field]=selected;scores[index]=best;break outer;}
-          const candidate=old+direction*amount;
-          evaluations++;
+          const candidate=old+direction*amount;evaluations++;
           if(!Number.isFinite(candidate)||Math.abs(candidate)>100||(field==='z'&&(candidate<.01||candidate>=minimumLight-.05)))continue;
-          key[field]=candidate;
-          const score=objective(index);
-          if(score<best-1e-12){best=score;selected=candidate;}
+          key[field]=candidate;candidateRasterEvaluations++;
+          const score=objective(index);if(score<best-1e-12){best=score;selected=candidate;}
         }
         key[field]=selected;scores[index]=best;
       }
@@ -104,6 +113,6 @@ export function refineArticulated(input,initialScene,{iterations=4,resolution=32
   }
   validateArticulatedScene(scene);
   const report=measureArticulated(scene,targets);
-  report.optimization={method:'Supplied-scene coordinate search over x/y/depth/rotation; fixed geometry and piece count.',iterations,resolution,maxEvaluations,evaluations,initialObjective:initialErrors,finalObjective:scores,targetsPreserved:true,initializationRetained:true,objective:'Raster union error on fixed target-derived domain plus out-of-domain vertex penalty.'};
+  report.optimization={method:'Supplied-scene coordinate search over x/y/depth/rotation; fixed geometry and piece count.',iterations,resolution,maxEvaluations,evaluations,lockedIds:[...lockedIds],initialObjective:initialErrors,finalObjective:scores,targetsPreserved:true,initializationRetained:true,lightPreserved:true,objective:'Raster union error on fixed target-derived domain plus out-of-domain vertex penalty.',work:{candidateAttempts:evaluations,candidateRasterEvaluations,initialObjectiveEvaluations:targets.length,finalMeasurement:{authoredMasks:targets.length,interpolatedMasks:17,maskResolution:96,continuityIntervals:64},budgetMeaning:'maxEvaluations bounds candidate attempts only; initial objective and final measurement are additional work.'}};
   return {scene,report};
 }

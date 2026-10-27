@@ -21,3 +21,10 @@ test('physical proposal rejects certificates, target edits and malformed physica
 test('physical request carries exact target geometry and never claims model execution',()=>{
  const request=physicalSceneRequest('An expanding bird silhouette.',DEFAULT_TARGETS);assert.deepEqual(JSON.parse(request.messages[1].content).targets,DEFAULT_TARGETS);assert.ok(request.messages[0].content.includes('immutable'));assert.equal(request.executed,undefined);assert.throws(()=>physicalSceneRequest('',DEFAULT_TARGETS));
 });
+
+
+test('controlled physical proposal preserves requested exact piece count',()=>{
+ const request=physicalSceneRequest('Preserve the silhouette.',DEFAULT_TARGETS,{duration:8,exactPieceCount:1});assert.equal(JSON.parse(request.messages[1].content).exactPieceCount,1);
+ assert.equal(validateSceneProposal(fixture(),{exactPieceCount:1}).scene.occluders.length,1);assert.throws(()=>validateSceneProposal(fixture(),{exactPieceCount:2}));
+ for(const count of [0,17,1.5,Infinity,'1'])assert.throws(()=>physicalSceneRequest('Preserve shape.',DEFAULT_TARGETS,{exactPieceCount:count}));
+});

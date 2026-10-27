@@ -21,3 +21,10 @@ test('malformed, oversized, nonfinite and invalid geometry reject',()=>{
 test('duration mismatch cannot silently reopen a different performance',()=>{
  const p=newProject(DEFAULT_TARGETS);p.scene=fitScene(p.targets).scene;p.duration=12;assert.throws(()=>serializeProject(p));
 });
+
+
+test('articulated project reopens pieces, locks, construction and source history exactly',()=>{
+ const p=newProject(DEFAULT_TARGETS);p.scene={format:'shadow-stage/articulated-v1',duration:8,light:{keys:[{t:0,x:0,y:0,z:5}]},occluders:[{id:'piece-1',vertices:[[-.1,-.1],[.1,-.1],[.1,.1],[-.1,.1]],keys:[{t:0,x:0,y:0,z:2,angle:0}]}]};
+ p.construction={mode:'pieces',maxPieces:8};p.lockedCutouts=['piece-1'];p.authoring={status:'proposed',original:{title:p.title,duration:p.duration,targets:p.targets,scene:structuredClone(p.scene)}};
+ assert.deepEqual(parseProject(serializeProject(p)),p);p.lockedCutouts=['missing-piece'];assert.throws(()=>serializeProject(p));p.lockedCutouts=[];p.construction.maxPieces=65;assert.throws(()=>serializeProject(p));
+});

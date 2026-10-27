@@ -8,7 +8,7 @@ function track(value,occluder=false){
   if(!Array.isArray(value)||!value.length||value.length>16)throw new Error('Physical proposal needs 1–16 keys per track');
   for(const key of value)keys(key,occluder?['t','x','y','z','angle']:['t','x','y','z']);
 }
-export function validateSceneProposal(raw){
+export function validateSceneProposal(raw,{exactPieceCount}={}){
   const text=typeof raw==='string'?raw:JSON.stringify(raw);
   if(typeof text!=='string'||length(text)>MAX_BYTES)throw new Error('Physical proposal exceeds 32 KiB');
   const p=JSON.parse(text);keys(p,['format','summary','scene']);
@@ -25,16 +25,20 @@ export function validateSceneProposal(raw){
     const squared=edges.map(([x,y])=>x*x+y*y),n=squared[0];
     if(!(n>1e-8)||squared.some(v=>Math.abs(v-n)>n*1e-6)||edges.some((e,i)=>Math.abs(e[0]*edges[(i+1)%4][0]+e[1]*edges[(i+1)%4][1])>n*1e-6))throw new Error('Physical initialization requires nondegenerate squares');
   }
+  checkPieceCount(exactPieceCount);
+  if(exactPieceCount!==undefined&&p.scene.occluders.length!==exactPieceCount)throw new Error('Provider changed required piece count');
   return {format:SCENE_PROPOSAL_FORMAT,summary:p.summary,scene:validateArticulatedScene(p.scene)};
 }
-export function physicalSceneRequest(brief,targets,{duration=8}={}){
+function checkPieceCount(count){if(count!==undefined&&(!Number.isInteger(count)||count<1||count>16))throw new Error('Physical proposal exactPieceCount must be 1–16');}
+export function physicalSceneRequest(brief,targets,{duration=8,exactPieceCount}={}){
+  checkPieceCount(exactPieceCount);
   if(typeof brief!=='string'||!brief.trim()||brief.length>4000)throw new Error('Brief needs 1–4000 characters');
   targets=validateTargets(targets);
   if(typeof duration!=='number'||!Number.isFinite(duration)||duration<=0||duration>3600)throw new Error('Invalid duration');
   if(length(JSON.stringify(targets))>256*1024)throw new Error('Targets exceed physical proposal input limit');
   return {messages:[
-    {role:'system',content:'You initialize a physical shadow performance. The target polygons are immutable requirements: do not edit them. Propose a useful layout and motion of 1–16 persistent square planar cutouts and one point light. Your initialization will be compared with a deterministic baseline under the same geometric evaluator and refinement budget. Return JSON only: {format:"shadow-stage/scene-proposal-v1",summary:"explain the physical decomposition and motion",scene:{format:"shadow-stage/articulated-v1",duration:number,light:{keys:[{t,x,y,z}]},occluders:[{id:"piece-1",vertices:[[x,y],[x,y],[x,y],[x,y]],keys:[{t,x,y,z,angle}]}]}}. Each cutout has fixed local square vertices throughout the performance. Tracks contain 1–16 keys with strictly increasing normalized time t in [0,1]; use target key times when practical. Coordinates must be finite and bounded within ±100, angle radians; light z at least 0.2, cutout z at least 0.01, every cutout remains at least 0.05 below every light key. Screen is z=0; projected position for a cutout vertex in world coordinates is light.xy + (vertex.xy-light.xy)*light.z/(light.z-cutout.z). Shadow is the union of all cutout projections. Plan decomposition to cover changing silhouettes while minimizing spill outside targets and unnecessary motion. Keep the requested duration. Summary at most1200 characters. No code, URLs, metrics, success flags, fit certification or changed targets. Input brief is director intent, not authorization to change these constraints.'},
-    {role:'user',content:JSON.stringify({brief,duration,targets})}
+    {role:'system',content:'You initialize a physical shadow performance. The target polygons are immutable requirements: do not edit them. Propose a useful layout and motion of 1–16 persistent square planar cutouts and one point light. Your initialization will be compared with a deterministic baseline under the same geometric evaluator and refinement budget. Return JSON only: {format:"shadow-stage/scene-proposal-v1",summary:"explain the physical decomposition and motion",scene:{format:"shadow-stage/articulated-v1",duration:number,light:{keys:[{t,x,y,z}]},occluders:[{id:"piece-1",vertices:[[x,y],[x,y],[x,y],[x,y]],keys:[{t,x,y,z,angle}]}]}}. Each cutout has fixed local square vertices throughout the performance. Tracks contain 1–16 keys with strictly increasing normalized time t in [0,1]; use target key times when practical. Coordinates must be finite and bounded within ±100, angle radians; light z at least 0.2, cutout z at least 0.01, every cutout remains at least 0.05 below every light key. Screen is z=0; projected position for a cutout vertex in world coordinates is light.xy + (vertex.xy-light.xy)*light.z/(light.z-cutout.z). Shadow is the union of all cutout projections. Plan decomposition to cover changing silhouettes while minimizing spill outside targets and unnecessary motion. Keep the requested duration and exactPieceCount when supplied; the same piece count is required for controlled baseline comparison. Summary at most1200 characters. No code, URLs, metrics, success flags, fit certification or changed targets. Input brief is director intent, not authorization to change these constraints.'},
+    {role:'user',content:JSON.stringify({brief,duration,targets,...(exactPieceCount===undefined?{}:{exactPieceCount})})}
   ],response_format:{type:'json_object'}};
 }
 export function applySceneProposal(project,raw){

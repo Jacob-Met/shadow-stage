@@ -8,6 +8,15 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
 FILES = (
+    'docs/geometry-quality.json',
+    'src/articulated.js',
+    'src/scene-proposals.js',
+    'src/runtime.js',
+    'src/player.js',
+    'src/solver-worker.js',
+    'tests/articulated.test.js',
+    'tests/articulated-receiving.test.js',
+    'tests/scene-proposals.test.js',
     'README.md', 'package.json', 'server.mjs', 'index.html', 'styles.css', 'app.js',
     'src/core.js', 'src/project.js', 'src/proposals.js',
     'scripts/package.py', 'tests/core.test.js', 'tests/receiving.test.js',

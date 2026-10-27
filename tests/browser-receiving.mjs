@@ -14,6 +14,24 @@ await mkdir(out,{recursive:true});
 const browser=await chromium.launch({headless:true,chromiumSandbox:true});
 const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true});
 const page=await context.newPage();
+await page.addInitScript(function observeNativeWorkers(){
+  const NativeWorker=window.Worker,records=[];
+  Object.defineProperty(window,'__receivingWorkers',{value:records});
+  function ObservedWorker(...args){
+    if(!new.target)throw new TypeError('Worker constructor requires new');
+    const worker=Reflect.construct(NativeWorker,args,new.target===ObservedWorker?NativeWorker:new.target);
+    const record={id:records.length,url:String(args[0]),posts:[],terminated:0};records.push(record);
+    const post=worker.postMessage,terminate=worker.terminate;
+    worker.postMessage=function(...values){
+      const result=Reflect.apply(post,this,values),message=values[0];
+      record.posts.push({mode:message?.mode??message?.type??message?.action??null});
+      return result;
+    };
+    worker.terminate=function(...values){const result=Reflect.apply(terminate,this,values);record.terminated++;return result;};
+    return worker;
+  }
+  ObservedWorker.prototype=NativeWorker.prototype;Object.setPrototypeOf(ObservedWorker,NativeWorker);window.Worker=ObservedWorker;
+});
 const errors=[];
 page.on('pageerror',e=>errors.push(String(e)));
 const checks=[];
@@ -36,6 +54,10 @@ async function time(t) {
   await page.evaluate(t=>window.shadowStage.setTime(t),t);
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
 }
+async function solve(){
+ await page.locator('#solveButton').click();
+ await waitFor(()=>!document.querySelector('#solveButton').disabled,undefined,page,30000);
+}
 async function nudge(selector) {
   const control=page.locator(selector);
   await control.focus();
@@ -52,9 +74,33 @@ try {
     '#targetX','#lightX','#saveProject','#importProject','#newProject','#fitStatus','#modelStatus']) {
     assert.equal(await page.locator(selector).count(),1,`Required consumer control ${selector}`);
   }
-  await page.locator('#solveButton').click();
+  await solve();
   await time(.37);
   await page.screenshot({path:path.join(out,'01-initial-stage.png'),fullPage:true});
+
+  const balanceRace=await page.evaluate(()=>{
+    const before=window.shadowStage.getProject(),records=window.__receivingWorkers,start=records.length;
+    document.querySelector('#solveButton').click();
+    const jobs=records.slice(start).filter(r=>r.posts.some(p=>p.mode==='single'));
+    if(jobs.length!==1||jobs[0].terminated!==0)throw new Error('Expected one live native single-cutout solve');
+    if(!document.querySelector('#solveButton').disabled)throw new Error('Solve must be admitted before changing balance');
+    const input=document.querySelector('#lightShare'),chosen=Number(input.value)>.5?.25:.75;
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,String(chosen));
+    input.dispatchEvent(new Event('input',{bubbles:true}));
+    return {before,after:window.shadowStage.getProject(),chosen,job:structuredClone(jobs[0])};
+  });
+  assert.ok(balanceRace.job.terminated>0,'Motion-balance edit must terminate the older real worker');
+  assert.deepEqual(balanceRace.after.scene,balanceRace.before.scene,'Cancelled solve preserves the prior physical scene');
+  assert.deepEqual(balanceRace.after.targets,balanceRace.before.targets);
+  await time(.37);
+  assert.deepEqual((await project()).scene,balanceRace.before.scene);
+  await solve();
+  const balanceSolved=await project();
+  assert.equal(balanceSolved.lightShare,balanceRace.chosen,'Committed configuration must match the dispatched solve');
+  assert.notDeepEqual(balanceSolved.scene,balanceRace.before.scene,'Changed motion balance changes the physical mechanism');
+  assert.deepEqual(balanceSolved.targets,balanceRace.before.targets);
+  record('motion-balance edit cancels pending solve and next fit commits captured configuration',{worker:balanceRace.job,lightShare:balanceSolved.lightShare});
+
   const initial=await project();
   assert.ok(initial.targets?.length>=2 && initial.scene,'Fresh project has authored sequence and physical scene');
   const options=page.locator('#targetSelect option');
@@ -63,7 +109,7 @@ try {
   await nudge('#targetX');
   const edited=await project();
   assert.notDeepEqual(edited.targets,initial.targets,'Target authoring changes the stored target');
-  await page.locator('#solveButton').click();
+  await solve();
   await time(.37);
   const solved=await project();
   assert.deepEqual(solved.targets,edited.targets,'Solve preserves authored targets');
@@ -103,6 +149,7 @@ try {
   await waitFor(expected=>JSON.stringify(window.shadowStage.getProject().scene)===JSON.stringify(expected.scene),expected);
   await time(.37);
   const reopened=await project();
+  assert.equal(await page.locator('#presetSelect').inputValue(),'current','Imported project must not be mislabeled as a built-in preset');
   assert.deepEqual(reopened.targets,expected.targets);
   assert.deepEqual(reopened.scene,expected.scene);
   const actualPixels=await pixels();
@@ -143,10 +190,11 @@ try {
   await waitFor(expected=>JSON.stringify(window.shadowStage.getProject().targets)===JSON.stringify(expected.targets),expected);
   await time(.37);
 
+  async function receiveOfflinePlayer(expected,label){
   const playerDownloadPromise=page.waitForEvent('download');
   await page.locator('#exportPlayer').click();
   const playerDownload=await playerDownloadPromise;
-  const playerFile=path.join(out,'standalone-player.html');
+  const playerFile=path.join(out,label+'-player.html');
   await playerDownload.saveAs(playerFile);
   const offlineContext=await browser.newContext({offline:true,viewport:{width:1100,height:900}});
   const player=await offlineContext.newPage();
@@ -161,15 +209,18 @@ try {
       let u=a.t===b.t?0:Math.max(0,Math.min(1,(t-a.t)/(b.t-a.t)));u=u*u*(3-2*u);
       return Object.fromEntries(fields.map(f=>{let delta=b[f]-a[f];if(f==='angle')delta=Math.atan2(Math.sin(delta),Math.cos(delta));return [f,a[f]+u*delta];}));
     }
-    const light=pose(scene.light.keys,['x','y','z']),cutout=pose(scene.occluder.keys,['x','y','z','angle']);
-    const polygon=scene.occluder.vertices.map(([x,y])=>{
-      const vx=cutout.x+x*Math.cos(cutout.angle)-y*Math.sin(cutout.angle);
-      const vy=cutout.y+x*Math.sin(cutout.angle)+y*Math.cos(cutout.angle);
-      const distance=light.z/(light.z-cutout.z);
-      return [500+(light.x+distance*(vx-light.x))*260,350-(light.y+distance*(vy-light.y))*260];
+    const light=pose(scene.light.keys,['x','y','z']);
+    const polygons=(scene.occluders||[scene.occluder]).map(piece=>{
+      const cutout=pose(piece.keys,['x','y','z','angle']);
+      return piece.vertices.map(([x,y])=>{
+        const vx=cutout.x+x*Math.cos(cutout.angle)-y*Math.sin(cutout.angle);
+        const vy=cutout.y+x*Math.sin(cutout.angle)+y*Math.cos(cutout.angle);
+        const distance=light.z/(light.z-cutout.z);
+        return [500+(light.x+distance*(vx-light.x))*260,350-(light.y+distance*(vy-light.y))*260];
+      });
     });
-    function inside(x,y){let yes=false;for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){const a=polygon[i],b=polygon[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])yes=!yes;}return yes;}
-    function edgeDistance(x,y){return Math.min(...polygon.map((a,i)=>{const b=polygon[(i+1)%polygon.length],dx=b[0]-a[0],dy=b[1]-a[1],d=dx*dx+dy*dy,u=d?Math.max(0,Math.min(1,((x-a[0])*dx+(y-a[1])*dy)/d)):0;return Math.hypot(x-a[0]-u*dx,y-a[1]-u*dy);}));}
+    function inside(x,y){return polygons.some(polygon=>{let yes=false;for(let i=0,j=polygon.length-1;i<polygon.length;j=i++){const a=polygon[i],b=polygon[j];if((a[1]>y)!==(b[1]>y)&&x<(b[0]-a[0])*(y-a[1])/(b[1]-a[1])+a[0])yes=!yes;}return yes;});}
+    function edgeDistance(x,y){return Math.min(...polygons.flatMap(polygon=>polygon.map((a,i)=>{const b=polygon[(i+1)%polygon.length],dx=b[0]-a[0],dy=b[1]-a[1],d=dx*dx+dy*dy,u=d?Math.max(0,Math.min(1,((x-a[0])*dx+(y-a[1])*dy)/d)):0;return Math.hypot(x-a[0]-u*dx,y-a[1]-u*dy);})))}
     const c=document.querySelector('#screen'),data=c.getContext('2d').getImageData(0,0,c.width,c.height).data;
     let total=0,mismatch=0,shadow=0;
     for(let y=4;y<c.height;y+=8)for(let x=4;x<c.width;x+=8){if(edgeDistance(x+.5,y+.5)<2)continue;const offset=4*(y*c.width+x),dark=data[offset]<80&&data[offset+1]<100&&data[offset+2]<90;const expected=inside(x+.5,y+.5);total++;if(dark)shadow++;if(dark!==expected)mismatch++;}
@@ -179,12 +230,114 @@ try {
   assert.ok(mask.shadow>20 && mask.total>1000,'Mask comparison includes actual foreground and background');
   assert.ok(mask.mismatch/mask.total<.002,`Offline player fails independent ray/mask oracle: ${mask.mismatch}/${mask.total}`);
   assert.deepEqual(playerErrors,[]);
-  await player.screenshot({path:path.join(out,'04-offline-player.png'),fullPage:true});
+  await player.screenshot({path:path.join(out,label+'-offline-player.png'),fullPage:true});
   await player.locator('#play').click();
   await waitFor(()=>Math.abs(Number(document.querySelector('#seek').value)-.37)>.015,undefined,player);
   await player.locator('#play').click();
   await offlineContext.close();
-  record('offline standalone HTML independently matches ray-projected shadow mask',{samples:mask.total,mismatches:mask.mismatch});
+  record(label+': offline standalone HTML independently matches ray-projected shadow mask',{samples:mask.total,mismatches:mask.mismatch});
+  }
+  await receiveOfflinePlayer(expected,'04-planar');
+  await page.locator('#presetSelect').selectOption('shape-change');
+  await waitFor(()=>!document.querySelector('#solveButton').disabled,undefined,page,30000);
+  await page.locator('#constructionMode').selectOption('pieces');
+  await page.locator('#pieceBudget').selectOption('1');
+  await solve();
+  const constrained=await project(),lowBudgetState=await page.evaluate(()=>window.shadowStage.getState());
+  assert.equal(constrained.scene.format,'shadow-stage/articulated-v1');
+  assert.equal(constrained.scene.occluders.length,1);
+  assert.ok(lowBudgetState.report.authoredMaskError>.08,'Insufficient geometry remains a visible residual');
+  await page.locator('#pieceBudget').selectOption('24');
+  await solve();
+  const articulated=await project(),multiState=await page.evaluate(()=>window.shadowStage.getState());
+  assert.deepEqual(articulated.targets,constrained.targets,'Additional geometry preserves authored request');
+  assert.ok(articulated.scene.occluders.length>1&&articulated.scene.occluders.length<=24);
+  assert.ok(multiState.report.authoredMaskError<lowBudgetState.report.authoredMaskError*.8,'Multi-piece construction improves same distinct silhouettes');
+  await time(.37);
+  await page.screenshot({path:path.join(out,'05-articulated-stage.png'),fullPage:true});
+  record('distinct silhouettes improve with persistent multi-piece construction',{onePieceError:lowBudgetState.report.authoredMaskError,multiPieceError:multiState.report.authoredMaskError,pieces:articulated.scene.occluders.length});
+  await page.locator('#cutoutSelect').selectOption({index:0});
+  await nudge('#cutoutX');
+  const editedRig=await project();
+  assert.deepEqual(editedRig.targets,articulated.targets);
+  assert.notDeepEqual(editedRig.scene,articulated.scene,'Selected physical cutout is editable');
+  await page.locator('#lockCutout').check();
+  const locked=await project();
+  assert.ok(Array.isArray(locked.lockedCutouts)&&locked.lockedCutouts.length>0);
+  const lockedPieces=locked.scene.occluders.filter(p=>locked.lockedCutouts.includes(p.id));
+  assert.ok(lockedPieces.length>0);
+  await page.locator('#refineButton').click();
+  await waitFor(()=>!document.querySelector('#refineButton').disabled,undefined,page,30000);
+  const refined=await project(),refineState=await page.evaluate(()=>window.shadowStage.getState());
+  assert.match(refineState.report.optimization.method,/coordinate search/i,'Successful completion must report actual refinement');
+  assert.ok(refineState.report.optimization.work.candidateAttempts>0,'Refinement must attempt candidates');
+  assert.ok(refineState.report.optimization.work.candidateRasterEvaluations>0,'Refinement must evaluate actual candidate masks');
+  for(const p of lockedPieces)assert.deepEqual(refined.scene.occluders.find(q=>q.id===p.id),p,'Refinement preserves exact locked physical track and mesh');
+  assert.deepEqual(refined.targets,locked.targets);
+  record('selected cutout edit and exact lock survive real refinement',{work:refineState.report.optimization.work});
+
+  await page.locator('#cutoutSelect').selectOption({index:1});
+  for(const change of ['physical','lock']){
+    const race=await page.evaluate(change=>{
+      const before=window.shadowStage.getProject(),records=window.__receivingWorkers,start=records.length;
+      document.querySelector('#refineButton').click();
+      const jobs=records.slice(start).filter(r=>r.posts.length>0);
+      if(jobs.length!==1)throw new Error('Refinement must post one job to one actual native worker');
+      const job=jobs[0];
+      if(job.terminated!==0)throw new Error('Original worker must be live before the edit');
+      if(!document.querySelector('#refineButton').disabled)throw new Error('Refinement admission must disable its control');
+      if(change==='physical'){
+        const input=document.querySelector('#cutoutX');
+        if(input.disabled)throw new Error('Physical edit must be available during refinement');
+        const value=Number(input.value),step=Number(input.step)||.01,next=value+step<=Number(input.max)?value+step:value-step;
+        Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(input,String(next));
+        input.dispatchEvent(new Event('input',{bubbles:true}));
+        input.dispatchEvent(new Event('change',{bubbles:true}));
+      }else{
+        const input=document.querySelector('#lockCutout');
+        if(input.disabled)throw new Error('Lock edit must be available during refinement');input.click();
+      }
+      return {before,after:window.shadowStage.getProject(),job:structuredClone(job)};
+    },change);
+    assert.ok(race.job.terminated>0,'The original real worker must be terminated by the newer edit');
+    if(change==='physical')assert.notDeepEqual(race.after.scene,race.before.scene,'Race must exercise an actual newer physical edit');
+    else assert.notDeepEqual(race.after.lockedCutouts,race.before.lockedCutouts,'Race must exercise an actual newer lock change');
+    assert.deepEqual(race.after.targets,race.before.targets);
+    await time(.37);
+    const surviving=await project();
+    assert.deepEqual(surviving.scene,race.after.scene,'Cancelled refinement cannot replace the newer scene');
+    assert.deepEqual(surviving.targets,race.after.targets);
+    assert.deepEqual(surviving.lockedCutouts,race.after.lockedCutouts,'Cancelled refinement cannot replace the newer locks');
+    record(`same-project ${change} edit terminates original native refinement worker`,{worker:race.job});
+  }
+
+  await time(.37);
+  const multiExpected=await project(),multiPixels=await pixels();
+  const multiDownloadPromise=page.waitForEvent('download');
+  await page.locator('#saveProject').click();
+  const multiDownload=await multiDownloadPromise,multiFile=path.join(out,'articulated-project.json');
+  await multiDownload.saveAs(multiFile);
+  await page.reload({waitUntil:'networkidle'});
+  await waitFor(()=>Boolean(window.shadowStage?.getProject));
+  await page.locator('#importProject').setInputFiles(multiFile);
+  await waitFor(expected=>JSON.stringify(window.shadowStage.getProject().scene)===JSON.stringify(expected.scene),multiExpected);
+  await time(.37);
+  const multiReopened=await project();
+  assert.equal(await page.locator('#presetSelect').inputValue(),'current','Imported project must not be mislabeled as a built-in preset');
+  assert.deepEqual(multiReopened.scene,multiExpected.scene);
+  assert.deepEqual(multiReopened.targets,multiExpected.targets);
+  assert.deepEqual(multiReopened.lockedCutouts,multiExpected.lockedCutouts);
+  assert.ok((await pixels())===multiPixels,'Articulated fresh import reproduces exact stage pixels');
+  await page.screenshot({path:path.join(out,'06-articulated-reopened.png'),fullPage:true});
+  record('multi-piece project download, fresh import, locks and exact canvas replay');
+  await receiveOfflinePlayer(multiExpected,'07-articulated');
+
+  await page.setViewportSize({width:393,height:852});
+  await time(.37);
+  const layout=await page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth}));
+  assert.ok(layout.scrollWidth<=layout.width+1,'Narrow viewport must not require horizontal scrolling');
+  await page.screenshot({path:path.join(out,'08-narrow-studio.png'),fullPage:true});
+  record('narrow viewport retains responsive studio layout',layout);
   assert.deepEqual(errors,[],'No uncaught browser runtime errors');
   await writeFile(path.join(out,'receipt.json'),JSON.stringify({url,checks,errors,screenshotReview:'Required separately; automated checks do not establish artistic quality.'},null,2));
   console.log(JSON.stringify({passed:true,checks:checks.map(c=>c.name),evidence:out}));

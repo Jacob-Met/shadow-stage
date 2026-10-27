@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { proposeRequest, validateProposal } from './src/proposals.js';
+import { physicalSceneRequest, validateSceneProposal } from './src/scene-proposals.js';
 import { parseProject } from './src/project.js';
 
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -28,18 +29,20 @@ export async function readProviderJSON(response) {
 const server=http.createServer(async(req,res)=>{
   const url=new URL(req.url,'http://localhost');
   if(req.method==='GET'&&url.pathname==='/api/status')return json(res,200,{configured:!!KEY,provider:'Nebius Token Factory',model:MODEL,executed:false});
-  if(req.method==='POST'&&url.pathname==='/api/propose'){
+  if(req.method==='POST'&&['/api/propose','/api/scene-propose'].includes(url.pathname)){
     if(!sameOrigin(req))return json(res,403,{error:'Use the studio on this host to request a proposal.'});
     if(!KEY)return json(res,503,{error:'This studio has no configured Nebius credential. Local authoring, fitting and export are available.',configured:false});
     try{
       const input=await body(req);const project=parseProject(JSON.stringify(input.project));
-      const request=proposeRequest(input.brief,project);
-      const submitted={model:MODEL,...request,temperature:0.2,max_tokens:1600};
+      const physical=url.pathname==='/api/scene-propose';
+      const request=physical?physicalSceneRequest(input.brief,project.targets,{duration:project.duration,exactPieceCount:input.exactPieceCount}):proposeRequest(input.brief,project);
+      const submitted={model:MODEL,...request,temperature:0.2,max_tokens:physical?12000:1600};
       const begin=Date.now();
       const upstream=await fetch(ENDPOINT,{method:'POST',headers:{Authorization:`Bearer ${KEY}`,'Content-Type':'application/json'},body:JSON.stringify(submitted),signal:AbortSignal.timeout(45000)});
       if(!upstream.ok)return json(res,502,{error:`Nebius returned HTTP ${upstream.status}. No proposal was adopted.`});
       const result=await readProviderJSON(upstream);const raw=result.choices?.[0]?.message?.content;
-      const proposal=validateProposal(raw);
+      const proposal=physical?validateSceneProposal(raw,{exactPieceCount:input.exactPieceCount}):validateProposal(raw);
+      if(physical&&proposal.scene.duration!==project.duration)throw new Error('Provider changed required duration');
       return json(res,200,{proposal,evidence:{provider:'Nebius Token Factory',requestedModel:MODEL,returnedModel:result.model||null,requestId:result.id||null,elapsedMs:Date.now()-begin,usage:result.usage||null,inputSha256:createHash('sha256').update(JSON.stringify(submitted)).digest('hex'),responseSha256:createHash('sha256').update(JSON.stringify(result)).digest('hex'),executed:true,receivedAt:new Date().toISOString()}});
     }catch(e){return json(res,422,{error:`Proposal unavailable: ${e.name==='TimeoutError'?'provider timed out':e.message}. The current scene is preserved.`});}
   }

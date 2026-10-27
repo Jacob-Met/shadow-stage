@@ -1,0 +1,97 @@
+{
+  "format": "shadow-stage/receiving-v1",
+  "packageSha256": "3d5178c255b6a9e2e83533e51c82963fed7c62d2d52c03a8526e492306986126",
+  "sourceFiles": {
+    "README.md": "59071b6a9aea0124d8673d9e92aa89cc8e3def962617b58a5ab3c1c2ea5c70b8",
+    "app.js": "8a58f1f6cd1412ddbbd6edc667f96f52f9a232f0a7fa8c3fa16829d631c14342",
+    "docs/geometry-quality.json": "df52e1a26c5e6b60dca1173530c24cdb0ed61a488b207d7afa7d316a5ef329f0",
+    "index.html": "b5b7ae57b0326bbd1bea83a84a7ecc9df4fe5e1a45fdd1854fcdced639bbd37b",
+    "package.json": "f646d102e2270b27031806393becf9b25b0735aa6633aa94bc5b36c2e676c4be",
+    "scripts/package.py": "aaf68fbf164fa684c153de8cb982b13b95c93412e0dedaa107dd1e05459c5f50",
+    "server.mjs": "f97e884977acc13added599f3c740aa25b370e8f3510e2ac9fa97e40a8b06424",
+    "src/articulated.js": "0f8cb4d595b5bb5a3399792c5411170f5aad41ca96e60d39b3a576ceda3d46ac",
+    "src/core.js": "1ab885d4566b463a67f50c0cbca2f48e8fbe8f669dd5de42a5c4826cb2e0535a",
+    "src/player.js": "3ee174943aaa27b2f195dcefd6a69d9ce8f3680cf80044a9612e6333637ee16a",
+    "src/project.js": "d872fb4520712b095aff29a80e3abaf0dda33cf9e30159d68ca53dec4099ddd4",
+    "src/proposals.js": "282e482cc1cbcdca9143cd031db899ec1e16fbad252d4693db7e009e2a7ce129",
+    "src/runtime.js": "9226296f881d29e11106a9a61094d81d13a65392cf3847665ac4277fcb463c80",
+    "src/scene-proposals.js": "70638f02ac257fee4330aae623102b7ff167f7eb10ec6e9d584fa924a3eb4727",
+    "src/solver-worker.js": "b67fc6f29ac879cdbfd8f1266cd49ad92a3670305ecaa1119a4cbe3709d6b5a2",
+    "styles.css": "133861b5b3aa714d0797167e1248d7c036bb3abfac94179d003c006a5e3c8b50",
+    "tests/articulated-receiving.test.js": "7f02fa1103d06a9153e1eaad7a29076dbd7c622b6ad09f37bb64ffaddef9ef4e",
+    "tests/articulated.test.js": "d5efbfc63d54a0413acfd81b89536246979310e37b5fd02b18f1b35112dce389",
+    "tests/browser-receiving.mjs": "d56fe8e8c720b84ad8291bdc3468db0e100ec9dc6800c0dd5ba658c194ac2f79",
+    "tests/core.test.js": "45326e548bd0d8bad9d3dfb58f929b5f277abe3f393f2d356c1ce77b07521f98",
+    "tests/project.test.js": "9bad06d2cceaa3339676361637ea8c17b4774780ca99b05f42034dd9b971b736",
+    "tests/proposals.test.js": "7f0ba7a153c78996475b3ace02ef34b6035ed4e1035350265dad8dd377de9dc7",
+    "tests/receiving.test.js": "20ea98a3bcd7d115659b8990c6b148d18b4f62832b83b490e043edf774e09b7c",
+    "tests/scene-proposals.test.js": "be05394d2c77546cda203b9a2a65659e9f4d0368a22d6238d505724a2250ced8",
+    "tests/server.test.js": "3607ad7b335d041454784500f1c6a8e15c23589b114818b053477f42054ec8e3"
+  },
+  "native": {
+    "receipt": {
+      "command_id": "estate95a-package-receiving-v9",
+      "request_sha256": "61dda7bbdff92f441f9472d128df2f76e21cc38a4bd2ad04864bb2697c94b18e",
+      "generation": "77a8c84037734d6e8c8774eb6bb98c60b2df3401abf97930b9d4083fb45fff70",
+      "state": "completed",
+      "runner_pid": 732256,
+      "started_at": "2026-10-27T06:43:37.988718241Z",
+      "finished_at": "2026-10-27T06:43:39.579899661Z",
+      "exit_code": 0
+    },
+    "passed": 45,
+    "failed": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "receipt": {
+      "command_id": "estate95a-package-browser-receiving-v9",
+      "request_sha256": "cd7aaaac355e6ff6d4e3e8e169d3e87c7ac1007bf2de4f25643506378d331f3b",
+      "generation": "289f8003548e3e5f8da4ad969c0ee1a78f3ab242bddefe3165127dd290799179",
+      "state": "completed",
+      "runner_pid": 733151,
+      "started_at": "2026-10-27T06:45:42.678027187Z",
+      "finished_at": "2026-10-27T06:45:53.81530148Z",
+      "exit_code": 0
+    },
+    "passed": true,
+    "checks": [
+      "motion-balance edit cancels pending solve and next fit commits captured configuration",
+      "edit target and synthesize without substituting authored targets",
+      "physical light edit affects the real stage canvas",
+      "continuous playback advances actual timeline",
+      "actual download, fresh document, file import and identical canvas replay",
+      "queued solve cannot overwrite incoming project",
+      "singleton project import can add another moment",
+      "04-planar: offline standalone HTML independently matches ray-projected shadow mask",
+      "distinct silhouettes improve with persistent multi-piece construction",
+      "selected cutout edit and exact lock survive real refinement",
+      "same-project physical edit terminates original native refinement worker",
+      "same-project lock edit terminates original native refinement worker",
+      "multi-piece project download, fresh import, locks and exact canvas replay",
+      "07-articulated: offline standalone HTML independently matches ray-projected shadow mask",
+      "narrow viewport retains responsive studio layout"
+    ],
+    "evidence": "/home/ubuntu/hamon-work/estate95a-20261027/delivery-v9/browser-receiving"
+  },
+  "review": {
+    "reviewer": "backup_recovery",
+    "executor": "root",
+    "scope": [
+      "Full supplied runtime and worker modules",
+      "Application/import completion and cancellation excerpts",
+      "Captured-configuration correction",
+      "Player implementation description and independent offline receiving oracle"
+    ],
+    "finding": "In-flight motion-balance configuration race found and corrected; no remaining blocker in reviewed scope, conditional receiving now passed.",
+    "visualReview": "Root inspected actual desktop and narrow application screenshots. Visual composition is readable; high intermediate silhouette mismatch remains visible."
+  },
+  "limitations": [
+    "No actual Nebius inference or demonstrated model benefit",
+    "Intermediate silhouette fidelity remains weak on measured shape-change fixtures",
+    "No encoded video export in this increment",
+    "No collision/fabrication/seamless-loop qualification",
+    "Private working studio; no public release"
+  ],
+  "promptVersion": "2026-10-27.14"
+}

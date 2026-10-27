@@ -1,9 +1,14 @@
 import {validateTargets, validateScene} from './core.js';
+import {validateArticulatedScene} from './articulated.js';
 export const PROJECT_FORMAT = 'shadow-stage/project-v1';
 export const MAX_PROJECT_BYTES = 2 * 1024 * 1024;
 const bytes = text => new TextEncoder().encode(text).length;
 function sceneData(value) {
   if (value === null) return null;
+  if(value?.format==='shadow-stage/articulated-v1') {
+    const scene=validateArticulatedScene(value);
+    return {format:scene.format,duration:scene.duration,light:{keys:scene.light.keys.map(({t,x,y,z})=>({t,x,y,z}))},occluders:scene.occluders.map(piece=>({id:piece.id,vertices:piece.vertices,keys:piece.keys.map(({t,x,y,z,angle})=>({t,x,y,z,angle}))}))};
+  }
   const scene = validateScene(value);
   // Only editable geometry survives import; cached reports cannot certify this scene.
   return {format:scene.format,duration:scene.duration,light:{keys:scene.light.keys.map(({t,x,y,z})=>({t,x,y,z}))},occluder:{vertices:scene.occluder.vertices,keys:scene.occluder.keys.map(({t,x,y,z,angle})=>({t,x,y,z,angle}))}};
@@ -34,6 +39,15 @@ function evidenceData(value) {
 function normalize(p) {
   if (p?.format !== PROJECT_FORMAT) throw new Error('Unsupported project format');
   const out = {format:PROJECT_FORMAT,...content(p)};
+  if(p.construction!==undefined){
+    if(!['single','pieces'].includes(p.construction?.mode)||!Number.isInteger(p.construction.maxPieces)||p.construction.maxPieces<1||p.construction.maxPieces>64)throw new Error('Invalid construction settings');
+    out.construction={mode:p.construction.mode,maxPieces:p.construction.maxPieces};
+  }
+  if(p.lockedCutouts!==undefined){
+    const ids=new Set(out.scene?.occluders?.map(piece=>piece.id)||[]);
+    if(!Array.isArray(p.lockedCutouts)||p.lockedCutouts.length>64||new Set(p.lockedCutouts).size!==p.lockedCutouts.length||p.lockedCutouts.some(id=>typeof id!=='string'||!ids.has(id)))throw new Error('Locked cutouts must identify actual pieces');
+    out.lockedCutouts=p.lockedCutouts.slice();
+  }
   if (p.lightShare !== undefined) {
     if(typeof p.lightShare !== 'number'||!Number.isFinite(p.lightShare)||p.lightShare<0||p.lightShare>1) throw new Error('Invalid light share');
     out.lightShare=p.lightShare;
