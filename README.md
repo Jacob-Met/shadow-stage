@@ -18,7 +18,8 @@ Open `http://127.0.0.1:4318`. The server binds to loopback by default; `HOST` an
 2. Choose one cutout or a construction of pieces. **Find the performance** fits the physical scene without replacing the requested silhouettes.
 3. Scrub or play the result. The dashed target and rendered shadow expose remaining mismatch.
 4. Edit the light or select a physical cutout and change its translation, rotation or depth. Lock a cutout's motion to preserve its full track during refinement.
-5. Save the editable project, export a projected SVG frame, or download a standalone HTML performance.
+5. Keep a baseline and compare another unlocked construction under shared settings. Inspect all four states, then explicitly adopt one or undo the last selection.
+6. Save the editable project, export a projected SVG frame, download a standalone HTML player, or record the physical performance as WebM.
 
 Solving runs in a module worker. A new project, incoming import, changed target, physical edit or lock change cancels older work. Completion also checks the dispatch generation and the captured project contents before committing.
 
@@ -37,6 +38,18 @@ A greedy raster cover approximates each target with squares. Persistent square c
 The maximum-piece setting controls construction complexity. More pieces can improve authored silhouettes without improving the paths between them. The current search is neither globally optimal nor a solution to collision-free assembly.
 
 **Refine this construction** performs bounded coordinate search from the current physical scene. It retains the light, piece count and geometry. Locked cutout meshes and complete tracks are preserved exactly. The UI uses at most 2,000 candidate attempts; actual candidate raster evaluations, initial objective work and final measurement are recorded separately in the result.
+
+## Compare constructions
+
+**Keep current as baseline** preserves a detached multi-piece construction and its targets. Edit the rig or adopt a physical proposal, then choose **Compare frozen constructions**. The current project remains unchanged while a separate native worker refines both inputs.
+
+Comparison requires identical targets and duration, equal actual piece and total vertex counts, and unlocked constructions. Both inputs receive the same configured iterations, raster resolution and candidate-attempt limit. Refinement preserves each input's light, fixed piece geometry and identity.
+
+Four synchronized previews show baseline/current before and after refinement. One observation window and common sample locations measure all four states. Authored-key IoU, missed-target fraction and spill relative to target are separate from the chosen intermediate morph. Higher IoU is better; the results are finite-resolution estimates. Unresolved targets reject, and close differences need higher-resolution confirmation before a strong benefit claim.
+
+Actual candidate attempts, raster evaluations and measurement work remain visible. Equal configured budgets do not imply equal actual work. No score identifies a model winner or establishes continuous-time coverage.
+
+Adoption is explicit. It preserves targets and existing proposal records; those records describe their historical response, not necessarily the newly selected geometry. **Undo last comparison adoption** restores the preceding scene while that adoption is still the latest project change. Session history retains at most three entries and 8 MiB. New/open projects clear it; project JSON does not save this comparison undo history.
 
 ## Physical model and motion
 
@@ -71,7 +84,11 @@ The six-case experiment in `docs/geometry-quality.json` found that 24 pieces sub
 
 Project JSON preserves authored targets, canonical physical geometry, construction settings, locks and bounded proposal history. Reopening recomputes fit evidence; imported metric claims are not trusted.
 
-The standalone HTML player embeds the actual physical scene and reconstructs every projected cutout offline. It needs no studio server, external scripts or target artwork. The SVG is one projected frame. Video-file export is not implemented in this increment.
+The standalone HTML player embeds the actual physical scene and reconstructs every projected cutout offline. It needs no studio server, external scripts or target artwork. The SVG is one projected frame.
+
+**Export performance as WebM** records a validated snapshot of the physical scene at 1000 × 714 pixels, without target outlines or studio controls. The export takes approximately the performance duration; keep the tab active. Edits made during recording do not change its frozen scene. Cancel produces no completed-video download, and a fresh export can be started afterward.
+
+The browser must support MediaRecorder, WebM and manual canvas-frame capture. This bounded export supports up to 120 seconds and 64 MiB. It requests nominally 24 frames per second; browser encoding determines actual frame cadence and duration. Exact constant frame rate, lossless pixels, background-tab behavior, long-duration reliability and MP4 compatibility are not established. The standalone player remains available independently of video support.
 
 ## Optional model proposals
 
@@ -101,6 +118,22 @@ node tests/browser-receiving.mjs
 ```
 
 It exercises actual controls, download and fresh import, physical refinement, exact lock preservation, worker cancellation during newer edits, responsive layout, and downloaded offline players. The offline mask check derives ray projection independently. Browser automation preserves the application's CSP and Chromium sandbox. Screenshots require separate visual review.
+
+The comparison and finished-video courses use the same actual HTTP entry point and a fresh evidence directory for each run:
+
+```sh
+SHADOW_STAGE_URL=http://127.0.0.1:4318 \
+SHADOW_STAGE_EVIDENCE=/path/to/comparison-evidence \
+node tests/comparison-browser.mjs
+
+SHADOW_STAGE_URL=http://127.0.0.1:4318 \
+SHADOW_STAGE_EVIDENCE=/path/to/video-evidence \
+node tests/video-browser.mjs
+```
+
+Video receiving additionally requires existing `ffmpeg` and `ffprobe` executables. It observes native capture tracks, cancellation and recovery, downloads the actual file, opens fresh playback, decodes the complete stream and checks selected decoded frames against an independent ray/union oracle. Timing correspondence retains uncertainty and all plausible request intervals; it does not equate encoded frame index with request index. Its three-second foreground fixture does not qualify every duration or browser.
+
+The comparison proposal-adoption journey uses a controlled local response marked `executed:false`. It tests lifecycle behavior only; it is not inference evidence.
 
 ## Reproducible delivery
 
