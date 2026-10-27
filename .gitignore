@@ -1,0 +1,5 @@
+node_modules/
+dist/
+receiving/
+.env
+*.log
