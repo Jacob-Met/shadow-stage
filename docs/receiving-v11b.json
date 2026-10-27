@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "revision": "v11b",
+  "owner": "estate95a-20261027",
+  "promptVersion": "2026-10-27.14",
+  "package": {
+    "packageSha256": "fd6ac386d616526004024d2ef182c53454b0e22c450e0ebc2f9db7013a7b59e2",
+    "archive": "/home/ubuntu/hamon-work/estate95a-20261027/delivery-v11b/a/shadow-stage.zip",
+    "bytes": 350550,
+    "reproducible": true,
+    "verifiedFiles": {
+      "README.md": "2bc7ab9ea788aeae13299d7cefed40a8bfa5558809a5800fab298ddd4529bf5a",
+      "app.js": "f32dd61db4afd0037a113ba164eb3415857d4e3c3eea3ff1dc7faa3f09404bba",
+      "docs/geometry-quality.json": "df52e1a26c5e6b60dca1173530c24cdb0ed61a488b207d7afa7d316a5ef329f0",
+      "index.html": "446263172847e24b1b42d52ba2fd457953799b4d326f7e1de0d7950ff0d690d9",
+      "package.json": "f646d102e2270b27031806393becf9b25b0735aa6633aa94bc5b36c2e676c4be",
+      "scripts/package.py": "5d822e97ff4c6e78abadab6286af226365657a8c2f87d8684cb242cb7f135d67",
+      "server.mjs": "f97e884977acc13added599f3c740aa25b370e8f3510e2ac9fa97e40a8b06424",
+      "src/articulated.js": "0f8cb4d595b5bb5a3399792c5411170f5aad41ca96e60d39b3a576ceda3d46ac",
+      "src/comparison-ui.js": "830ca83b03ee354ff4e513ed682eda02b8499a6c1d810295933012721cf0c7ca",
+      "src/comparison.js": "6ef170ac35414b05c5a0b4ebf0fbe9899e1bad86a4c247eea7071aa2cacd80b8",
+      "src/core.js": "ff7bb9f70fa52fd8348111d35928f3d01804344345af38b55f21e823c422c67b",
+      "src/player.js": "ec7bb59c9350b3e0fa53459c26c8e1b13d347d8c5229b201273b59796d287a36",
+      "src/project.js": "d872fb4520712b095aff29a80e3abaf0dda33cf9e30159d68ca53dec4099ddd4",
+      "src/proposals.js": "282e482cc1cbcdca9143cd031db899ec1e16fbad252d4693db7e009e2a7ce129",
+      "src/runtime.js": "9226296f881d29e11106a9a61094d81d13a65392cf3847665ac4277fcb463c80",
+      "src/scene-proposals.js": "70638f02ac257fee4330aae623102b7ff167f7eb10ec6e9d584fa924a3eb4727",
+      "src/solver-worker.js": "303c78d981db7b332103d0342c734e10900987b05565124760cc9c13b3642c08",
+      "src/transition-ui.js": "abd7c6022a11929adb9422a2bb8d2d9f697f84fbe851d5cd12d105d9cfacfd9f",
+      "src/transition.js": "8dc603789517974ff32b30f856773d5113fd5d9ff338379f854d83da56c872aa",
+      "src/video.js": "7492acb043d7cc126bd2db9e9c96fc121347f5056ffb5bf4f164db00a7f0d45a",
+      "styles.css": "ecbb8ba740bc1abd5b6e6c7735f74feceff3b62db68ca1e1a2fe2c4a10622d52",
+      "tests/articulated-receiving.test.js": "7f02fa1103d06a9153e1eaad7a29076dbd7c622b6ad09f37bb64ffaddef9ef4e",
+      "tests/articulated.test.js": "d5efbfc63d54a0413acfd81b89536246979310e37b5fd02b18f1b35112dce389",
+      "tests/browser-receiving.mjs": "d56fe8e8c720b84ad8291bdc3468db0e100ec9dc6800c0dd5ba658c194ac2f79",
+      "tests/comparison-browser.mjs": "4c5adfc7cd4833c6c34a0dbda178d4a893a8d018858f1a55f0ec082b29100c41",
+      "tests/comparison-receiving.mjs": "d63686622684c355a647898b9b2b4c9b664d6e148ef272ce38f7dad4eb10d1e4",
+      "tests/comparison.test.js": "e6cde1078836123ff9fc1ee3f04b613f6f080c938d9298d89d7e6ef272718db7",
+      "tests/core.test.js": "2e33bcb9d764bad4e4ccf52a07ada99d8023041f81a1d8f3dc476a581d7a0f0e",
+      "tests/project.test.js": "9bad06d2cceaa3339676361637ea8c17b4774780ca99b05f42034dd9b971b736",
+      "tests/proposals.test.js": "7f0ba7a153c78996475b3ace02ef34b6035ed4e1035350265dad8dd377de9dc7",
+      "tests/receiving.test.js": "20ea98a3bcd7d115659b8990c6b148d18b4f62832b83b490e043edf774e09b7c",
+      "tests/scene-proposals.test.js": "be05394d2c77546cda203b9a2a65659e9f4d0368a22d6238d505724a2250ced8",
+      "tests/server.test.js": "3607ad7b335d041454784500f1c6a8e15c23589b114818b053477f42054ec8e3",
+      "tests/transition-receiving.mjs": "dceef0c51f1e2a7b380166f54f758543d17698b7541f7a0aca79a2ab79314d73",
+      "tests/transition.test.js": "db5d8b479ee5eeeb5c5469f3ab0271f1523dc3f71a2c9c3e0d14710584f718a9",
+      "tests/video-browser.mjs": "ae6269b867c14a1de1ac2854e8e9af8346d070c7fb1850c4fcda492b7b4858a8",
+      "tests/video-probe.mjs": "f58ff549d96e4bcb31875e8f593c809fef730a86dbe3d5d54ec41e8db2ac9d5a",
+      "tests/video-production-receiving.mjs": "56991a89cc20679bd4b56908f106000dc1f4435dde07de32ddeb0df6e6275dba",
+      "tests/video-scene-receiving.mjs": "1bed74817eb079c5516a537536a19077e143ea5943948c1880bf504b2fa3b630"
+    },
+    "nativeExit": 0,
+    "receivedRoot": "/home/ubuntu/hamon-work/estate95a-20261027/delivery-v11b/received/shadow-stage",
+    "browserReceiving": "passed",
+    "testDependency": "Existing host Playwright, outside runtime allowlist"
+  },
+  "nativeCommand": {
+    "command_id": "estate95a-package-receiving-v11b-a",
+    "request_sha256": "a4c0a421bc58364e13d7c6f4a98413dfe5551235947a75b4166c0733969cd8c3",
+    "generation": "f1460211d427e1fdfb93cd2a3beb92d5a7bfedd5d9793532e2314ff808a2dafc",
+    "state": "completed",
+    "runner_pid": 753614,
+    "started_at": "2026-10-27T07:43:13.086113528Z",
+    "finished_at": "2026-10-27T07:43:14.63789947Z",
+    "exit_code": 0
+  },
+  "nativeTests": 65,
+  "browserCommand": {
+    "command_id": "estate95a-package-browser-v11b-a",
+    "request_sha256": "00abb2c4736d992bd5d775394c91a4c5ec8cc5bbf738309c8245e534c4f947b7",
+    "generation": "cc97dd9e860229949a8617c1f141af7df940028e4cd04e1e658737d0c40f02f0",
+    "state": "completed",
+    "runner_pid": 754297,
+    "started_at": "2026-10-27T07:45:26.03781023Z",
+    "finished_at": "2026-10-27T07:46:03.286744251Z",
+    "exit_code": 0
+  },
+  "browserCourses": [
+    {
+      "course": "studio",
+      "exit": 0,
+      "result": {
+        "passed": true,
+        "checks": [
+          "motion-balance edit cancels pending solve and next fit commits captured configuration",
+          "edit target and synthesize without substituting authored targets",
+          "physical light edit affects the real stage canvas",
+          "continuous playback advances actual timeline",
+          "actual download, fresh document, file import and identical canvas replay",
+          "queued solve cannot overwrite incoming project",
+          "singleton project import can add another moment",
+          "04-planar: offline standalone HTML independently matches ray-projected shadow mask",
+          "distinct silhouettes improve with persistent multi-piece construction",
+          "selected cutout edit and exact lock survive real refinement",
+          "same-project physical edit terminates original native refinement worker",
+          "same-project lock edit terminates original native refinement worker",
+          "multi-piece project download, fresh import, locks and exact canvas replay",
+          "07-articulated: offline standalone HTML independently matches ray-projected shadow mask",
+          "narrow viewport retains responsive studio layout"
+        ],
+        "evidence": "/home/ubuntu/hamon-work/estate95a-20261027/delivery-v11b/studio-receiving"
+      }
+    },
+    {
+      "course": "comparison",
+      "exit": 0,
+      "result": {
+        "checks": [
+          "Native four-state comparison and synchronized preview preserve active project",
+          "Explicit adoption preserves custody and targets; session undo restores exact previous scene",
+          "Pending native comparison terminated by physical edit",
+          "Pending native comparison terminated by duration edit",
+          "Changed target requirements reject before dispatch",
+          "Current locks reject before dispatch",
+          "Actual construction count mismatch rejects before dispatch",
+          "Source edits remove adoption actions and duration mismatch rejects",
+          "Controlled proposal adoption retains captured baseline and invalidates prior result; no model execution claimed"
+        ],
+        "status": "passed",
+        "pageErrors": []
+      }
+    },
+    {
+      "course": "transition",
+      "exit": 0,
+      "result": {
+        "status": "passed",
+        "passedChecks": 17,
+        "evidence": "/home/ubuntu/hamon-work/estate95a-20261027/delivery-v11b/transition-receiving"
+      }
+    },
+    {
+      "course": "video",
+      "exit": 0,
+      "result": {
+        "status": "passed",
+        "videoPath": "/home/ubuntu/hamon-work/estate95a-20261027/delivery-v11b/video-receiving/video-receiving/frozen-performance.webm",
+        "videoSha256": "7c92f8dfa788da3b652f79a0a6c663a56886ef5edff88566b361e66345eee3f1",
+        "sceneSha256": "ff1d2e097318f9d6ef39738becb36024b31290715427fe9e75d4288379cdd40c",
+        "bytes": 63024,
+        "codec": "vp8",
+        "playback": {
+          "dimensions": [
+            1000,
+            714
+          ],
+          "end": {
+            "currentTime": 3.025,
+            "duration": 3.025,
+            "error": null
+          }
+        },
+        "timing": {
+          "decodedFrames": 73,
+          "requestedFrames": 72,
+          "duplicateTimestampGaps": 0,
+          "medianPositiveGapSeconds": 0.04899999999999993,
+          "maximumGapSeconds": 0.076,
+          "observedFrameSpanSeconds": 3.041,
+          "finalIntervalInferred": false,
+          "startupMs": 67.6000000089407,
+          "clockUncertaintyMs": 127.6000000089407,
+          "clockAssumption": "First decoded PTS anchored to initial frozen-pose capture. Bound includes measured startup plus a 60 ms diagnostic-informed capture/encoding allowance; not a universal codec guarantee."
+        },
+        "geometryQualified": true,
+        "worstForegroundMismatch": 0.023809523809523808,
+        "cancellationChecks": [
+          "pre-capture cancellation",
+          "native-capture cancellation"
+        ],
+        "snapshotIsolation": true,
+        "pageErrors": []
+      }
+    }
+  ],
+  "transitionSourceConsumer": {
+    "command_id": "estate95a-transition-consumer-first-a",
+    "request_sha256": "70f7669aa28cf1dbe2fb634f1c7da648bcb212b49747d47db1962c91b0df50eb",
+    "generation": "da0596c46ce222362c8796f2cedc5d2ab5558fe71f8dd1c83c5fec06761e75d0",
+    "state": "completed",
+    "runner_pid": 750880,
+    "started_at": "2026-10-27T07:35:51.841243338Z",
+    "finished_at": "2026-10-27T07:36:05.049841123Z",
+    "exit_code": 0
+  },
+  "visual": {
+    "executor": "root",
+    "inspected": [
+      "transition-consumer-a/transition-quarter-preview.png",
+      "transition-consumer-a/transition-narrow.png",
+      "delivery-v11b/transition-receiving/transition-narrow.png"
+    ],
+    "finding": "Original/candidate, initialized/final error and worsened motion-step disclosure are readable. Final package makes undo unavailability explicit after later edits. No artistic-quality inference from stills."
+  },
+  "repairedDuringReview": [
+    "Comparison availability could stay disabled after adoption; queued refresh observes cleared adopting state.",
+    "Keep original changed to Dismiss comparison after adoption.",
+    "Visual review found stale undo status after subsequent edit; revised v11b explicitly refuses overwrite of newer edits."
+  ],
+  "priorPackage": {
+    "revision": "v11",
+    "sha256": "e8d9412591d84f76b9fc030fb46733bec3d3491d26bec6fb9967b3303a4f61a7",
+    "nativeTests": 65,
+    "reasonSuperseded": "Observed misleading undo availability text after later edit. No packaged browser qualification was claimed."
+  },
+  "transitionExperiment": {
+    "receipt": "/home/ubuntu/hamon-work/estate95a-20261027/estate95a-transition-v9-quality-v1.json",
+    "sha256": "af11e8db7dd36160c3b520e12ab3e62469f594cc99598f96b51afc178b4707f5",
+    "script": "scripts/transition-experiment.mjs",
+    "actualDurationSeconds": 8,
+    "observation": "Held-out mask mean error improves on both retained fixtures; maximum sampled projected-vertex step worsens. Fixed geometry/light/existing anchors retained. Intermediate reference is author-selected."
+  },
+  "reviewScope": "Retained source_review supplied transition method/UI and reviewed root lifecycle corrections. service_recovery independently reviewed cross-controller custody and availability. Root executed receiving and inspected rendered output; no independent final rerun/full audit is claimed.",
+  "limits": [
+    "Authored boundary morph is not observed intermediate ground truth.",
+    "Transition optimization does not enforce motion smoothness, collision avoidance, fabrication, or a seamless loop.",
+    "Inserted smoothstep keys force zero velocity and can make motion hesitant.",
+    "Project replay uses maintained projection; separate inherited offline ray/union oracle remains recorded in studio course.",
+    "Actual NVIDIA/Nebius inference remains unqualified; historical provider fixture records executed:false.",
+    "Motion refinement research is outside this package and has not been adopted."
+  ],
+  "sourceHashes": {
+    "docs/geometry-quality.json": "df52e1a26c5e6b60dca1173530c24cdb0ed61a488b207d7afa7d316a5ef329f0",
+    "src/articulated.js": "0f8cb4d595b5bb5a3399792c5411170f5aad41ca96e60d39b3a576ceda3d46ac",
+    "src/scene-proposals.js": "70638f02ac257fee4330aae623102b7ff167f7eb10ec6e9d584fa924a3eb4727",
+    "src/runtime.js": "9226296f881d29e11106a9a61094d81d13a65392cf3847665ac4277fcb463c80",
+    "src/player.js": "ec7bb59c9350b3e0fa53459c26c8e1b13d347d8c5229b201273b59796d287a36",
+    "src/solver-worker.js": "303c78d981db7b332103d0342c734e10900987b05565124760cc9c13b3642c08",
+    "src/comparison.js": "6ef170ac35414b05c5a0b4ebf0fbe9899e1bad86a4c247eea7071aa2cacd80b8",
+    "src/comparison-ui.js": "830ca83b03ee354ff4e513ed682eda02b8499a6c1d810295933012721cf0c7ca",
+    "src/video.js": "7492acb043d7cc126bd2db9e9c96fc121347f5056ffb5bf4f164db00a7f0d45a",
+    "src/transition.js": "8dc603789517974ff32b30f856773d5113fd5d9ff338379f854d83da56c872aa",
+    "src/transition-ui.js": "abd7c6022a11929adb9422a2bb8d2d9f697f84fbe851d5cd12d105d9cfacfd9f",
+    "tests/transition.test.js": "db5d8b479ee5eeeb5c5469f3ab0271f1523dc3f71a2c9c3e0d14710584f718a9",
+    "tests/transition-receiving.mjs": "dceef0c51f1e2a7b380166f54f758543d17698b7541f7a0aca79a2ab79314d73",
+    "tests/comparison.test.js": "e6cde1078836123ff9fc1ee3f04b613f6f080c938d9298d89d7e6ef272718db7",
+    "tests/comparison-receiving.mjs": "d63686622684c355a647898b9b2b4c9b664d6e148ef272ce38f7dad4eb10d1e4",
+    "tests/comparison-browser.mjs": "4c5adfc7cd4833c6c34a0dbda178d4a893a8d018858f1a55f0ec082b29100c41",
+    "tests/video-scene-receiving.mjs": "1bed74817eb079c5516a537536a19077e143ea5943948c1880bf504b2fa3b630",
+    "tests/video-production-receiving.mjs": "56991a89cc20679bd4b56908f106000dc1f4435dde07de32ddeb0df6e6275dba",
+    "tests/video-browser.mjs": "ae6269b867c14a1de1ac2854e8e9af8346d070c7fb1850c4fcda492b7b4858a8",
+    "tests/video-probe.mjs": "f58ff549d96e4bcb31875e8f593c809fef730a86dbe3d5d54ec41e8db2ac9d5a",
+    "tests/articulated.test.js": "d5efbfc63d54a0413acfd81b89536246979310e37b5fd02b18f1b35112dce389",
+    "tests/articulated-receiving.test.js": "7f02fa1103d06a9153e1eaad7a29076dbd7c622b6ad09f37bb64ffaddef9ef4e",
+    "tests/scene-proposals.test.js": "be05394d2c77546cda203b9a2a65659e9f4d0368a22d6238d505724a2250ced8",
+    "README.md": "2bc7ab9ea788aeae13299d7cefed40a8bfa5558809a5800fab298ddd4529bf5a",
+    "package.json": "f646d102e2270b27031806393becf9b25b0735aa6633aa94bc5b36c2e676c4be",
+    "server.mjs": "f97e884977acc13added599f3c740aa25b370e8f3510e2ac9fa97e40a8b06424",
+    "index.html": "446263172847e24b1b42d52ba2fd457953799b4d326f7e1de0d7950ff0d690d9",
+    "styles.css": "ecbb8ba740bc1abd5b6e6c7735f74feceff3b62db68ca1e1a2fe2c4a10622d52",
+    "app.js": "f32dd61db4afd0037a113ba164eb3415857d4e3c3eea3ff1dc7faa3f09404bba",
+    "src/core.js": "ff7bb9f70fa52fd8348111d35928f3d01804344345af38b55f21e823c422c67b",
+    "src/project.js": "d872fb4520712b095aff29a80e3abaf0dda33cf9e30159d68ca53dec4099ddd4",
+    "src/proposals.js": "282e482cc1cbcdca9143cd031db899ec1e16fbad252d4693db7e009e2a7ce129",
+    "scripts/package.py": "5d822e97ff4c6e78abadab6286af226365657a8c2f87d8684cb242cb7f135d67",
+    "tests/core.test.js": "2e33bcb9d764bad4e4ccf52a07ada99d8023041f81a1d8f3dc476a581d7a0f0e",
+    "tests/receiving.test.js": "20ea98a3bcd7d115659b8990c6b148d18b4f62832b83b490e043edf774e09b7c",
+    "tests/project.test.js": "9bad06d2cceaa3339676361637ea8c17b4774780ca99b05f42034dd9b971b736",
+    "tests/proposals.test.js": "7f0ba7a153c78996475b3ace02ef34b6035ed4e1035350265dad8dd377de9dc7",
+    "tests/server.test.js": "3607ad7b335d041454784500f1c6a8e15c23589b114818b053477f42054ec8e3",
+    "tests/browser-receiving.mjs": "d56fe8e8c720b84ad8291bdc3468db0e100ec9dc6800c0dd5ba658c194ac2f79"
+  }
+}

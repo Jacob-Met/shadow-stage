@@ -1,7 +1,10 @@
 # SHADOW STAGE receiving evidence
 
-Current: [v10 comparison and finished footage](RECEIVING-v10.md), with [machine-readable v10 receipts](receiving-v10.json).
+Current: [v11b transition preview, physical inspection and guarded adoption](RECEIVING-v11b.md), with [machine-readable receipts](receiving-v11b.json).
 
-Previous: [v9 editable physical studio and portable playback](RECEIVING-v9.md), with [original v9 receipts](receiving-v9.json).
+Previous qualified increments:
 
-Each report identifies the exact received package, consumer path, review scope and limitations. Source integration does not establish actual NVIDIA inference or complete the parent product outcome.
+- [v10 construction comparison and finished footage](RECEIVING-v10.md), [receipts](receiving-v10.json).
+- [v9 editable physical studio and portable playback](RECEIVING-v9.md), [receipts](receiving-v9.json).
+
+Each report identifies the exact package, application entry point, review scope and limitations. The broader product outcome and actual model inference remain open.

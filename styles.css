@@ -4,3 +4,16 @@
 
 .video-export-canvas{position:fixed;left:-1200px;top:0;width:1000px;height:714px;pointer-events:none}
 .comparison-panel h2{margin:0 0 .65rem}.comparison-settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;margin:1rem 0;padding:.8rem;border:1px solid #bac8ad;border-radius:8px}.comparison-settings legend{padding:0 .3rem;font-size:.75rem}.comparison-settings label,.comparison-time{display:grid;gap:.35rem;font-size:.75rem}.comparison-settings input{box-sizing:border-box;min-width:0;width:100%}.comparison-time{grid-template-columns:auto 1fr auto;align-items:center;margin:1rem 0}.comparison-time input{min-width:0;width:100%}.comparison-time output{font-variant-numeric:tabular-nums}.comparison-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.comparison-card{min-width:0;padding:.7rem;border:1px solid #bac8ad;border-radius:8px}.comparison-card h3{margin:0 0 .6rem;font:inherit;font-size:.8rem}.comparison-card canvas{display:block;width:100%;height:auto;border-radius:5px}.comparison-card p{line-height:1.5}.comparison-work{max-height:20rem;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:.7rem}@media(max-width:600px){.comparison-grid,.comparison-settings,.comparison-time{grid-template-columns:1fr}}
+
+.transition-panel{margin-block:.25rem}
+.transition-actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem;margin-block:.75rem}
+.transition-preview-grid{display:flex;flex-wrap:wrap;gap:1rem}
+.transition-preview-figure{flex:1;min-width:min(240px,100%);margin:0}
+.transition-preview-figure figcaption{margin-bottom:.4rem}
+.transition-preview-canvas{display:block;width:100%;background:#e7ebd7}
+.transition-reference-description{color:#6e5839}
+.transition-clipping-notice{border-left:3px solid #a16c28;padding-left:.75rem;color:#744714}
+.transition-physical-data{white-space:pre-wrap;overflow-wrap:anywhere;max-height:24rem;overflow:auto}
+.transition-metrics{border-collapse:collapse;margin-block:1rem}
+.transition-metrics caption{text-align:left;margin-bottom:.5rem}
+.transition-metrics th,.transition-metrics td{text-align:left;padding:.35rem .75rem .35rem 0;font-variant-numeric:tabular-nums}
