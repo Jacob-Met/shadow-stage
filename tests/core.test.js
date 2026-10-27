@@ -73,3 +73,9 @@ test('validation and sampling never expose writable persistent references',()=>{
   assert.notEqual(scene.occluder.vertices[0][0],99);assert.notEqual(scene.occluder.vertices[0][0],88);
   assert.deepEqual(measureFit(scene,DEFAULT_TARGETS),measureFit(JSON.parse(JSON.stringify(scene)),DEFAULT_TARGETS));
 });
+test('authored positional keys are exact before and after insertion',()=>{
+  const lightEnd={t:1,x:.1,y:.2,z:5},cutoutEnd={t:1,x:.1,y:.2,z:1.1,angle:0};
+  const scene={format:'shadow-stage/scene-v1',duration:4,light:{keys:[{t:0,x:-10,y:-10,z:6},lightEnd]},occluder:{vertices:[[-.1,-.1],[.1,-.1],[.1,.1],[-.1,.1]],keys:[{t:0,x:-10,y:-10,z:2,angle:0},cutoutEnd]}};
+  function exact(candidate,t,light,cutout){const sampled=sampleScene(candidate,t);for(const field of ['x','y','z']){assert.equal(sampled.light[field],light[field],'light '+field);assert.equal(sampled.occluder[field],cutout[field],'cutout '+field);}}
+  exact(scene,1,lightEnd,cutoutEnd);const inserted=structuredClone(scene);inserted.light.keys.splice(1,0,{t:.6,x:-.3,y:.7,z:5.4});inserted.occluder.keys.splice(1,0,{t:.6,x:-.3,y:.7,z:1.4,angle:0});exact(inserted,1,lightEnd,cutoutEnd);exact(inserted,.6,inserted.light.keys[1],inserted.occluder.keys[1]);exact(inserted,2,lightEnd,cutoutEnd);
+});

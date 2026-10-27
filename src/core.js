@@ -51,7 +51,11 @@ function interpolate(keys,t,fields) {
   const a=keys[i],b=keys[Math.min(i+1,keys.length-1)];
   let u=b.t===a.t?0:Math.max(0,Math.min(1,(t-a.t)/(b.t-a.t)));
   u=u*u*(3-2*u); // bounded C1 smoothstep: zero velocity at authored keys
-  const out={}; for(const f of fields) { let start=a[f],d=b[f]-a[f]; if(f==='angle'){start=keys[0].angle;for(let j=1;j<=i;j++){const delta=keys[j].angle-keys[j-1].angle;start+=Math.atan2(Math.sin(delta),Math.cos(delta));}d=Math.atan2(Math.sin(d),Math.cos(d));} out[f]=start+u*d; } return out;
+  const out={}; for(const f of fields) {
+    if(f!=='angle'){out[f]=u===0?a[f]:u===1?b[f]:a[f]+u*(b[f]-a[f]);continue;}
+    let start=keys[0].angle;for(let j=1;j<=i;j++){const delta=keys[j].angle-keys[j-1].angle;start+=Math.atan2(Math.sin(delta),Math.cos(delta));}
+    const delta=b.angle-a.angle;out.angle=start+u*Math.atan2(Math.sin(delta),Math.cos(delta));
+  } return out;
 }
 export function sampleScene(scene,t) {
   return {light:interpolate(scene.light.keys,t,['x','y','z']),occluder:{...interpolate(scene.occluder.keys,t,['x','y','z','angle']),vertices:scene.occluder.vertices.map(p=>p.slice())}};
