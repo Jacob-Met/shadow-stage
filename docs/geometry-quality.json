@@ -1,0 +1,758 @@
+{
+  "experiment": "estate95a-articulated-geometry-quality-v1",
+  "sourceReceiptSha256": "35330693cb967708d1e73bd01cb0acae63a48cde9ab47a988856e47a7f1a4a34",
+  "owner": "node-dc00710dcf741ee271f23a1a38fa0f50",
+  "commandId": "estate95a-geometry-quality-experiment-a",
+  "results": [
+    {
+      "sequence": "original_shape_change",
+      "maxPieces": 1,
+      "fitAndProductionMeasurementMs": 125.956483,
+      "actualPieces": 1,
+      "totalVertices": 4,
+      "authoredMaskError": 0.38190383866617794,
+      "authoredKeys": [
+        {
+          "t": 0,
+          "maskError": 0.6264485344239945,
+          "targetOccupiedCells": 1463
+        },
+        {
+          "t": 0.5,
+          "maskError": 0.5192629815745393,
+          "targetOccupiedCells": 3582
+        },
+        {
+          "t": 1,
+          "maskError": 0,
+          "targetOccupiedCells": 5476
+        }
+      ],
+      "interpolatedMaskError": 0.41865243937107444,
+      "interpolatedMaximumError": 0.797634691195795,
+      "noSolveBaselineMaskError": 0.46357397387897165,
+      "gridCoverage": [
+        {
+          "t": 0,
+          "uncoveredFraction": 0.6096774193548387,
+          "candidates": 310
+        },
+        {
+          "t": 0.5,
+          "uncoveredFraction": 0.512987012987013,
+          "candidates": 462
+        },
+        {
+          "t": 1,
+          "uncoveredFraction": 0,
+          "candidates": 1024
+        }
+      ],
+      "independentAuthored": [
+        {
+          "t": 0,
+          "error": 0.6111869031377899,
+          "targetCells": 729,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.5,
+          "error": 0.518005540166205,
+          "targetCells": 1805,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 1,
+          "error": 0,
+          "targetCells": 2809,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentIntermediate": [
+        {
+          "t": 0.125,
+          "error": 0.5119047619047619,
+          "targetCells": 301,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.25,
+          "error": 0.7188841201716738,
+          "targetCells": 135,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.375,
+          "error": 0.4040778498609824,
+          "targetCells": 1020,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.625,
+          "error": 0.416135881104034,
+          "targetCells": 1246,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.75,
+          "error": 0.37398921832884097,
+          "targetCells": 969,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.875,
+          "error": 0.154290795909293,
+          "targetCells": 1942,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentAssessmentQualified": true,
+      "continuity": {
+        "maxVertexStepAtDeltaT005": 0.006673815341406939,
+        "minLightClearance": 0.794921875,
+        "minScreenClearance": 2.5,
+        "persistentGeometryVerified": true,
+        "collisionCheck": "not performed; intersections allowed",
+        "loopClosure": "not guaranteed"
+      },
+      "targetsPreserved": true,
+      "independentAssessmentMs": 65.166281,
+      "status": "measured"
+    },
+    {
+      "sequence": "original_shape_change",
+      "maxPieces": 8,
+      "fitAndProductionMeasurementMs": 135.051942,
+      "actualPieces": 8,
+      "totalVertices": 32,
+      "authoredMaskError": 0.1283170293382391,
+      "authoredKeys": [
+        {
+          "t": 0,
+          "maskError": 0.26720647773279355,
+          "targetOccupiedCells": 1463
+        },
+        {
+          "t": 0.5,
+          "maskError": 0.11774461028192372,
+          "targetOccupiedCells": 3582
+        },
+        {
+          "t": 1,
+          "maskError": 0,
+          "targetOccupiedCells": 5476
+        }
+      ],
+      "interpolatedMaskError": 0.36893753801872126,
+      "interpolatedMaximumError": 0.8689922480620155,
+      "noSolveBaselineMaskError": 0.46357397387897165,
+      "gridCoverage": [
+        {
+          "t": 0,
+          "uncoveredFraction": 0.23225806451612904,
+          "candidates": 310
+        },
+        {
+          "t": 0.5,
+          "uncoveredFraction": 0.10606060606060606,
+          "candidates": 462
+        },
+        {
+          "t": 1,
+          "uncoveredFraction": 0,
+          "candidates": 1024
+        }
+      ],
+      "independentAuthored": [
+        {
+          "t": 0,
+          "error": 0.26558265582655827,
+          "targetCells": 729,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.5,
+          "error": 0.1278236914600551,
+          "targetCells": 1805,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 1,
+          "error": 0,
+          "targetCells": 2809,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentIntermediate": [
+        {
+          "t": 0.125,
+          "error": 0.5661290322580645,
+          "targetCells": 301,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.25,
+          "error": 0.8512396694214877,
+          "targetCells": 135,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.375,
+          "error": 0.3088235294117647,
+          "targetCells": 1020,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.625,
+          "error": 0.314804310833806,
+          "targetCells": 1246,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.75,
+          "error": 0.552349930200093,
+          "targetCells": 969,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.875,
+          "error": 0.27792304818827046,
+          "targetCells": 1942,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentAssessmentQualified": true,
+      "continuity": {
+        "maxVertexStepAtDeltaT005": 0.03530055354094286,
+        "minLightClearance": 0.216796875,
+        "minScreenClearance": 2.5,
+        "persistentGeometryVerified": true,
+        "collisionCheck": "not performed; intersections allowed",
+        "loopClosure": "not guaranteed"
+      },
+      "targetsPreserved": true,
+      "independentAssessmentMs": 100.69948499999998,
+      "status": "measured"
+    },
+    {
+      "sequence": "original_shape_change",
+      "maxPieces": 24,
+      "fitAndProductionMeasurementMs": 163.44766900000002,
+      "actualPieces": 24,
+      "totalVertices": 96,
+      "authoredMaskError": 0.06330018707386958,
+      "authoredKeys": [
+        {
+          "t": 0,
+          "maskError": 0.14913448735019974,
+          "targetOccupiedCells": 1463
+        },
+        {
+          "t": 0.5,
+          "maskError": 0.04076607387140903,
+          "targetOccupiedCells": 3582
+        },
+        {
+          "t": 1,
+          "maskError": 0,
+          "targetOccupiedCells": 5476
+        }
+      ],
+      "interpolatedMaskError": 0.3691173556261131,
+      "interpolatedMaximumError": 0.8673835125448028,
+      "noSolveBaselineMaskError": 0.46357397387897165,
+      "gridCoverage": [
+        {
+          "t": 0,
+          "uncoveredFraction": 0.07741935483870968,
+          "candidates": 310
+        },
+        {
+          "t": 0.5,
+          "uncoveredFraction": 0.008658008658008658,
+          "candidates": 462
+        },
+        {
+          "t": 1,
+          "uncoveredFraction": 0,
+          "candidates": 1024
+        }
+      ],
+      "independentAuthored": [
+        {
+          "t": 0,
+          "error": 0.14247669773635152,
+          "targetCells": 729,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.5,
+          "error": 0.039495337356006584,
+          "targetCells": 1805,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 1,
+          "error": 0,
+          "targetCells": 2809,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentIntermediate": [
+        {
+          "t": 0.125,
+          "error": 0.5803183791606368,
+          "targetCells": 301,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.25,
+          "error": 0.84,
+          "targetCells": 135,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.375,
+          "error": 0.4078254326561324,
+          "targetCells": 1020,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.625,
+          "error": 0.3390282968499733,
+          "targetCells": 1246,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.75,
+          "error": 0.565901934322987,
+          "targetCells": 969,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.875,
+          "error": 0.3013005780346821,
+          "targetCells": 1942,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentAssessmentQualified": true,
+      "continuity": {
+        "maxVertexStepAtDeltaT005": 0.044652747594580884,
+        "minLightClearance": 0.072265625,
+        "minScreenClearance": 2.5,
+        "persistentGeometryVerified": true,
+        "collisionCheck": "not performed; intersections allowed",
+        "loopClosure": "not guaranteed"
+      },
+      "targetsPreserved": true,
+      "independentAssessmentMs": 149.74583200000006,
+      "status": "measured"
+    },
+    {
+      "sequence": "unfamiliar_star_arrow_diamond",
+      "maxPieces": 1,
+      "fitAndProductionMeasurementMs": 93.82054800000003,
+      "actualPieces": 1,
+      "totalVertices": 4,
+      "authoredMaskError": 0.571854851059078,
+      "authoredKeys": [
+        {
+          "t": 0,
+          "maskError": 0.510016694490818,
+          "targetOccupiedCells": 2380
+        },
+        {
+          "t": 0.5,
+          "maskError": 0.6785955435516543,
+          "targetOccupiedCells": 2953
+        },
+        {
+          "t": 1,
+          "maskError": 0.5269523151347616,
+          "targetOccupiedCells": 2894
+        }
+      ],
+      "interpolatedMaskError": 0.5270095045240006,
+      "interpolatedMaximumError": 0.6784750337381916,
+      "noSolveBaselineMaskError": 0.30417872213705843,
+      "gridCoverage": [
+        {
+          "t": 0,
+          "uncoveredFraction": 0.5225988700564972,
+          "candidates": 354
+        },
+        {
+          "t": 0.5,
+          "uncoveredFraction": 0.6807387862796834,
+          "candidates": 379
+        },
+        {
+          "t": 1,
+          "uncoveredFraction": 0.5148514851485149,
+          "candidates": 404
+        }
+      ],
+      "independentAuthored": [
+        {
+          "t": 0,
+          "error": 0.5148868598650258,
+          "targetCells": 2516,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.5,
+          "error": 0.6850368471643704,
+          "targetCells": 3112,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 1,
+          "error": 0.5021304490331039,
+          "targetCells": 3049,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentIntermediate": [
+        {
+          "t": 0.125,
+          "error": 0.3758642363293526,
+          "targetCells": 1428,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.25,
+          "error": 0.565546218487395,
+          "targetCells": 618,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.375,
+          "error": 0.5549395161290323,
+          "targetCells": 1843,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.625,
+          "error": 0.5866379310344828,
+          "targetCells": 2255,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.75,
+          "error": 0.49137931034482757,
+          "targetCells": 1469,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.875,
+          "error": 0.4399301004805592,
+          "targetCells": 2202,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentAssessmentQualified": true,
+      "continuity": {
+        "maxVertexStepAtDeltaT005": 0.004192506936278943,
+        "minLightClearance": 2.0344387755102042,
+        "minScreenClearance": 2.5,
+        "persistentGeometryVerified": true,
+        "collisionCheck": "not performed; intersections allowed",
+        "loopClosure": "not guaranteed"
+      },
+      "targetsPreserved": true,
+      "independentAssessmentMs": 34.159405000000106,
+      "status": "measured"
+    },
+    {
+      "sequence": "unfamiliar_star_arrow_diamond",
+      "maxPieces": 8,
+      "fitAndProductionMeasurementMs": 73.48753899999997,
+      "actualPieces": 8,
+      "totalVertices": 32,
+      "authoredMaskError": 0.16153146321458212,
+      "authoredKeys": [
+        {
+          "t": 0,
+          "maskError": 0.2135523613963039,
+          "targetOccupiedCells": 2380
+        },
+        {
+          "t": 0.5,
+          "maskError": 0.12006633499170813,
+          "targetOccupiedCells": 2953
+        },
+        {
+          "t": 1,
+          "maskError": 0.15097569325573434,
+          "targetOccupiedCells": 2894
+        }
+      ],
+      "interpolatedMaskError": 0.35347962453397697,
+      "interpolatedMaximumError": 0.7552380952380953,
+      "noSolveBaselineMaskError": 0.30417872213705843,
+      "gridCoverage": [
+        {
+          "t": 0,
+          "uncoveredFraction": 0.1977401129943503,
+          "candidates": 354
+        },
+        {
+          "t": 0.5,
+          "uncoveredFraction": 0.0712401055408971,
+          "candidates": 379
+        },
+        {
+          "t": 1,
+          "uncoveredFraction": 0.13861386138613863,
+          "candidates": 404
+        }
+      ],
+      "independentAuthored": [
+        {
+          "t": 0,
+          "error": 0.21467603434816548,
+          "targetCells": 2516,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.5,
+          "error": 0.12381852551984877,
+          "targetCells": 3112,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 1,
+          "error": 0.14578587699316628,
+          "targetCells": 3049,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentIntermediate": [
+        {
+          "t": 0.125,
+          "error": 0.38334901222953904,
+          "targetCells": 1428,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.25,
+          "error": 0.7555350553505535,
+          "targetCells": 618,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.375,
+          "error": 0.33883980023050325,
+          "targetCells": 1843,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.625,
+          "error": 0.28520877565463554,
+          "targetCells": 2255,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.75,
+          "error": 0.5801043219076006,
+          "targetCells": 1469,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.875,
+          "error": 0.2763206501662357,
+          "targetCells": 2202,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentAssessmentQualified": true,
+      "continuity": {
+        "maxVertexStepAtDeltaT005": 0.015119570012960647,
+        "minLightClearance": 0.36989795918367374,
+        "minScreenClearance": 2.5,
+        "persistentGeometryVerified": true,
+        "collisionCheck": "not performed; intersections allowed",
+        "loopClosure": "not guaranteed"
+      },
+      "targetsPreserved": true,
+      "independentAssessmentMs": 73.07565799999998,
+      "status": "measured"
+    },
+    {
+      "sequence": "unfamiliar_star_arrow_diamond",
+      "maxPieces": 24,
+      "fitAndProductionMeasurementMs": 190.654589,
+      "actualPieces": 24,
+      "totalVertices": 96,
+      "authoredMaskError": 0.0776378302051885,
+      "authoredKeys": [
+        {
+          "t": 0,
+          "maskError": 0.10747103475829005,
+          "targetOccupiedCells": 2380
+        },
+        {
+          "t": 0.5,
+          "maskError": 0.07380560131795717,
+          "targetOccupiedCells": 2953
+        },
+        {
+          "t": 1,
+          "maskError": 0.05163685453931826,
+          "targetOccupiedCells": 2894
+        }
+      ],
+      "interpolatedMaskError": 0.3443648248524473,
+      "interpolatedMaximumError": 0.7602191319005478,
+      "noSolveBaselineMaskError": 0.30417872213705843,
+      "gridCoverage": [
+        {
+          "t": 0,
+          "uncoveredFraction": 0.0423728813559322,
+          "candidates": 354
+        },
+        {
+          "t": 0.5,
+          "uncoveredFraction": 0.0079155672823219,
+          "candidates": 379
+        },
+        {
+          "t": 1,
+          "uncoveredFraction": 0.009900990099009901,
+          "candidates": 404
+        }
+      ],
+      "independentAuthored": [
+        {
+          "t": 0,
+          "error": 0.10632621951219512,
+          "targetCells": 2516,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.5,
+          "error": 0.07507037847982484,
+          "targetCells": 3112,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 1,
+          "error": 0.04616864379608849,
+          "targetCells": 3049,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentIntermediate": [
+        {
+          "t": 0.125,
+          "error": 0.45118521494576136,
+          "targetCells": 1428,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.25,
+          "error": 0.7644942023190724,
+          "targetCells": 618,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.375,
+          "error": 0.3669950738916256,
+          "targetCells": 1843,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.625,
+          "error": 0.3140333660451423,
+          "targetCells": 2255,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.75,
+          "error": 0.5717678995588734,
+          "targetCells": 1469,
+          "outsideVertices": 0,
+          "qualified": true
+        },
+        {
+          "t": 0.875,
+          "error": 0.2873365450791466,
+          "targetCells": 2202,
+          "outsideVertices": 0,
+          "qualified": true
+        }
+      ],
+      "independentAssessmentQualified": true,
+      "continuity": {
+        "maxVertexStepAtDeltaT005": 0.035238738671319284,
+        "minLightClearance": 0.17468384993176223,
+        "minScreenClearance": 2.5,
+        "persistentGeometryVerified": true,
+        "collisionCheck": "not performed; intersections allowed",
+        "loopClosure": "not guaranteed"
+      },
+      "targetsPreserved": true,
+      "independentAssessmentMs": 153.03295300000013,
+      "status": "measured"
+    }
+  ],
+  "limitations": [
+    "Two finite fixtures; no general unseen-shape claim.",
+    "Intermediate targets are author-selected boundary morphs.",
+    "No collision or fabrication assessment.",
+    "One timing run per case; not a stable benchmark."
+  ]
+}
