@@ -173,3 +173,47 @@ node server.mjs
 ```
 
 The extracted package needs no CDN, generated bundle or transpilation. Receiving must exercise this extracted application as well as the source checkout. Checksums identify matching bytes; they are not signatures or public-release qualification.
+
+## Undo and redo target edits
+
+Use **Undo** and **Redo** below the target editing modes to reverse canvas moves,
+point edits, completed drawings, transform gestures, and added or removed moments.
+Outside text, number, range and other editable controls, Ctrl/Cmd+Z undoes,
+Ctrl/Cmd+Shift+Z redoes, and Ctrl+Y also redoes. Each completed pointer gesture is
+one step. Keyboard range changes follow the browser's individual change events.
+
+History restores the exact target sequence and selected moment. It keeps the
+current physical scene, cutout locks, construction settings and comparison
+baseline. The retained performance is marked as needing a new solve; a pending
+solve cannot replace the restored targets. A cancelled move keeps its last valid
+geometry and can be undone. Cancelling an unfinished drawing keeps the original
+silhouette.
+
+History lasts for the current session, with at most 32 retained edits and a
+4 MiB serialized snapshot budget. A changed edit after Undo starts a new branch;
+an unchanged or rejected edit keeps Redo available. New scenes and successful
+project replacements clear history. Saving a project saves its current targets
+and physical scene, without the session's Undo stack.
+
+Focused consumer receiving uses a real browser and the maintained HTTP server:
+
+```sh
+SHADOW_STAGE_URL=http://127.0.0.1:4318 \
+SHADOW_STAGE_EVIDENCE=/tmp/shadow-stage-history \
+node tests/target-history-receiving.mjs
+```
+
+With the pinned previous source served separately, the baseline comparison uses
+the same imported document, viewport and drag in both versions:
+
+```sh
+SHADOW_STAGE_BASELINE_URL=http://127.0.0.1:4319 \
+SHADOW_STAGE_URL=http://127.0.0.1:4318 \
+SHADOW_STAGE_EVIDENCE=/tmp/shadow-stage-history-baseline \
+node tests/target-history-baseline.mjs
+```
+
+Both scripts require the receiving host's Playwright installation, preserve the
+Chromium sandbox, and accept an existing Chrome binary through
+`PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. No browser dependency is needed to run the
+studio itself.

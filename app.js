@@ -7,6 +7,7 @@ import {recordPerformance,videoCapability} from './src/video.js';
 import {applySceneProposal} from './src/scene-proposals.js';
 import {newProject, serializeProject, parseProject} from './src/project.js';
 import {applyProposal} from './src/proposals.js';
+import {TargetHistory} from './src/target-history.js';
 
 const $=id=>document.getElementById(id), copy=value=>structuredClone(value);
 const canvas=$('stageCanvas'), ctx=canvas.getContext('2d'), rig=$('rigCanvas'), rigCtx=rig.getContext('2d');
@@ -23,6 +24,8 @@ let project=newProject(preset('flight')), time=0, active=0, playing=false, lastF
 project.title='Paper flight';project.duration=8;
 let view={width:0,height:0,scale:1,cx:0,cy:0}, solveSequence=0, loadEpoch=0, modelAvailable=false, solverWorker=null, selectedCutout='cutout-1';
 let comparisonController=null,transitionController=null,videoController=null,lastVideoReceipt=null;
+const targetHistory=new TargetHistory();
+let sliderEdit=null;
 function announce(text,error=false){$('notice').textContent=text;$('notice').classList.toggle('error',error);}
 function setPlaying(value){if(value&&time>=1)setTime(0);playing=value;lastFrame=0;$('playButton').textContent=value?'Ⅱ':'▶';$('playButton').setAttribute('aria-label',value?'Pause performance':'Play performance');}
 function setTime(t){time=Math.max(0,Math.min(1,Number(t)||0));$('timeline').value=time;syncPhysical();render();}
@@ -90,7 +93,52 @@ function filmstrip(){
 }
 function resetTransform(){editBase=copy(project.targets[active].polygon);for(const [id,v] of [['targetX',0],['targetY',0],['targetScale',1],['targetAngle',0]])$(id).value=v;showTransform();}
 function showTransform(){for(const id of ['targetX','targetY'])$(id+'Value').textContent=(+$(id).value>=0?'+':'')+(+$(id).value).toFixed(2);$('targetScaleValue').textContent=(+$('targetScale').value).toFixed(2)+'×';$('targetAngleValue').textContent=$('targetAngle').value+'°';}
-function selectMoment(i){active=Math.max(0,Math.min(project.targets.length-1,Number(i)));setPlaying(false);resetTransform();filmstrip();setTime(project.targets[active].t);}
+function targetSnapshot(){return {targets:copy(project.targets),active};}
+function syncTargetHistory(){
+ const state=targetHistory.state();
+ $('undoTargetEdit').disabled=!state.canUndo;$('redoTargetEdit').disabled=!state.canRedo;
+}
+function commitTargetEdit(before,label){
+ const result=targetHistory.commit(before,targetSnapshot(),label);syncTargetHistory();return result;
+}
+function historyLimitNotice(result){
+ if(result.status==='oversize')announce('Target kept. This edit exceeded the session history limit, so earlier Undo steps were cleared.');
+}
+function finishSliderEdit(){
+ if(!sliderEdit)return;
+ const edit=sliderEdit;sliderEdit=null;
+ historyLimitNotice(commitTargetEdit(edit.before,'Transform silhouette'));
+}
+function finishTargetEdit(){
+ // A pending drawing is a preview; accepted point/move geometry is retained.
+ finishPointer(null,false);finishSliderEdit();
+}
+function applyTargetHistory(direction){
+ finishTargetEdit();
+ const result=targetHistory[direction](targetSnapshot());
+ if(result.status!=='applied'){
+  syncTargetHistory();
+  if(result.status==='stale')announce('The targets changed outside this edit history. Earlier Undo steps were cleared.');
+  return false;
+ }
+ cancelSolve();
+ project.targets=result.snapshot.targets;active=result.snapshot.active;
+ resetTransform();targetChanged();syncTargetHistory();
+ announce((direction==='undo'?'Undid':'Redid')+' target edit. The last physical performance is retained; solve again when ready.');
+ return true;
+}
+$('undoTargetEdit').addEventListener('click',()=>applyTargetHistory('undo'));
+$('redoTargetEdit').addEventListener('click',()=>applyTargetHistory('redo'));
+document.addEventListener('keydown',event=>{
+ const target=event.target;
+ if(event.defaultPrevented||event.repeat||event.altKey||!(event.ctrlKey||event.metaKey)||
+    target?.isContentEditable||target?.closest?.('input,textarea,select,[role="textbox"]'))return;
+ const key=event.key.toLowerCase();
+ const direction=key==='z'?(event.shiftKey?'redo':'undo'):
+   key==='y'&&event.ctrlKey&&!event.shiftKey?'redo':null;
+ if(direction&&applyTargetHistory(direction))event.preventDefault();
+});
+function selectMoment(i){finishTargetEdit();active=Math.max(0,Math.min(project.targets.length-1,Number(i)));setPlaying(false);resetTransform();filmstrip();setTime(project.targets[active].t);}
 function targetChanged(){showPreset();cancelSolve();dirty=true;manual=false;setPlaying(false);time=project.targets[active].t;filmstrip();showReport();render();announce('Target changed. The last physical performance is retained; find its new motion when ready.');}
 function showReport(){
  if(report?.unresolved){$('fitStatus').textContent='Fit could not be resolved';for(const id of ['keyError','betweenError','baselineError'])$(id).textContent='—';$('fitDescription').textContent=report.reason;return;}
@@ -103,6 +151,7 @@ function showReport(){
 }
 function cancelSolve(){comparisonController?.invalidate();transitionController?.invalidate();solveSequence++;if(solverWorker)solverWorker.terminate();solverWorker=null;$('solveButton').disabled=false;$('solveButton').textContent='✦ Find the performance';$('refineButton').disabled=!isArticulated(project.scene);}
 function solve(action='fit'){
+ finishTargetEdit();
  if(typeof action!=='string')action='fit';
  if(action!=='refine'&&isArticulated(project.scene)&&project.lockedCutouts?.length)action='refine';
  if(action==='refine'&&!isArticulated(project.scene))return;
@@ -142,6 +191,7 @@ function showPreset(name='current'){
  picker.value=name;
 }
 function loadProject(next,{preserveComparisonBaseline=false}={}){
+ finishTargetEdit();targetHistory.clear();syncTargetHistory();
  showPreset();
  cancelSolve();if(!preserveComparisonBaseline)comparisonController?.resetProject();transitionController?.resetProject();loadEpoch++;project=next;selectedCutout='cutout-1';active=0;time=0;dirty=false;manual=false;pendingProposal=null;fittedScene=next.scene?copy(next.scene):null;report=next.scene?safelyMeasure(next.scene,next.targets):null;setPlaying(false);
  $('duration').value=project.duration;$('constructionMode').value=project.construction?.mode||(isArticulated(project.scene)?'pieces':'single');const budget=project.construction?.maxPieces||12;if(![...$('pieceBudget').options].some(o=>+o.value===budget))$('pieceBudget').add(new Option(String(budget),String(budget)));$('pieceBudget').value=budget;syncConstruction();
@@ -151,7 +201,17 @@ function reset(name='flight'){const p=newProject(preset(name));p.title=name==='o
 
 $('solveButton').addEventListener('click',solve);$('playButton').addEventListener('click',()=>setPlaying(!playing));$('timeline').addEventListener('input',()=>{setPlaying(false);setTime($('timeline').value);});
 $('targetSelect').addEventListener('change',()=>selectMoment($('targetSelect').value));
-for(const id of ['targetX','targetY','targetScale','targetAngle'])$(id).addEventListener('input',()=>{const p=transformed(editBase,{x:+$('targetX').value,y:+$('targetY').value,scale:+$('targetScale').value,angle:+$('targetAngle').value});try{const targets=copy(project.targets);targets[active].polygon=p;project.targets=validateTargets(targets);showTransform();targetChanged();}catch(e){announce(e.message,true);}});
+for(const id of ['targetX','targetY','targetScale','targetAngle']){
+ const input=$(id);
+ input.addEventListener('input',()=>{
+  if(sliderEdit?.id!==id){finishTargetEdit();sliderEdit={id,before:targetSnapshot()};}
+  const values={x:+$('targetX').value,y:+$('targetY').value,scale:+$('targetScale').value,angle:+$('targetAngle').value};
+  const p=values.x===0&&values.y===0&&values.scale===1&&values.angle===0?copy(editBase):transformed(editBase,values);
+  try{const targets=copy(project.targets);targets[active].polygon=p;project.targets=validateTargets(targets);showTransform();targetChanged();}
+  catch(e){announce(e.message,true);}
+ });
+ for(const event of ['change','blur','pointercancel'])input.addEventListener(event,()=>{if(sliderEdit?.id===id)finishSliderEdit();});
+}
 $('lightShare').addEventListener('input',()=>{cancelSolve();$('lightShareValue').textContent=Math.round(+$('lightShare').value*100)+'%';announce('Motion balance changed. Find the performance to apply it.');});
 for(const [id,kind] of [['lightX','x'],['lightY','y'],['occluderDepth','depth']]){$(id).addEventListener('input',()=>editPhysical(kind,+$(id).value));$(id).addEventListener('change',remeasure);}
 $('resetRig').addEventListener('click',()=>{if(fittedScene){cancelSolve();project.scene=copy(fittedScene);manual=false;remeasure();syncPhysical();render();announce('Restored the last fitted motion.');}});
@@ -159,17 +219,55 @@ $('duration').addEventListener('change',()=>{const d=+$('duration').value;if(!Nu
 for(const id of ['showTarget','showTrail'])$(id).addEventListener('change',render);
 $('newProject').addEventListener('click',()=>{$('presetSelect').value='flight';reset('flight');announce('New Paper flight scene. Previous exported projects are unchanged.');});
 $('presetSelect').addEventListener('change',()=>reset($('presetSelect').value));
-$('saveProject').addEventListener('click',()=>{try{download(filename()+'.json','application/json',serializeProject(project));announce('Editable project download prepared. Open it in this studio to resume.');}catch(e){announce(e.message,true);}});
+$('saveProject').addEventListener('click',()=>{finishTargetEdit();try{download(filename()+'.json','application/json',serializeProject(project));announce('Editable project download prepared. Open it in this studio to resume.');}catch(e){announce(e.message,true);}});
 $('importProject').addEventListener('change',async e=>{const f=e.target.files?.[0],generation=++importGeneration,epoch=loadEpoch;if(!f)return;try{if(f.size>2*1024*1024)throw new Error('Project exceeds 2 MiB.');const p=parseProject(await f.text());if(generation!==importGeneration||epoch!==loadEpoch)return;loadProject(p);announce('Opened '+f.name+' with its editable targets and physical scene.');}catch(error){if(generation===importGeneration&&epoch===loadEpoch)announce('Project was not opened: '+error.message,true);}finally{if(generation===importGeneration)e.target.value='';}});
 $('exportSVG').addEventListener('click',exportSVG);$('exportPlayer').addEventListener('click',exportPlayer);
-$('addMoment').addEventListener('click',()=>{if(project.targets.length>=12){announce('The studio supports up to 12 authored moments.',true);return;}if(project.targets.length===1){const t=project.targets[0].t<.5?1:0;project.targets.push({t,polygon:copy(project.targets[0].polygon)});project.targets.sort((a,b)=>a.t-b.t);active=project.targets.findIndex(k=>k.t===t);}else{let index=0,gap=-1;for(let i=0;i<project.targets.length-1;i++){const g=project.targets[i+1].t-project.targets[i].t;if(g>gap){gap=g;index=i;}}const t=(project.targets[index].t+project.targets[index+1].t)/2;const p=targetAt(project.targets,t);project.targets.splice(index+1,0,{t,polygon:p});active=index+1;}resetTransform();targetChanged();});
-$('removeMoment').addEventListener('click',()=>{if(project.targets.length<=2)return;project.targets.splice(active,1);active=Math.min(active,project.targets.length-1);resetTransform();targetChanged();});
-function setMode(value){mode=value;$('moveMode').classList.toggle('active',value==='move');$('drawMode').classList.toggle('active',value==='draw');$('moveMode').setAttribute('aria-pressed',value==='move');$('drawMode').setAttribute('aria-pressed',value==='draw');$('editHint').textContent=value==='draw'?'Draw one simple closed silhouette on the stage. A self-crossing outline is kept out of the physical scene.':'Drag a point or the outline on the stage. Editing a target preserves the last performance until you solve again.';render();}
+$('addMoment').addEventListener('click',()=>{finishTargetEdit();if(project.targets.length>=12){announce('The studio supports up to 12 authored moments.',true);return;}const before=targetSnapshot();if(project.targets.length===1){const t=project.targets[0].t<.5?1:0;project.targets.push({t,polygon:copy(project.targets[0].polygon)});project.targets.sort((a,b)=>a.t-b.t);active=project.targets.findIndex(k=>k.t===t);}else{let index=0,gap=-1;for(let i=0;i<project.targets.length-1;i++){const g=project.targets[i+1].t-project.targets[i].t;if(g>gap){gap=g;index=i;}}const t=(project.targets[index].t+project.targets[index+1].t)/2;const p=targetAt(project.targets,t);project.targets.splice(index+1,0,{t,polygon:p});active=index+1;}resetTransform();targetChanged();historyLimitNotice(commitTargetEdit(before,'Add moment'));});
+$('removeMoment').addEventListener('click',()=>{finishTargetEdit();if(project.targets.length<=2)return;const before=targetSnapshot();project.targets.splice(active,1);active=Math.min(active,project.targets.length-1);resetTransform();targetChanged();historyLimitNotice(commitTargetEdit(before,'Remove moment'));});
+function setMode(value){finishTargetEdit();mode=value;$('moveMode').classList.toggle('active',value==='move');$('drawMode').classList.toggle('active',value==='draw');$('moveMode').setAttribute('aria-pressed',value==='move');$('drawMode').setAttribute('aria-pressed',value==='draw');$('editHint').textContent=value==='draw'?'Draw one simple closed silhouette on the stage. A self-crossing outline is kept out of the physical scene.':'Drag a point or the outline on the stage. Editing a target preserves the last performance until you solve again.';render();}
 $('moveMode').addEventListener('click',()=>setMode('move'));$('drawMode').addEventListener('click',()=>setMode('draw'));
-canvas.addEventListener('pointerdown',e=>{if(e.button!==0)return;setPlaying(false);setTime(project.targets[active].t);const p=inverse(e);canvas.setPointerCapture(e.pointerId);if(mode==='draw'){drawn=[p];drag={type:'draw'};$('drawingMessage').hidden=false;}else{const polygon=project.targets[active].polygon;let point=-1,dist=14/view.scale;polygon.forEach((v,i)=>{const d=Math.hypot(v[0]-p[0],v[1]-p[1]);if(d<dist){point=i;dist=d;}});drag={type:point>=0?'point':'move',point,start:p,base:copy(polygon)};}});
-canvas.addEventListener('pointermove',e=>{if(!drag)return;const p=inverse(e);if(drag.type==='draw'){const last=drawn.at(-1);if(drawn.length<180&&Math.hypot(p[0]-last[0],p[1]-last[1])>.035)drawn.push(p);render();return;}let polygon=copy(drag.base);if(drag.type==='point')polygon[drag.point]=p;else polygon=polygon.map(v=>[v[0]+p[0]-drag.start[0],v[1]+p[1]-drag.start[1]]);try{const targets=copy(project.targets);targets[active].polygon=polygon;comparisonController?.invalidate('Targets changed. Compare again.');project.targets=validateTargets(targets);transitionController?.invalidate('Targets changed. Prepare a new transition preview.');dirty=true;render();}catch{/* Keep the last valid polygon while the pointer crosses an invalid boundary. */}});
-function finishPointer(e){if(!drag)return;if(drag.type==='draw'){try{const targets=copy(project.targets);targets[active].polygon=drawn;project.targets=validateTargets(targets);targetChanged();}catch(error){announce('That outline was not kept: '+error.message,true);}drawn=[];$('drawingMessage').hidden=true;}else targetChanged();drag=null;resetTransform();render();}
-canvas.addEventListener('pointerup',finishPointer);canvas.addEventListener('pointercancel',()=>{if(drag&&drag.type!=='draw'){resetTransform();targetChanged();}drag=null;drawn=[];$('drawingMessage').hidden=true;render();});
+canvas.addEventListener('pointerdown',e=>{
+ if(e.button!==0||drag)return;
+ finishSliderEdit();setPlaying(false);setTime(project.targets[active].t);
+ const p=inverse(e),before=targetSnapshot();
+ canvas.setPointerCapture(e.pointerId);
+ if(mode==='draw'){drawn=[p];drag={type:'draw',pointerId:e.pointerId,before};$('drawingMessage').hidden=false;}
+ else{
+  const polygon=project.targets[active].polygon;let point=-1,dist=14/view.scale;
+  polygon.forEach((v,i)=>{const d=Math.hypot(v[0]-p[0],v[1]-p[1]);if(d<dist){point=i;dist=d;}});
+  drag={type:point>=0?'point':'move',pointerId:e.pointerId,before,point,start:p,base:copy(polygon)};
+ }
+});
+canvas.addEventListener('pointermove',e=>{
+ if(!drag||e.pointerId!==drag.pointerId)return;
+ const p=inverse(e);
+ if(drag.type==='draw'){
+  const last=drawn.at(-1);if(drawn.length<180&&Math.hypot(p[0]-last[0],p[1]-last[1])>.035)drawn.push(p);
+  render();return;
+ }
+ let polygon=copy(drag.base);
+ if(drag.type==='point')polygon[drag.point]=p;
+ else polygon=polygon.map(v=>[v[0]+p[0]-drag.start[0],v[1]+p[1]-drag.start[1]]);
+ try{
+  const targets=copy(project.targets);targets[active].polygon=polygon;
+  const accepted=validateTargets(targets);project.targets=accepted;cancelSolve();dirty=true;render();
+ }catch{/* Keep the last valid polygon while the pointer crosses an invalid boundary. */}
+});
+function finishPointer(event,acceptDraw=true){
+ if(!drag||(event&&event.pointerId!==drag.pointerId))return;
+ const gesture=drag,outline=drawn;drag=null;drawn=[];$('drawingMessage').hidden=true;
+ if(gesture.type==='draw'&&acceptDraw){
+  try{const targets=copy(project.targets);targets[active].polygon=outline;project.targets=validateTargets(targets);}
+  catch(error){announce('That outline was not kept: '+error.message,true);}
+ }
+ const result=commitTargetEdit(gesture.before,gesture.type==='draw'?'Draw silhouette':'Move silhouette');
+ if(result.status==='applied'||result.status==='oversize')targetChanged();
+ historyLimitNotice(result);resetTransform();render();
+ if(canvas.hasPointerCapture(gesture.pointerId))canvas.releasePointerCapture(gesture.pointerId);
+}
+canvas.addEventListener('pointerup',event=>finishPointer(event,true));
+canvas.addEventListener('pointercancel',event=>finishPointer(event,false));
+canvas.addEventListener('lostpointercapture',event=>finishPointer(event,false));
 
 async function modelStatus(){try{const r=await fetch('/api/status');const s=await r.json();modelAvailable=!!s.configured;$('proposeButton').disabled=!modelAvailable;$('modelStatus').textContent=modelAvailable?`Configured: ${s.model} on Nebius. A proposal is editable and needs your adoption.`:'Local studio ready. No Nebius credential is configured on this host; no model call has been made.';}catch{modelAvailable=false;$('proposeButton').disabled=true;$('modelStatus').textContent='Local studio ready. Model connection is unavailable.';}}
 async function requestSuggestion(){
@@ -231,4 +329,4 @@ async function exportVideo(){
  finally{if(videoController===controller)videoController=null;syncVideo();}
 }
 $('exportVideo').addEventListener('click',exportVideo);$('cancelVideo').addEventListener('click',()=>videoController?.abort());
-bindConstruction();syncConstruction();resetTransform();filmstrip();syncPhysical();render();solve();modelStatus();requestAnimationFrame(frame);
+bindConstruction();syncConstruction();syncTargetHistory();resetTransform();filmstrip();syncPhysical();render();solve();modelStatus();requestAnimationFrame(frame);

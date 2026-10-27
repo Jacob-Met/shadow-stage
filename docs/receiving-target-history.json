@@ -1,0 +1,171 @@
+{
+  "schema": "shadow-stage-target-history-receiving-v1",
+  "date": "2026-10-27",
+  "status": "functional_checks_passed_visual_review_pending",
+  "actor": "estate-3093ab-20261027",
+  "task": "shadow-stage-target-edit-history-3093ab",
+  "primary_owner": "estate95a-20261027",
+  "base_commit": "2ef7d2222331106bc99c7fb29ff8eb91803546e9",
+  "package": {
+    "sha256": "e2c5f1ed624b4d82b7c1eecd62f2af4b5f278867a8f0fd5d144174c5d49509b6",
+    "bytes": 390869,
+    "source_files": 43,
+    "identical_builds": 2
+  },
+  "source_blobs": {
+    ".gitignore": "e544cc83f34bb9272b931ef20ecb260f1e1dda86",
+    "README.md": "2ef6a598e1e77cd3808e60485e2bf654e74d3d04",
+    "app.js": "f2d813be25003dcde55a1092b0230d9164f35746",
+    "docs/RECEIVING-v10.md": "383f07a71798fbfa9540ae6d34cabb410dc20fe9",
+    "docs/RECEIVING-v11b.md": "145b37dcc001a255fa4928dec3895849f69046d7",
+    "docs/RECEIVING-v9.md": "cc750c4f81173fb6f8bd6e4b57bb3c17bfa3f047",
+    "docs/RECEIVING.md": "1e86a82a20c510d51104bf6235db9383fcc8e68c",
+    "docs/geometry-quality.json": "816c6f1c176754a5aedfe3326f78ae95396dd974",
+    "docs/receiving-checkpoint.md": "725d0098f984696cf1948d921f3e4f9eb9fcc597",
+    "docs/receiving-v10.json": "7858582630a9138395f64ed64b37ce06704f52e3",
+    "docs/receiving-v11b.json": "5e37773e5861325281bc1749972ffc7a525ee825",
+    "docs/receiving-v9.json": "9136c65c9fad4684a85246f697c21d56f59208c1",
+    "index.html": "fb0b04d2a657c0f9668894d993f285e0d845154a",
+    "package.json": "f8d217c193c4e8c9e57bf2cef0b44e4bfd61177e",
+    "scripts/package.py": "04102cf8d4052c3d2046b91054b589d986548fcc",
+    "scripts/transition-experiment.mjs": "1cfab1bb0bb96776ba57d206ae631286530d113a",
+    "server.mjs": "96363dddcc4629e61425879325c74e11c9f06085",
+    "src/articulated.js": "cd1e967b802f4a03294cd7a8bd6f58fe84ab683d",
+    "src/comparison-ui.js": "1931e6872c907c93e2d272689e3356b7d46b9aae",
+    "src/comparison.js": "086a192e9ebd0de3d30ef657cc4d083d1aebdad1",
+    "src/core.js": "5b3206608002873d8ce918692ecc48e8f0127efa",
+    "src/player.js": "165bbe505068666a40fba9d5c37d02cf6475c071",
+    "src/project.js": "0c532e0b508a00a906aa7e636e95a4ba4a70202e",
+    "src/proposals.js": "8a0598aef468fc189a0a8dd0f6999a0144f30d52",
+    "src/runtime.js": "17d9b2ee47ccb843a0267640de5608c66995cb38",
+    "src/scene-proposals.js": "ec70ca7a9bf74e9df6431e0dd04e8ef6143ba68e",
+    "src/solver-worker.js": "77a1a1648fd3ddc31404ab5ccffb9d674bec7f2d",
+    "src/target-history.js": "6536cf0f1486059ffc04090ce34e03a86154f899",
+    "src/transition-ui.js": "c8352f804b53199619c2fcf860610d231d468212",
+    "src/transition.js": "a3654b3d5cdd5b6683f296d5ef57bf5113c89bda",
+    "src/video.js": "69447ad53643aad5ce880785b9efc391a4f4ccd6",
+    "styles.css": "853127d14b8c4ae60736afceac4710d666869dc1",
+    "tests/articulated-receiving.test.js": "a5a52077431fa382baefe9707dd63536d7f3b276",
+    "tests/articulated.test.js": "0a4c22ef932a1a22339656db95d97d11ceb6f487",
+    "tests/browser-receiving.mjs": "ea4f580e1e61256027f4f53b8e09d18ba4e80530",
+    "tests/comparison-browser.mjs": "931bce22a1b32d8449e4ad5d7c756b45000cd828",
+    "tests/comparison-receiving.mjs": "0863f7b6a15dc7d919ee14b931cad67420544619",
+    "tests/comparison.test.js": "139ecac902d16e20768e74d51a7fb5e32f276f98",
+    "tests/core.test.js": "19003bfb18600d03a24c1946cb29249b850a21a1",
+    "tests/project.test.js": "0f97a984bc65ad2c2cdb1fdf32a87b3775aad171",
+    "tests/proposals.test.js": "92a0962e7dc139f2eb1808d8f83012e8315e083b",
+    "tests/receiving.test.js": "5659ba5bf38bf6ed96bde2184283c6dfe555db1b",
+    "tests/scene-proposals.test.js": "6169187226883e0023dfad245fa9605bcee8e9f7",
+    "tests/server.test.js": "6b7da8fa4f5fd063eea91d0c9e98cef08cb88f8e",
+    "tests/target-history-baseline.mjs": "acaaac2dab1859b146ab29f0383baa2c5701509f",
+    "tests/target-history-receiving.mjs": "e2588da94e3f163b0a67564514d0985601ad083d",
+    "tests/target-history.test.js": "f305606b04ec5d06aa8e3f2915556b5b3f6ac5f6",
+    "tests/transition-receiving.mjs": "28ebc0e427ebb538934e49d62ec666098cdbb7f2",
+    "tests/transition.test.js": "9d20a318dd8ca57cef3d9da0132604c7400087ec",
+    "tests/video-browser.mjs": "a14dd912c34311aa0b76902c5d568f1a3236b605",
+    "tests/video-probe.mjs": "2dd494d06d445fd6c9b1056020a7c0bb28520577",
+    "tests/video-production-receiving.mjs": "97ffd52f23251eec29be8ca241a96d7203b621ad",
+    "tests/video-scene-receiving.mjs": "9bc8fefb96689d0c2dd03d733467022453a913d2"
+  },
+  "execution": {
+    "executor": "root through Renpō",
+    "owner": "node-903c4f10ea2c1b62a63348ff2b40705e",
+    "incarnation": "8824dba795253939b7e2a4e0c75a11e4",
+    "binding_generation": 2,
+    "operation_id": "estate-3093ab-current-main-receiving-002",
+    "command_id": "estate-3093ab-current-main-receiving-002",
+    "request_sha256": "b1395204db362de165573672bb206dc16211e13f0ca7e052e60167544c613598",
+    "receipt": {
+      "command_id": "estate-3093ab-current-main-receiving-002",
+      "request_sha256": "b1395204db362de165573672bb206dc16211e13f0ca7e052e60167544c613598",
+      "generation": "8164d97d0842f60def31752ab8b3dce9f611494f93efb1349bac2bbbb837b582",
+      "state": "completed",
+      "runner_pid": 91869,
+      "started_at": "2026-10-27T08:05:13.024932105Z",
+      "finished_at": "2026-10-27T08:05:37.910433227Z",
+      "exit_code": 0
+    },
+    "native_tests": {
+      "passed": 77,
+      "failed": 0
+    },
+    "history_browser_clusters": {
+      "passed": 11
+    },
+    "transition_browser_checks": {
+      "passed": 17
+    },
+    "baseline_comparison": {
+      "baselineURL": "http://127.0.0.1:41915",
+      "candidateURL": "http://127.0.0.1:33003",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "passed": true,
+      "gesture": {
+        "from": [
+          0,
+          0
+        ],
+        "to": [
+          0.19,
+          0.13
+        ],
+        "steps": 12
+      },
+      "bothDragsChangedTargets": true,
+      "identicalEdits": true,
+      "baselineRetainedEdit": true,
+      "candidateRestoredOriginal": true,
+      "physicalScenePreserved": true,
+      "targetHashes": {
+        "original": "0a9b9a6d5a3946c2126b6a56fe9f69dd666a7cef702997eb48bc8dc699276359",
+        "edited": "5cbcb95b8903361675c618166ae668cc0c376ac39850b39b8a50bc08d34cf72b",
+        "baselineAfter": "5cbcb95b8903361675c618166ae668cc0c376ac39850b39b8a50bc08d34cf72b",
+        "candidateAfter": "0a9b9a6d5a3946c2126b6a56fe9f69dd666a7cef702997eb48bc8dc699276359"
+      }
+    },
+    "browser": {
+      "sandbox": true,
+      "csp_preserved": true,
+      "run_as": "ubuntu",
+      "executable": "/home/ubuntu/.cache/ms-playwright/chromium-1148/chrome-linux/chrome",
+      "dependency_root": "/home/ubuntu/.npm/_npx/f0a362733743bae2/node_modules"
+    }
+  },
+  "artifacts": {
+    "receiver_root": "/home/ubuntu/work/jobs/estate-3093ab-history-independent-receiving-001",
+    "extracted": "v3-extracted/shadow-stage",
+    "native_log": "v3-native.log",
+    "history_receipt": "v3-consumer/receipt.json",
+    "history_images": [
+      "v3-consumer/01-canvas-history.png",
+      "v3-consumer/02-solver-cancellation.png",
+      "v3-consumer/03-narrow-history.png"
+    ],
+    "baseline_receipt": "v3-baseline-comparison/receipt.json",
+    "transition_receipt": "v3-transition-regression/transition-receiving.json",
+    "publication_source": "/var/tmp/estate-3093ab-shadow-target-history/qualified-source",
+    "publication_package": "/var/tmp/estate-3093ab-shadow-target-history/qualified-package/shadow-stage.zip",
+    "reconstruction_operation": "estate-3093ab-qualified-publication-reconstruct-001",
+    "reconstruction_owner": "node-2b8c9803b6069b758adef320e07b48ed"
+  },
+  "visual_review": {
+    "status": "pending",
+    "reason": "Existing receiver screenshots could not yet be retrieved through the current Renpō gateway; alternate host Chromium has no usable sandbox under existing policy.",
+    "security_unchanged": true
+  },
+  "review_provenance": {
+    "source_recovery": "Scoped source/event review; no remaining must-fix identified; did not execute tests.",
+    "consumer_review": "Assessed root's reported functional evidence and claim limits; did not execute tests or inspect pixels.",
+    "service_route": "Designed and reviewed baseline probe, then assessed root's execution report; not an independent execution."
+  },
+  "claim_limits": [
+    "Editable-control check establishes shortcut ownership, not actual native browser text undo.",
+    "Locked custody fixture uses one nonempty locked piece in articulated mode, maxPieces 1, lightShare 0.31.",
+    "The same-turn target edit plus Undo sequence collectively terminates the pending real solver; no sole-cause claim for Undo.",
+    "Rendered desktop and narrow visual review is pending; automated visibility checks are not a visual assessment.",
+    "This increment does not qualify model inference, fabrication, collision, public release, or the complete parent product outcome."
+  ]
+}
