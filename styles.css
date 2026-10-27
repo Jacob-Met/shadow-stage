@@ -17,3 +17,5 @@
 .transition-metrics{border-collapse:collapse;margin-block:1rem}
 .transition-metrics caption{text-align:left;margin-bottom:.5rem}
 .transition-metrics th,.transition-metrics td{text-align:left;padding:.35rem .75rem .35rem 0;font-variant-numeric:tabular-nums}
+
+.target-history{margin:12px 0}.target-history button:disabled{cursor:default;transform:none}.target-history button:disabled:hover{background:transparent}
