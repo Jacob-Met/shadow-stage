@@ -19,7 +19,8 @@ Open `http://127.0.0.1:4318`. The server binds to loopback by default; `HOST` an
 3. Scrub or play the result. The dashed target and rendered shadow expose remaining mismatch.
 4. Edit the light or select a physical cutout and change its translation, rotation or depth. Lock a cutout's motion to preserve its full track during refinement.
 5. Keep a baseline and compare another unlocked construction under shared settings. Inspect all four states, then explicitly adopt one or undo the last selection.
-6. Save the editable project, export a projected SVG frame, download a standalone HTML player, or record the physical performance as WebM.
+6. For a multi-piece scene, prepare a separate transition preview. Scrub original and candidate motion together, inspect physical poses and the shape-versus-motion tradeoff, then explicitly adopt or keep the original.
+7. Save the editable project, export a projected SVG frame, download a standalone HTML player, or record the physical performance as WebM.
 
 Solving runs in a module worker. A new project, incoming import, changed target, physical edit or lock change cancels older work. Completion also checks the dispatch generation and the captured project contents before committing.
 
@@ -50,6 +51,18 @@ Four synchronized previews show baseline/current before and after refinement. On
 Actual candidate attempts, raster evaluations and measurement work remain visible. Equal configured budgets do not imply equal actual work. No score identifies a model winner or establishes continuous-time coverage.
 
 Adoption is explicit. It preserves targets and existing proposal records; those records describe their historical response, not necessarily the newly selected geometry. **Undo last comparison adoption** restores the preceding scene while that adoption is still the latest project change. Session history retains at most three entries and 8 MiB. New/open projects clear it; project JSON does not save this comparison undo history.
+
+## Explore transition motion
+
+**Prepare transition preview** creates a separate multi-piece performance from the current scene. It inserts physical poses between authored moments and searches their translation and depth against the chosen target boundary morph. Existing physical keys, piece identities, local geometry and the light remain fixed. Locked pieces retain their full tracks.
+
+The current project stays unchanged during calculation, scrubbing and synchronized playback. Original and candidate shadows share a fixed camera and time; clipping is disclosed rather than silently changing the view. The dashed outline is an author-selected intermediate morph, not an observed silhouette. Normal and quarter-speed playback, the quarter-time shortcut and a worst-held-out shortcut help locate difficult passages.
+
+The panel retains original, inserted-key and final held-out errors. It also shows the sampled maximum vertex step and explicitly warns when that measure worsens. The eight-second paper→triangle→square receiving fixture improves sampled silhouette fit while moving some projected vertices farther between samples. Added smoothstep keys introduce zero-velocity moments and may cause hesitant motion. A numerical mask criterion is not an artistic judgment.
+
+Select a physical piece and scrub to inspect its current original/candidate position, height, rotation and light clearance, alongside its fixed vertices and editable motion keys. **Adopt this motion** is explicit and preserves targets, locks and historical proposal custody. It invalidates old comparison scores while retaining the comparison baseline and bounded recovery history. The comparison can run again immediately.
+
+**Undo motion adoption — this session** restores the prior scene while no later project edit has intervened. Opening or creating a project clears transition preview and session undo. After adoption, **Dismiss comparison** only closes the retained preview; undo is the action that restores the previous motion. Normal project export includes an adopted scene, never an unadopted preview.
 
 ## Physical model and motion
 
@@ -132,6 +145,12 @@ node tests/video-browser.mjs
 ```
 
 Video receiving additionally requires existing `ffmpeg` and `ffprobe` executables. It observes native capture tracks, cancellation and recovery, downloads the actual file, opens fresh playback, decodes the complete stream and checks selected decoded frames against an independent ray/union oracle. Timing correspondence retains uncertainty and all plausible request intervals; it does not equate encoded frame index with request index. Its three-second foreground fixture does not qualify every duration or browser.
+
+The transition course exercises actual fitting and module workers, immutable preview, live physical pose inspection, original/adopt/undo paths, preservation of comparison baseline/history, immediate subsequent comparison, exact locked tracks, cancellation, stale edits, downloaded project reopening, responsive layout and the served CSP:
+
+```sh
+SHADOW_STAGE_URL=http://127.0.0.1:4318 SHADOW_STAGE_EVIDENCE=/path/to/transition-evidence node tests/transition-receiving.mjs
+```
 
 The comparison proposal-adoption journey uses a controlled local response marked `executed:false`. It tests lifecycle behavior only; it is not inference evidence.
 

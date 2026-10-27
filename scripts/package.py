@@ -15,6 +15,7 @@ FILES = (
     'src/player.js',
     'src/solver-worker.js',
     'src/comparison.js', 'src/comparison-ui.js', 'src/video.js',
+    'src/transition.js', 'src/transition-ui.js', 'tests/transition.test.js', 'tests/transition-receiving.mjs',
     'tests/comparison.test.js', 'tests/comparison-receiving.mjs', 'tests/comparison-browser.mjs',
     'tests/video-scene-receiving.mjs', 'tests/video-production-receiving.mjs', 'tests/video-browser.mjs',
     'tests/video-probe.mjs',
