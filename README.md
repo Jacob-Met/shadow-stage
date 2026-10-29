@@ -164,10 +164,13 @@ These are sampled geometric measures, including vertices hidden inside an opaque
 
 The focused motion course is intended to exercise real native workers and check preview custody, live pose references, return/adopt/dismiss/undo, comparison availability, actual download and fresh replay, cancellation during edits, historical explanations and narrow layout:
 
-The current combined source passed 79 native tests, two independent scalar-motion receiving cases, and exact reproduction of both retained motion proposals. The scalar oracle checks metric calculation and duration scaling; it is not additional optimizer-quality evidence. Current-main browser receiving remains pending.
+The current combined source passed 79 native tests, two independent scalar-motion receiving cases, and exact reproduction of both retained motion proposals. The scalar oracle checks metric calculation and duration scaling; it is not additional optimizer-quality evidence. Browser receiving covered 65 distinct groups: 15 studio, 9 comparison, 16 target-history/phone, 17 transition, 5 motion, and 3 combined motion/history groups. The affected courses ran against an extracted reproducible package in sandboxed Chrome 156, retaining strict served-CSP and error checks.
+
+The combined course checks that target Undo/Redo keeps an adopted physical scene and source custody, makes stale motion actions unavailable, and updates the real phone preview. It also downloads and reopens the combined project in a fresh studio, and verifies cancellation when target Undo interrupts a pending motion worker. Its mirror comparison uses the maintained renderer; phone viewports are simulated rather than physical-device tests.
 
 ```sh
 SHADOW_STAGE_URL=http://127.0.0.1:4318 SHADOW_STAGE_EVIDENCE=/path/to/motion-evidence node tests/motion-receiving.mjs
+SHADOW_STAGE_URL=http://127.0.0.1:4318 SHADOW_STAGE_EVIDENCE=/path/to/motion-history-evidence node tests/motion-history-receiving.mjs
 ```
 
 The unchanged 200-, 400-, and 800-interval diagnostics compare the selected motion alternative with the shape candidate. Their peak projected-shadow speed ratios are 0.845 on all three grids for the original shape-change fixture and 0.971 / 0.969 / 0.968 for the unfamiliar star/arrow/diamond fixture. On the 200-interval grid:

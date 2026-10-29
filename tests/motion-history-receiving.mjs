@@ -29,7 +29,7 @@ async function mirror(p){
   return {nonuniform,opaque,inViewport,sameDimensions:a.width===b.width&&a.height===b.height,different,overflow:document.documentElement.scrollWidth>innerWidth+1};
  });assert.equal(observation.inViewport,true);assert.equal(observation.opaque,true);assert.equal(observation.nonuniform,true,'Phone mirror must contain rendered variation, not blank matching canvases');assert.equal(observation.sameDimensions,true);assert.equal(observation.different,0);assert.equal(observation.overflow,false);return observation;
 }
-function attach(p){p.on('pageerror',e=>receipt.errors.push({type:'pageerror',message:String(e)}));p.on('console',m=>{if(m.type()==='error')receipt.errors.push({type:'console',message:m.text()});});p.on('requestfailed',r=>receipt.errors.push({type:'requestfailed',url:r.url(),error:r.failure()?.errorText}));p.on('response',r=>{if(r.status()>=400)receipt.errors.push({type:'http',url:r.url(),status:r.status()});});}
+function attach(p){p.on('pageerror',e=>receipt.errors.push({type:'pageerror',message:String(e)}));p.on('console',m=>{if(m.type()==='error')receipt.errors.push({type:'console',message:m.text(),location:m.location()});});p.on('requestfailed',r=>receipt.errors.push({type:'requestfailed',url:r.url(),error:r.failure()?.errorText}));p.on('response',r=>{if(r.status()>=400)receipt.errors.push({type:'http',url:r.url(),status:r.status()});});}
 try{
  browser=await chromium.launch({headless:true,chromiumSandbox:true,...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH}:{})});
  const cdp=await browser.newBrowserCDPSession(),command=await cdp.send('Browser.getBrowserCommandLine');assert.equal(command.arguments.some(x=>['--no-sandbox','--disable-setuid-sandbox'].includes(x)),false);
@@ -62,6 +62,7 @@ try{
  assert.equal((await state(page)).stale,true);assert.equal(await role(page,'undo').isDisabled(),true);assert.equal(await role(page,'adopt').isDisabled(),true);await mirror(page);
  await page.click('#redoTargetEdit');assert.deepEqual((await project(page)).targets,edited.targets);assert.deepEqual((await project(page)).scene,adopted.scene);await mirror(page);
  await page.screenshot({path:path.join(out,'motion-history-phone.png'),fullPage:true});
+ await page.screenshot({path:path.join(out,'motion-history-phone-viewport.png')});
  receipt.checks.push({name:'Target Undo/Redo retains adopted motion and source custody, invalidates stale motion actions and updates exact phone stage feedback',passed:true});
 
  const pendingDownload=page.waitForEvent('download');await page.click('#saveProject');const downloaded=await pendingDownload;
@@ -73,7 +74,7 @@ try{
  assert.deepEqual((await project(fresh)).targets,saved.targets);assert.deepEqual((await project(fresh)).authoring,saved.authoring);assert.equal(await fresh.locator('#undoTargetEdit').isDisabled(),true);assert.equal((await state(fresh)).hasSessionUndo,false);await mirror(fresh);
  receipt.checks.push({name:'Actual downloaded combined project reopens at phone width with identical targets/physical scene and no inherited session undo',passed:true});
 
- await page.setViewportSize({width:1440,height:1000});await shape(page);
+ await page.bringToFront();await page.setViewportSize({width:1440,height:1000});await shape(page);
  const before=await project(page);
  const pending=await page.evaluate(()=>{
   document.querySelector('#transitionPanel [data-role="prepare-motion"]').click();
