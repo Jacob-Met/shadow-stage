@@ -66,7 +66,20 @@ function drawRig(){
  });
  const halo=rigCtx.createRadialGradient(...lamp,1,...lamp,14);halo.addColorStop(0,'rgba(212,164,77,.4)');halo.addColorStop(1,'rgba(212,164,77,0)');rigCtx.fillStyle=halo;rigCtx.beginPath();rigCtx.arc(...lamp,14,0,Math.PI*2);rigCtx.fill();rigCtx.fillStyle='#c09549';rigCtx.beginPath();rigCtx.arc(...lamp,4,0,Math.PI*2);rigCtx.fill();rigCtx.font='8px system-ui';rigCtx.fillStyle='#8b855e';rigCtx.fillText('POINT LIGHT',Math.max(7,Math.min(w-65,lamp[0]+10)),Math.max(12,lamp[1]-4));
 }
-function render(){drawStage();drawRig();$('timeline').value=time;$('stageMode').textContent=$('showTarget').checked?'PERFORMANCE + TARGET':'PERFORMANCE ONLY';}
+function mirrorPhoneStage(){
+ const preview=$('phoneStagePreview'), mirror=$('phoneStageCanvas');
+ if(!preview.getClientRects().length)return;
+ // Layout can briefly remove the main canvas; keep the last valid mirror until it returns.
+ if(canvas.width<1||canvas.height<1)return;
+ // Copy the rendered stage, never reproject or change the main pointer coordinate view.
+ if(mirror.width!==canvas.width||mirror.height!==canvas.height){mirror.width=canvas.width;mirror.height=canvas.height;}
+ const aspect=canvas.width+' / '+canvas.height;
+ if(mirror.style.aspectRatio!==aspect)mirror.style.aspectRatio=aspect;
+ mirror.getContext('2d').drawImage(canvas,0,0);
+ const status=(dirty?(project.scene?'Edited target; last performance retained.':'Edited target; no fitted performance yet.'):(project.scene?'Current target and performance.':'No fitted performance yet.'))+(!$('showTarget').checked?' Target outline hidden.':'');
+ if($('phoneStageStatus').textContent!==status)$('phoneStageStatus').textContent=status;
+}
+function render(){drawStage();mirrorPhoneStage();drawRig();$('timeline').value=time;$('stageMode').textContent=$('showTarget').checked?'PERFORMANCE + TARGET':'PERFORMANCE ONLY';}
 function syncConstruction(){const pieces=$('constructionMode').value==='pieces';$('pieceBudgetField').hidden=!pieces;$('lightShareField').hidden=pieces;$('constructionHint').textContent=pieces?'Persistent square cutouts combine into changing silhouettes. More pieces allow finer boundaries; depth and motion remain editable.':'One enduring cutout, one point light. Shapes that cannot share the cutout retain a visible mismatch.';}
 function syncPhysical(){
  for(const id of ['lightX','lightY','occluderDepth','cutoutX','cutoutY','cutoutAngle','cutoutSelect','resetRig','exportSVG','exportPlayer'])$(id).disabled=!project.scene;
@@ -303,6 +316,18 @@ $('dismissProposal').addEventListener('click',()=>{pendingProposal=null;$('propo
 window.shadowStage={getProject:()=>copy(project),getState:()=>({time,active,playing,dirty,manual,report:copy(report)}),getComparisonState:()=>comparisonController?.getState(),getTransitionState:()=>transitionController?.getState(),getVideoState:()=>({pending:!!videoController,receipt:copy(lastVideoReceipt)}),setTime,selectMoment,projectShadow:t=>project.scene?projectPolygons(project.scene,t)[0]:null,projectShadows:t=>project.scene?projectPolygons(project.scene,t):[]};
 function frame(now){if(playing&&project.scene){if(lastFrame)time=Math.min(1,time+(now-lastFrame)/1000/project.duration);lastFrame=now;if(time>=1)setPlaying(false);render();}requestAnimationFrame(frame);}
 new ResizeObserver(render).observe(canvas.parentElement);new ResizeObserver(drawRig).observe(rig.parentElement);
+$('viewFullStage').addEventListener('click',()=>{canvas.focus({preventScroll:true});canvas.scrollIntoView({block:'center',behavior:'instant'});});
+function syncPreviewLayout(){
+ const preview=$('phoneStagePreview'), height=preview.getBoundingClientRect().height;
+ const panel=preview.closest('.author-panel');
+ const clearance=Math.ceil(height+24)+'px';
+ if(panel.style.getPropertyValue('--phone-preview-clearance')!==clearance)panel.style.setProperty('--phone-preview-clearance',clearance);
+ const viewportHeight=window.visualViewport?.height||window.innerHeight;
+ preview.classList.toggle('phone-stage-preview-static',height>viewportHeight*.3);
+}
+new ResizeObserver(syncPreviewLayout).observe($('phoneStagePreview'));
+window.addEventListener('resize',syncPreviewLayout);
+window.visualViewport?.addEventListener('resize',syncPreviewLayout);
 function bindConstruction(){
  $('refineButton').addEventListener('click',()=>solve('refine'));
  $('constructionMode').addEventListener('change',()=>{cancelSolve();project.construction={mode:$('constructionMode').value,maxPieces:+$('pieceBudget').value};syncConstruction();announce('Construction choice changed. Find the performance to apply it.');});
