@@ -50,7 +50,7 @@ try{
  assert.ok(preview.report.motion.after.maximumVertexStep>preview.report.motion.before.maximumVertexStep,'Retained preset worse-motion observation changed');
  assert.match(await role(page,'motion').textContent(),/measure worsened/i);assert.match(await role(page,'metrics').textContent(),/After inserting keys/);assert.equal(await page.locator('#transitionPanel [style]').count(),0);
  assert.match(await page.locator('.transition-reference-description').textContent(),/chosen boundary morph/);passed('Initialized error, selected morph and worse-motion evidence remain visible',{heldOut:preview.report.heldOut,motion:preview.report.motion});
- await page.locator('#transitionPanel details').evaluate(e=>{e.open=true;});
+ await page.locator('#transitionPanel details:has([data-role="piece"])').evaluate(e=>{e.open=true;});
  const selectedPiece=await page.evaluate(async()=>{const {sampleArticulatedScene}=await import('/src/articulated.js'),s=window.shadowStage.getTransitionState().candidate,a=sampleArticulatedScene(s,0),b=sampleArticulatedScene(s,.25);return a.occluders.find((p,i)=>p.x!==b.occluders[i].x||p.y!==b.occluders[i].y||p.z!==b.occluders[i].z)?.id;});
  assert.ok(selectedPiece);await role(page,'piece').selectOption(selectedPiece);
  const physicalBefore=JSON.parse(await role(page,'physical').textContent());
@@ -60,7 +60,7 @@ try{
  assert.deepEqual(physical.currentCandidatePose,expectedPose);assert.equal(physical.time.seconds,2);
  await page.evaluate(()=>{const e=document.querySelector('#transitionPanel [data-role="time"]');e.value='0';e.dispatchEvent(new Event('input',{bubbles:true}));});
  const physicalAtZero=JSON.parse(await role(page,'physical').textContent());assert.notDeepEqual(physical.currentCandidatePose,physicalAtZero.currentCandidatePose);passed('Selected physical piece shows live canonical poses while scrubbing');
- await page.locator('#transitionPanel details').evaluate(e=>{e.open=false;});
+ await page.locator('#transitionPanel details:has([data-role="piece"])').evaluate(e=>{e.open=false;});
  await role(page,'quarter').click();await page.locator('#transitionPanel').screenshot({path:path.join(evidence,'transition-quarter-preview.png')});
  await role(page,'speed').selectOption('0.25');await role(page,'play').click();await poll(page,()=>window.shadowStage.getTransitionState().time>.25);await role(page,'play').click();assert.equal((await state(page)).playing,false);assert.ok(same(await project(page),baseline));passed('Shared preview timeline and quarter-speed playback preserve the project');
  await role(page,'keep').click();assert.equal((await state(page)).hasCandidate,false);assert.ok(same(await project(page),baseline));passed('Keep original dismisses without mutation');
