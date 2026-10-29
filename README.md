@@ -174,6 +174,19 @@ node server.mjs
 
 The extracted package needs no CDN, generated bundle or transpilation. Receiving must exercise this extracted application as well as the source checkout. Checksums identify matching bytes; they are not signatures or public-release qualification.
 
+## Keep the stage in view on a phone
+
+The phone target editor includes a read-only **Stage preview** view. It mirrors the
+same target outline and physical shadow as the full stage while you adjust the
+Across, Rise, Size and Turn controls. A changed target still retains the last
+physical performance until you choose **Find the performance**; the preview
+states that distinction and honors the existing target-outline setting.
+
+The compact view stays within target authoring as you scroll. Short or enlarged
+layouts keep it in the ordinary page flow so it does not take over the viewport.
+**Edit on full stage** moves to the original canvas for closer inspection or direct
+editing. The preview does not add history entries or change saved projects.
+
 ## Undo and redo target edits
 
 Use **Undo** and **Redo** below the target editing modes to reverse canvas moves,

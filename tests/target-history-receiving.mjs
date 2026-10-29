@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {mkdir,writeFile} from 'node:fs/promises';
+import {mkdir,writeFile,readFile} from 'node:fs/promises';
 import path from 'node:path';
 import {chromium} from 'playwright';
 const url=process.env.SHADOW_STAGE_URL;
@@ -196,6 +196,105 @@ try{
   const layout=await page.evaluate(()=>({width:innerWidth,scrollWidth:document.documentElement.scrollWidth}));
   assert(layout.scrollWidth<=layout.width+1);assert.deepEqual(custody(await project()),custody(a));
   receipt.observations.narrowLayout=layout;await shot('03-narrow-history');
+ });
+
+ // Consumer receiving for the phone feedback surface. Existing history checks above stay intact.
+ async function feedback(id='targetX'){
+  await page.evaluate(()=>new Promise(done=>requestAnimationFrame(()=>requestAnimationFrame(done))));
+  return page.evaluate(id=>{
+   const stage=document.querySelector('#stageCanvas'),copy=document.querySelector('#phoneStageCanvas'),panel=document.querySelector('#phoneStagePreview'),input=document.getElementById(id);
+   const rect=e=>{const b=e.getBoundingClientRect();return {left:b.left,top:b.top,right:b.right,bottom:b.bottom,width:b.width,height:b.height};};
+   const fraction=r=>Math.max(0,Math.min(innerWidth,r.right)-Math.max(0,r.left))*Math.max(0,Math.min(innerHeight,r.bottom)-Math.max(0,r.top))/(r.width*r.height);
+   const a=stage.getContext('2d').getImageData(0,0,stage.width,stage.height).data,b=copy.getContext('2d').getImageData(0,0,copy.width,copy.height).data;
+   let mismatches=0;for(let i=0;i<a.length;i++)if(a[i]!==b[i])mismatches++;
+   const preview=rect(panel),control=rect(input),hit=document.elementFromPoint((control.left+control.right)/2,(control.top+control.bottom)/2);
+   return {viewport:{width:innerWidth,height:innerHeight},rootFontSize:getComputedStyle(document.documentElement).fontSize,scrollY,preview,control,previewFraction:fraction(preview),controlFraction:fraction(control),controlHit:hit===input,focused:document.activeElement?.id,position:getComputedStyle(panel).position,dimensionsEqual:stage.width===copy.width&&stage.height===copy.height,pixelMismatches:mismatches,overlap:Math.min(preview.right,control.right)>Math.max(preview.left,control.left)&&Math.min(preview.bottom,control.bottom)>Math.max(preview.top,control.top),status:document.querySelector('#phoneStageStatus').textContent,state:window.shadowStage.getState()};
+  },id);
+ }
+ function exactMirror(value){assert(value.dimensionsEqual);assert.equal(value.pixelMismatches,0,'Phone feedback must show the actual current stage, not a separately fitted or stale scene');}
+ async function viewportShot(name){await page.screenshot({path:path.join(out,name+'.png'),fullPage:false,caret:'initial'});receipt.screenshots.push(name+'.png');}
+ await check('phone transforms keep actual stage feedback and native controls visible without changing physical custody',async()=>{
+  await page.setViewportSize({width:393,height:852});receipt.observations.phoneTransforms=[];
+  for(const id of ['targetX','targetY','targetScale','targetAngle']){
+   const original=await receive(),oldHistory=await history(),workers=await page.evaluate(()=>window.__historyWorkers.created.length);
+   const input=page.locator('#'+id);await input.focus();const before=await feedback(id);
+   assert.deepEqual(await project(),original,'Focus and preview visibility must not alter the project');assert.deepEqual(await history(),oldHistory);
+   await input.press('ArrowRight');const changed=await project();assert.notDeepEqual(changed.targets,original.targets);
+   assert.deepEqual(custody(changed),custody(original));assert.equal(await page.evaluate(()=>window.__historyWorkers.created.length),workers,'Preview and target editing must not implicitly fit');
+   const observed=await feedback(id);exactMirror(observed);assert.equal(observed.focused,id);assert(observed.previewFraction>.99,'Phone feedback must be in viewport during transform editing');assert(observed.controlFraction>.99);assert(observed.controlHit,'Preview must not intercept the native slider');assert(!observed.overlap,'Feedback must not cover the edited control');
+   assert.notEqual(await input.inputValue(),id==='targetScale'?'1':'0');
+   receipt.observations.phoneTransforms.push({id,before,after:observed});await viewportShot('phone-'+id);
+  }
+  await page.locator('#targetX').focus();await page.keyboard.press('Tab');assert.equal(await page.evaluate(()=>document.activeElement.id),'targetY','Native keyboard navigation remains on the author controls');
+ });
+ await check('phone feedback tracks Undo Redo selected moments project reopen and New without becoming saved content',async()=>{
+  const original=await receive();await page.locator('#targetX').focus();await page.locator('#targetX').press('ArrowRight');const edited=await project();exactMirror(await feedback());
+  await undo(original.targets);exactMirror(await feedback());await redo(edited.targets);exactMirror(await feedback());
+  await page.locator('#targetSelect').selectOption('1');exactMirror(await feedback());assert.equal((await page.evaluate(()=>window.shadowStage.getState())).active,1);assert.deepEqual(await project(),edited);
+  const beforeNavigation=await project(),state=await page.evaluate(()=>window.shadowStage.getState()),oldHistory=await history();
+  await page.locator('#targetX').focus();await page.getByRole('button',{name:'Edit on full stage',exact:true}).click();
+  const navigation=await page.evaluate(()=>({focused:document.activeElement.id,state:window.shadowStage.getState(),box:document.querySelector('#stageCanvas').getBoundingClientRect().toJSON(),height:innerHeight}));
+  assert.equal(navigation.focused,'stageCanvas');assert(navigation.box.bottom>0&&navigation.box.top<navigation.height);assert.deepEqual(navigation.state,state);assert.deepEqual(await project(),beforeNavigation);assert.deepEqual(await history(),oldHistory);
+  const promised=page.waitForEvent('download');await page.locator('#saveProject').click();const download=await promised;const file=path.join(out,'phone-edited-project.json');await download.saveAs(file);assert.equal(await download.failure(),null);
+  const saved=JSON.parse(await readFile(file,'utf8'));assert.deepEqual(saved.targets,edited.targets);assert.deepEqual(saved.scene,edited.scene);assert(!JSON.stringify(saved).includes('phoneStage'),'Presentation-only feedback must not enter saved project');
+  await receive(saved,'phone-edited-project.json');exactMirror(await feedback());
+  // New scene is deliberately hidden on phones; exercise its real desktop entry then return.
+  await page.setViewportSize({width:1440,height:1000});await page.locator('#newProject').click();await ready();
+  await page.setViewportSize({width:393,height:852});exactMirror(await feedback());assert.deepEqual(await history(),{undo:true,redo:true});
+  receipt.observations.phoneNavigation=navigation;
+ });
+ await check('phone native touch changes a target while feedback stays usable and has no alternate pointer editing path',async()=>{
+  const previous=page,touchContext=await browser.newContext({viewport:{width:393,height:852},hasTouch:true,deviceScaleFactor:1,acceptDownloads:true});
+  page=await touchContext.newPage();page.on('pageerror',e=>receipt.errors.push(String(e)));
+  const session=await touchContext.newCDPSession(page);
+  try{
+   await page.goto(url,{waitUntil:'domcontentloaded'});await ready();const original=await receive();
+   const preview=page.locator('#phoneStageCanvas');await preview.scrollIntoViewIfNeeded();const previewBox=await preview.boundingBox();assert(previewBox);
+   const previewState=await page.evaluate(()=>window.shadowStage.getState()),previewHistory=await history();
+   await page.evaluate(()=>{window.__previewTouch=[];document.querySelector('#phoneStagePreview').addEventListener('pointerdown',e=>window.__previewTouch.push({trusted:e.isTrusted,pointerType:e.pointerType,target:e.target.id}));});
+   const previewPoint={x:previewBox.x+previewBox.width/2,y:previewBox.y+previewBox.height/2};
+   await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[previewPoint]});await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+   await page.evaluate(()=>new Promise(done=>requestAnimationFrame(done)));
+   assert.deepEqual(await project(),original,'Touching the read-only preview must not edit the project');assert.deepEqual(await history(),previewHistory);assert.deepEqual(await page.evaluate(()=>window.shadowStage.getState()),previewState);
+   const previewTouch=await page.evaluate(()=>window.__previewTouch);assert(previewTouch.some(e=>e.trusted&&e.pointerType==='touch'&&e.target!=='stageCanvas'),'Trusted touch stays on the read-only preview panel');
+   const input=page.locator('#targetX');await input.scrollIntoViewIfNeeded();
+   const box=await input.boundingBox();assert(box);const x=box.x+box.width*.7,y=box.y+box.height/2;
+   await page.evaluate(()=>{window.__phoneTouch=[];for(const type of ['pointerdown','input','change'])document.querySelector('#targetX').addEventListener(type,e=>window.__phoneTouch.push({type:e.type,trusted:e.isTrusted,pointerType:e.pointerType||null}));});
+   await session.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x,y}]});
+   await session.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:x+10,y}]});
+   await session.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+   await waitFor(page,p=>JSON.stringify(window.shadowStage.getProject().targets)!==p,JSON.stringify(original.targets));
+   const changed=await project(),observed=await feedback();assert.deepEqual(custody(changed),custody(original));exactMirror(observed);assert(observed.previewFraction>.99&&observed.controlFraction>.99&&!observed.overlap&&observed.controlHit);
+   const events=await page.evaluate(()=>window.__phoneTouch);assert(events.some(e=>e.type==='pointerdown'&&e.pointerType==='touch'&&e.trusted));assert(events.some(e=>e.type==='input'&&e.trusted));
+   receipt.observations.phoneTouch={previewTouch,events,observed,scope:'Chromium native touch protocol simulation, not physical-device testing'};await viewportShot('phone-touch');
+  }finally{await session.detach();await touchContext.close();page=previous;}
+ });
+ await check('phone preview survives a zero-size stage and recovers its exact pixels without changing state',async()=>{
+  await page.setViewportSize({width:393,height:852});const original=await receive(),originalHistory=await history(),originalState=await page.evaluate(()=>window.shadowStage.getState());
+  try{
+   await page.evaluate(()=>document.querySelector('#stageCanvas').parentElement.style.display='none');
+   await waitFor(page,()=>{const c=document.querySelector('#stageCanvas');return c.width===0&&c.height===0;});
+   assert.deepEqual(await project(),original);assert.deepEqual(await history(),originalHistory);assert.deepEqual(await page.evaluate(()=>window.shadowStage.getState()),originalState);
+  }finally{await page.evaluate(()=>document.querySelector('#stageCanvas').parentElement.style.removeProperty('display'));}
+  await waitFor(page,()=>{const c=document.querySelector('#stageCanvas');return c.width>0&&c.height>0;});
+  const observed=await feedback();exactMirror(observed);assert.deepEqual(await project(),original);assert.deepEqual(await history(),originalHistory);assert.deepEqual(await page.evaluate(()=>window.shadowStage.getState()),originalState);
+  receipt.observations.zeroSizeRecovery={dimensionsEqual:observed.dimensionsEqual,pixelMismatches:observed.pixelMismatches,stateUnchanged:true,scope:'Explicit transient hidden-stage layout fixture; original natural trigger not established'};
+ });
+ await check('short viewport and enlarged text preserve uncovered controls full-stage navigation and desktop canvas editing',async()=>{
+  receipt.observations.phoneFallbacks=[];
+  for(const variant of [{width:700,height:400,fontSize:null},{width:393,height:852,fontSize:'32px'}]){
+   await page.setViewportSize({width:variant.width,height:variant.height});await receive();
+   // Explicit text-scale fixture; no product/CSP bypass and no assertion about a particular sticky design.
+   if(variant.fontSize)await page.evaluate(size=>document.documentElement.style.fontSize=size,variant.fontSize);
+   try{
+    await page.locator('#targetAngle').focus();await page.locator('#targetAngle').press('ArrowRight');const observed=await feedback('targetAngle');if(variant.fontSize)assert.equal(observed.rootFontSize,variant.fontSize);exactMirror(observed);assert(observed.controlFraction>.99&&observed.controlHit&&!observed.overlap);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);
+    await viewportShot('phone-fallback-controls-'+variant.width+'-'+(variant.fontSize?'text':'short'));
+    const original=await project(),state=await page.evaluate(()=>window.shadowStage.getState());
+    await page.getByRole('button',{name:'Edit on full stage',exact:true}).click();assert.equal(await page.evaluate(()=>document.activeElement.id),'stageCanvas');assert.deepEqual(await project(),original);assert.deepEqual(await page.evaluate(()=>window.shadowStage.getState()),state);
+    receipt.observations.phoneFallbacks.push({variant,observed});await viewportShot('phone-fallback-'+variant.width+'-'+(variant.fontSize?'text':'short'));
+   }finally{if(variant.fontSize)await page.evaluate(()=>document.documentElement.style.removeProperty('font-size'));}
+  }
+  await page.setViewportSize({width:1440,height:1000});const original=await receive();assert.equal(await page.locator('#phoneStagePreview').isVisible(),false);await drag();const changed=await project();assert.notDeepEqual(changed.targets,original.targets);assert.deepEqual(custody(changed),custody(original));await undo(original.targets);
  });
  assert.deepEqual(receipt.errors,[]);receipt.passed=true;
 }catch(error){
