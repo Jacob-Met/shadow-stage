@@ -154,6 +154,40 @@ SHADOW_STAGE_URL=http://127.0.0.1:4318 SHADOW_STAGE_EVIDENCE=/path/to/transition
 
 The comparison proposal-adoption journey uses a controlled local response marked `executed:false`. It tests lifecycle behavior only; it is not inference evidence.
 
+### Compare a separate motion alternative
+
+After preparing a transition preview, choose **Prepare motion alternative** to explore a second candidate. The same two canvases then compare the shape candidate with the motion alternative at one shared time and camera. The physical inspector follows those displayed scenes. The original shape-refinement measurements remain labeled as stage evidence; the new section reports its own mean and maximum silhouette error, sampled projected-shadow vertex speed and finite-difference velocity-change rate. **Return to shape candidate** changes the view without changing the project. Adoption remains explicit, and session undo restores the actual project from before either preview. Dismissing an adopted comparison retains that undo until a later project edit invalidates it.
+
+The bounded search moves only inserted, unlocked x/y/z keys. It preserves the light, local meshes, identities, key times, angles, original physical keys and complete locked tracks. It selects with training samples, then separately checks held-out samples. Qualification retains at least 90% of the prior mean-error gain with at most 0.005 absolute mean-error loss; it also requires more than 1% lower peak sampled projected-vertex speed without more than 0.1% increase in the velocity-change proxy. Maximum silhouette error is reported separately and may increase. The fixed observation window is [-1.2, 1.2] on both axes; unresolved or out-of-window reference observations are refused, and out-of-window assessed shadows cannot qualify. The combined-work guard applies before rasterization, motion evaluation and search, after initial scene validation.
+
+These are sampled geometric measures, including vertices hidden inside an opaque silhouette. They are not physical cutout acceleration, energy use, exact shadow equality or an artistic-quality verdict. Smoothstep still imposes pauses at physical keys. The full alternatives remain inspectable even when they do not qualify; a numerical result is not adopted automatically.
+
+The focused motion course is intended to exercise real native workers and check preview custody, live pose references, return/adopt/dismiss/undo, comparison availability, actual download and fresh replay, cancellation during edits, historical explanations and narrow layout:
+
+The current combined source passed 79 native tests, two independent scalar-motion receiving cases, and exact reproduction of both retained motion proposals. The scalar oracle checks metric calculation and duration scaling; it is not additional optimizer-quality evidence. Browser receiving covered 65 distinct groups: 15 studio, 9 comparison, 16 target-history/phone, 17 transition, 5 motion, and 3 combined motion/history groups. The affected courses ran against an extracted reproducible package in sandboxed Chrome 156, retaining strict served-CSP and error checks.
+
+The combined course checks that target Undo/Redo keeps an adopted physical scene and source custody, makes stale motion actions unavailable, and updates the real phone preview. It also downloads and reopens the combined project in a fresh studio, and verifies cancellation when target Undo interrupts a pending motion worker. Its mirror comparison uses the maintained renderer; phone viewports are simulated rather than physical-device tests.
+
+```sh
+SHADOW_STAGE_URL=http://127.0.0.1:4318 SHADOW_STAGE_EVIDENCE=/path/to/motion-evidence node tests/motion-receiving.mjs
+SHADOW_STAGE_URL=http://127.0.0.1:4318 SHADOW_STAGE_EVIDENCE=/path/to/motion-history-evidence node tests/motion-history-receiving.mjs
+```
+
+The unchanged 200-, 400-, and 800-interval diagnostics compare the selected motion alternative with the shape candidate. Their peak projected-shadow speed ratios are 0.845 on all three grids for the original shape-change fixture and 0.971 / 0.969 / 0.968 for the unfamiliar star/arrow/diamond fixture. On the 200-interval grid:
+
+| Eight-second fixture | Original scene | Shape candidate | Motion alternative |
+| --- | ---: | ---: | ---: |
+| Shape change | 1.1163 | 1.6163 | 1.3657 |
+| Star / arrow / diamond | 0.8810 | 0.9636 | 0.9355 |
+
+Values are sampled peak projected-shadow vertex speeds in stage units per second. Both alternatives remain above their original pre-refinement scenes. All 24 inspected inserted-key neighborhoods have speed and velocity-change-rate ratios of 1.0: the diagnostic shows no local improvement there. The original scene receipts and these limits remain preserved; the diagnostic does not retune the proposal or establish continuous-time bounds, lower actuator demands, or better visual or artistic quality.
+
+The independent calculation can be rerun from the source checkout:
+
+```sh
+node scripts/receive-motion-independent.mjs /path/to/new-independent-motion-receipt.json
+```
+
 ## Reproducible delivery
 
 ```sh
