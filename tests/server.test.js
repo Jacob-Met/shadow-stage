@@ -19,3 +19,12 @@ test('provider stream interruption rejects without returning a partial result',a
  const upstream={body:new ReadableStream({start(controller){controller.error(new Error('connection interrupted'));}})};
  await assert.rejects(()=>readProviderJSON(upstream),/connection interrupted/);
 });
+test('Nemotron proposal payloads carry a reasoning-safe token budget and reject empty content',async()=>{
+ const {providerPayload,providerContent,MAX_TOKENS}=await import('../server.mjs');
+ assert.ok(MAX_TOKENS.proposal>=1500&&MAX_TOKENS.physical>=MAX_TOKENS.proposal);
+ assert.equal(providerPayload('m',{messages:[]},false).max_tokens,MAX_TOKENS.proposal);
+ assert.equal(providerPayload('m',{messages:[]},true).max_tokens,MAX_TOKENS.physical);
+ assert.equal(providerPayload('m',{messages:[]},false).temperature,0.2);
+ assert.equal(providerContent({choices:[{message:{content:'{"a":1}'}}]}),'{"a":1}');
+ assert.throws(()=>providerContent({choices:[{message:{content:null,reasoning_content:'thinking'}}]}),/no message content/);
+});

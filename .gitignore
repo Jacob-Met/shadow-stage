@@ -3,3 +3,4 @@ dist/
 receiving/
 .env
 *.log
+demo/*.mp4

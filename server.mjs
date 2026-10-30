@@ -17,6 +17,17 @@ const mime = {'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8
 function json(res,status,value){res.writeHead(status,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(value));}
 async function body(req){let bytes=0,parts=[];for await(const p of req){bytes+=p.length;if(bytes>2*1024*1024+64*1024)throw new Error('Request exceeds project size plus 64 KiB overhead.');parts.push(p);}return JSON.parse(Buffer.concat(parts).toString('utf8'));}
 function sameOrigin(req){const o=req.headers.origin;return !o||o===`http://${req.headers.host}`;}
+// Nemotron is a reasoning model: reasoning tokens count against max_tokens and content stays null
+// if the budget runs out, so the budget is set well above the proposal size.
+export const MAX_TOKENS={proposal:8000,physical:12000};
+export function providerPayload(model,request,physical){
+  return {model,...request,temperature:0.2,max_tokens:physical?MAX_TOKENS.physical:MAX_TOKENS.proposal};
+}
+export function providerContent(result){
+  const content=result?.choices?.[0]?.message?.content;
+  if(typeof content!=='string'||!content.trim())throw new Error('Provider returned no message content (reasoning budget may be exhausted).');
+  return content;
+}
 export async function readProviderJSON(response) {
   const limit=256*1024;
   if(!response.body)throw new Error('Provider returned an empty response.');
@@ -36,11 +47,11 @@ const server=http.createServer(async(req,res)=>{
       const input=await body(req);const project=parseProject(JSON.stringify(input.project));
       const physical=url.pathname==='/api/scene-propose';
       const request=physical?physicalSceneRequest(input.brief,project.targets,{duration:project.duration,exactPieceCount:input.exactPieceCount}):proposeRequest(input.brief,project);
-      const submitted={model:MODEL,...request,temperature:0.2,max_tokens:physical?12000:1600};
+      const submitted=providerPayload(MODEL,request,physical);
       const begin=Date.now();
       const upstream=await fetch(ENDPOINT,{method:'POST',headers:{Authorization:`Bearer ${KEY}`,'Content-Type':'application/json'},body:JSON.stringify(submitted),signal:AbortSignal.timeout(45000)});
       if(!upstream.ok)return json(res,502,{error:`Nebius returned HTTP ${upstream.status}. No proposal was adopted.`});
-      const result=await readProviderJSON(upstream);const raw=result.choices?.[0]?.message?.content;
+      const result=await readProviderJSON(upstream);const raw=providerContent(result);
       const proposal=physical?validateSceneProposal(raw,{exactPieceCount:input.exactPieceCount}):validateProposal(raw);
       if(physical&&proposal.scene.duration!==project.duration)throw new Error('Provider changed required duration');
       return json(res,200,{proposal,evidence:{provider:'Nebius Token Factory',requestedModel:MODEL,returnedModel:result.model||null,requestId:result.id||null,elapsedMs:Date.now()-begin,usage:result.usage||null,inputSha256:createHash('sha256').update(JSON.stringify(submitted)).digest('hex'),responseSha256:createHash('sha256').update(JSON.stringify(result)).digest('hex'),executed:true,receivedAt:new Date().toISOString()}});

@@ -1,0 +1,34 @@
+{
+  "url": "http://127.0.0.1:4408",
+  "width": 1440,
+  "height": 900,
+  "steps": [
+    {
+      "say": "Shadow Stage: choreograph light and shadow with AI suggestions. Start with a preset shape and request ideas from Nemotron.",
+      "do": [{"wait": 1000}]
+    },
+    {
+      "say": "Choose a starting gesture.",
+      "do": [{"click": "#presetSelect"}, {"wait": 300}, {"select": ["#presetSelect", "flight"]}, {"wait": 800}]
+    },
+    {
+      "say": "Describe what you want. Let's ask for a shape that drifts and returns.",
+      "do": [{"click": "#brief"}, {"type": ["#brief", "A small shape drifts upward, hesitates, then returns home."]}]
+    },
+    {
+      "say": "Request an AI suggestion from Nemotron on Nebius Token Factory.",
+      "do": [{"scroll": 300}, {"wait": 500}, {"click": "#proposeButton"}]
+    },
+    {
+      "say": "Nemotron returns a physical construction suggestion tailored to your description.",
+      "do": [{"wait": 3000}]
+    },
+    {
+      "say": "Adopt the suggested construction and see it rendered on the stage.",
+      "do": [{"click": "#adoptProposal"}, {"wait": 1200}]
+    },
+    {
+      "say": "The result is a choreographed shadow performance, with light and cutout paths optimized by Nemotron to match your target shapes and brief."
+    }
+  ]
+}
