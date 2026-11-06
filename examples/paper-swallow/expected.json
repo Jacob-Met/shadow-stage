@@ -1,0 +1,354 @@
+{
+  "schema": "shadow-stage.paper-swallow.independent-geometry-v1",
+  "status": "SOURCE_AND_AUTHORED_DATA_ONLY_NO_PRODUCT_EXECUTION",
+  "sourceMain": "3181635b09544a2481c78ecf4625313c34f6ab8c",
+  "sources": {
+    "importer": "0b76a83158c035e339ef70697dc5c31df74416c7",
+    "helper": "ded83710125570f65b1d9839b576ad67462140dd",
+    "core": "5b3206608002873d8ce918692ecc48e8f0127efa",
+    "exporter": "cef1897d0ba47d391b60ef873937f6e34e702fd8"
+  },
+  "independence": "Base polygon and rational transform specification received before generated SVG blobs. Expected coordinates derived directly; no producer imported or executed.",
+  "authoredBlobs": {
+    "start": "4d5dde41daf7ef9a19a5658c01fd3ef1df1ec9ec",
+    "dip": "00084830c685589697ae5fcfc241107e683c42d2",
+    "turn": "002f3f1b09425dfda4726b1542fd56e90263e63b",
+    "return": "4d5dde41daf7ef9a19a5658c01fd3ef1df1ec9ec",
+    "sequence": "3ff6377457434ed44b6a829368829b4ca662cc69",
+    "geometry": "5ecc9012952d1b90e5f56925befad107315141a9"
+  },
+  "coordinateChecks": 72,
+  "basePolygon": [
+    [
+      60,
+      -8
+    ],
+    [
+      30,
+      -15
+    ],
+    [
+      -5,
+      -70
+    ],
+    [
+      -15,
+      -18
+    ],
+    [
+      -65,
+      -35
+    ],
+    [
+      -40,
+      0
+    ],
+    [
+      -70,
+      30
+    ],
+    [
+      -15,
+      18
+    ],
+    [
+      -5,
+      65
+    ],
+    [
+      12,
+      22
+    ],
+    [
+      30,
+      8
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "nonadjacentEdgePairsChecked": 54,
+  "intersections": [],
+  "signedTwiceArea": -11181,
+  "expected": [
+    {
+      "t": 0,
+      "file": "start.svg",
+      "denominator": 125,
+      "numerators": [
+        [
+          10,
+          33
+        ],
+        [
+          -20,
+          40
+        ],
+        [
+          -55,
+          95
+        ],
+        [
+          -65,
+          43
+        ],
+        [
+          -115,
+          60
+        ],
+        [
+          -90,
+          25
+        ],
+        [
+          -120,
+          -5
+        ],
+        [
+          -65,
+          7
+        ],
+        [
+          -55,
+          -40
+        ],
+        [
+          -38,
+          3
+        ],
+        [
+          -20,
+          17
+        ],
+        [
+          12,
+          25
+        ]
+      ]
+    },
+    {
+      "t": 0.3,
+      "file": "dip.svg",
+      "denominator": 15625,
+      "numerators": [
+        [
+          6609,
+          -3412
+        ],
+        [
+          3925,
+          -1900
+        ],
+        [
+          2105,
+          4360
+        ],
+        [
+          -311,
+          -352
+        ],
+        [
+          -4635,
+          2680
+        ],
+        [
+          -3215,
+          -1380
+        ],
+        [
+          -6935,
+          -3420
+        ],
+        [
+          -1319,
+          -3808
+        ],
+        [
+          -1675,
+          -8600
+        ],
+        [
+          1161,
+          -4948
+        ],
+        [
+          3281,
+          -4108
+        ],
+        [
+          6577,
+          -4236
+        ]
+      ]
+    },
+    {
+      "t": 0.65,
+      "file": "turn.svg",
+      "denominator": 6250,
+      "numerators": [
+        [
+          4694,
+          3158
+        ],
+        [
+          3425,
+          2600
+        ],
+        [
+          680,
+          3635
+        ],
+        [
+          1724,
+          1493
+        ],
+        [
+          -535,
+          755
+        ],
+        [
+          1310,
+          170
+        ],
+        [
+          1040,
+          -1720
+        ],
+        [
+          2696,
+          197
+        ],
+        [
+          4325,
+          -1225
+        ],
+        [
+          3776,
+          782
+        ],
+        [
+          4046,
+          1772
+        ],
+        [
+          4982,
+          2924
+        ]
+      ]
+    },
+    {
+      "t": 1,
+      "file": "return.svg",
+      "denominator": 125,
+      "numerators": [
+        [
+          10,
+          33
+        ],
+        [
+          -20,
+          40
+        ],
+        [
+          -55,
+          95
+        ],
+        [
+          -65,
+          43
+        ],
+        [
+          -115,
+          60
+        ],
+        [
+          -90,
+          25
+        ],
+        [
+          -120,
+          -5
+        ],
+        [
+          -65,
+          7
+        ],
+        [
+          -55,
+          -40
+        ],
+        [
+          -38,
+          3
+        ],
+        [
+          -20,
+          17
+        ],
+        [
+          12,
+          25
+        ]
+      ]
+    }
+  ],
+  "framing": {
+    "camera": [
+      500,
+      260,
+      350,
+      260
+    ],
+    "centroidBase": [
+      "-7/4",
+      "-1/4"
+    ],
+    "radiusSquaredStage": "802530/2250000",
+    "radiusUpper": ".598",
+    "reason": "At lightShare=0, projected origin interpolates as a positive weighted average of endpoint origins; harmonic magnification cannot exceed endpoint maximum. Rotation preserves a local bounding circle. Maximum authored scale is1; the centered base stage radius is less than.598.",
+    "conservativeStageEnvelope": {
+      "x": [
+        -1.012,
+        1.027
+      ],
+      "y": [
+        -0.754,
+        0.8
+      ]
+    },
+    "limit": "Ideal exact-similarity physical construction, not observed floating fitted scene or decoded pixel result; verify actual saved scene."
+  },
+  "prospective": {
+    "imports": 1,
+    "helperFits": 1,
+    "exports": 1,
+    "encodes": 1,
+    "decodes": 1,
+    "frames": 144,
+    "normalizedAbsoluteTolerance": 1e-12,
+    "authoredProjectionAbsoluteTolerance": 1e-8,
+    "physicalTime": "i/143",
+    "presentationTime": "i/24",
+    "ptsToleranceSeconds": 0.001,
+    "selectedFrames": [
+      0,
+      43,
+      93,
+      143
+    ],
+    "allFrames": "Retain geometry and decoded-frame evidence for nonblank/unclipped checks; derive contact sheets from same decode.",
+    "intermediateTargetEquality": false,
+    "authoredProjectionCorrespondence": "Direct original twelve-vertex order; no cyclic/reversed posthoc alignment or correspondence selection.",
+    "authoredProjectionMetric": "Maximum corresponding-vertex Euclidean distance, computed independently from actual saved physical key poses."
+  },
+  "limits": [
+    "Source shape is simple and admits exact positive similarities; actual fit remains unrun.",
+    "Recognizability is art-direction judgment pending actual visual inspection.",
+    "No rendered RGB/browser equivalence or performance claim."
+  ],
+  "history": {
+    "supersedesOracle": "8c19049aec6114d90012b2b082d62ce708cb72ee",
+    "change": "Clarifies direct correspondence and Euclidean metric only; all expected coordinates, source identities and tolerances unchanged."
+  }
+}

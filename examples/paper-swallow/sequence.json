@@ -1,0 +1,25 @@
+{
+  "format": "shadow-stage/svg-sequence-v1",
+  "title": "Paper Swallow",
+  "duration": 6,
+  "stageWidth": 3.2,
+  "lightShare": 0,
+  "moments": [
+    {
+      "t": 0,
+      "file": "start.svg"
+    },
+    {
+      "t": 0.3,
+      "file": "dip.svg"
+    },
+    {
+      "t": 0.65,
+      "file": "turn.svg"
+    },
+    {
+      "t": 1,
+      "file": "return.svg"
+    }
+  ]
+}

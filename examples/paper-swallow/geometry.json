@@ -1,0 +1,147 @@
+{
+  "format": "shadow-stage/paper-swallow-authored-geometry-v1",
+  "status": "Authored source; importer, fitter and rendering not yet executed.",
+  "coordinates": "SVG x-right, y-down. Exact ordered base vertices and rational similarities; coordinates baked into each SVG.",
+  "base_vertices": [
+    [
+      60,
+      -8
+    ],
+    [
+      30,
+      -15
+    ],
+    [
+      -5,
+      -70
+    ],
+    [
+      -15,
+      -18
+    ],
+    [
+      -65,
+      -35
+    ],
+    [
+      -40,
+      0
+    ],
+    [
+      -70,
+      30
+    ],
+    [
+      -15,
+      18
+    ],
+    [
+      -5,
+      65
+    ],
+    [
+      12,
+      22
+    ],
+    [
+      30,
+      8
+    ],
+    [
+      62,
+      0
+    ]
+  ],
+  "transform": "p_svg=center+scale*[[cos,-sin],[sin,cos]]*p_base",
+  "moments": [
+    {
+      "file": "start.svg",
+      "t": 0,
+      "center": [
+        150,
+        125
+      ],
+      "scale": "1",
+      "cos": "1",
+      "sin": "0",
+      "scaled_integer_matrix": [
+        1000,
+        0,
+        0,
+        1000
+      ],
+      "matrix_denominator": 1000
+    },
+    {
+      "file": "dip.svg",
+      "t": 0.3,
+      "center": [
+        205,
+        170
+      ],
+      "scale": "4/5",
+      "cos": "24/25",
+      "sin": "7/25",
+      "scaled_integer_matrix": [
+        768,
+        -224,
+        224,
+        768
+      ],
+      "matrix_denominator": 1000
+    },
+    {
+      "file": "turn.svg",
+      "t": 0.65,
+      "center": [
+        255,
+        125
+      ],
+      "scale": "9/10",
+      "cos": "4/5",
+      "sin": "-3/5",
+      "scaled_integer_matrix": [
+        720,
+        540,
+        -540,
+        720
+      ],
+      "matrix_denominator": 1000
+    },
+    {
+      "file": "return.svg",
+      "t": 1,
+      "center": [
+        150,
+        125
+      ],
+      "scale": "1",
+      "cos": "1",
+      "sin": "0",
+      "scaled_integer_matrix": [
+        1000,
+        0,
+        0,
+        1000
+      ],
+      "matrix_denominator": 1000
+    }
+  ],
+  "viewBox": [
+    0,
+    0,
+    400,
+    300
+  ],
+  "stageWidth": "16/5",
+  "stage_mapping": "x=(svg_x-200)/125; y=(150-svg_y)/125",
+  "duration_seconds": 6,
+  "lightShare": 0,
+  "correspondence": "Same twelve ordered vertices, winding and starting vertex at every moment; return repeats start exactly.",
+  "intent": "One rigid angular silhouette: extended unequal wings, right-facing pointed beak, forked tail; dip, bank and return. No wing articulation or biological-flight claim.",
+  "limits": [
+    "Authored similarity targets do not themselves establish fitted accuracy or intermediate framing.",
+    "Light share zero avoids the previously derived equal-origin drift term; it does not guarantee arbitrary interpolation.",
+    "Geometry specification is authoring provenance, not a saved physical scene or an executed fit report."
+  ]
+}
