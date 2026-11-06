@@ -1,0 +1,17 @@
+{
+  "format": "shadow-stage/svg-sequence-v1",
+  "title": "Malformed unicode-digits",
+  "duration": 4,
+  "stageWidth": 3.2,
+  "lightShare": 0.65,
+  "moments": [
+    {
+      "t": 0,
+      "file": "incompatible-square.svg"
+    },
+    {
+      "t": 1,
+      "file": "unsupported-unicode-digits.svg"
+    }
+  ]
+}
