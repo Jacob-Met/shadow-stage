@@ -1,0 +1,142 @@
+{
+  "schema": "shadow-stage.svg-import.verification.v1",
+  "status": "FINITE_ORIGINAL_COURSE_PASSED",
+  "source": {
+    "freeze": "e1b292ee64f78dac6343cc84b73db0ef7f13fbb5",
+    "reviewed_documentation_head": "e5bb4c36f1ee44273d1984e0f4c7cf83ccf38f12",
+    "main_at_review": "e0e6ca20659cd8a7ed220b5e4f3196236cf3d6d3",
+    "pull_request": 14,
+    "sha256": {
+      "tools/import_svg.py": "6fd5475c80d45d613c426cd08b8151aa43a2d5a4e5b120291084301ff1434a97",
+      "tools/fit_svg_targets.mjs": "802e11b7fd0c4db99f94751476dbfa27a85abc2cbe20bd02be183116d3e8498e",
+      "tests/svg-import/receive.py": "de2ef0d4c3ef71f2fc6f321b58582673502e7e17d66d9562c89c6855be5cdd7b",
+      "tests/svg-import/protocol.json": "38989f9a9e59902529e6d69bef39bc3be8cc52db32901efaf6de1d997756beb7",
+      "tools/export_video.py": "eacfb2e6612d0229bb461fa6b8d49ff264b032b57518708d8c6ac6a5e010a5c5",
+      "tools/project_frames.mjs": "ff6560878c4b591df4125c739d287d23d86df8008a6199b556c639ce26b7f17c",
+      "src/core.js": "ff7bb9f70fa52fd8348111d35928f3d01804344345af38b55f21e823c422c67b",
+      "src/project.js": "d872fb4520712b095aff29a80e3abaf0dda33cf9e30159d68ca53dec4099ddd4"
+    }
+  },
+  "package": {
+    "payload_files": 86,
+    "bytes": 538875,
+    "sha256": "33953fbc03dc78aae36ee55c7f084c24be22d8b4db2511fe0b4b62caf4527eb3",
+    "zip_crc_and_all_payload_hashes_received": true,
+    "source_allowlist_unchanged": true,
+    "these_verification_records_in_package": false
+  },
+  "execution": {
+    "actual_course_count": 1,
+    "initial_chunk": "ac2176",
+    "completion_chunk": "639aa9",
+    "exit": 0,
+    "timed_out": false,
+    "receiver_wall_seconds": 38.42802555600065,
+    "prior_admission_only_refusal_chunk": "65f304",
+    "prior_refusal_executed_course": false,
+    "supervisor_adaptation": "Only three owned path assignments changed; original gates and logic unchanged.",
+    "limits": {
+      "cpu_affinity_count": 1,
+      "cpu_seconds_per_process": 120,
+      "receiver_wall_seconds": 120,
+      "regular_file_size_bytes_per_file": 536870912,
+      "thread_environment": 1
+    },
+    "admission": "Original load, host available-memory, disk-space and fresh-work-directory gates passed. Cgroup visibility was unavailable and no cgroup-capacity result is inferred.",
+    "limits_interpretation": "Not aggregate tree CPU, total output, RSS or address-space bounds. Wall time is descriptive, not a benchmark."
+  },
+  "counts": {
+    "successful_imports": 2,
+    "fitScene_calls": 2,
+    "fit_count_semantics": "Fixed helper control flow plus two successful helper receipts, not external dynamic tracing.",
+    "prefit_refusals": 6,
+    "refusal_cases": [
+      "existing output",
+      "curve",
+      "transform",
+      "multiple shapes",
+      "malformed comma",
+      "non-ASCII digits"
+    ],
+    "encode_processes": 1,
+    "full_decode_processes": 1,
+    "decoded_frames": 96
+  },
+  "outcomes": {
+    "compatible": {
+      "project_sha256": "35a5b117fc3e12a2d2bb5ee9460b9ab3876cff5eb590e2336785b5fd6251e5a8",
+      "scene_sha256": "647008590213b8ee399c3be5f2d769d187a84e866b8e4d94bb06b40f594dc6e7",
+      "roundtrip": true,
+      "authored_key_rms": 8.05159536881909e-17,
+      "independent_max_vertex_to_boundary_distance": 2.3551386880256624e-16,
+      "interpolated_target_rms": 0.046190606851243564
+    },
+    "incompatible": {
+      "project_sha256": "cc603666e269ad6b5bd94d4e6bce58f8f7cdcd5ee87f28c8a1009dd7b7cbcdb7",
+      "scene_sha256": "c9543fdeca3b316770479da9ebb90ef3a1c741f47a83bb17685b3ed03ec4f943",
+      "roundtrip": true,
+      "authored_key_rms": 0.1030865350795775,
+      "independent_max_vertex_to_boundary_distance": 0.4615815767569166
+    },
+    "metric_interpretation": "Fit RMS is symmetric sampled boundary-to-segment RMS in stage coordinates. Independent metric is maximum vertex-to-boundary distance. Neither is pixel overlap or a continuous-time certificate."
+  },
+  "movie": {
+    "sha256": "a6ee14cfbc70f456cac157b90c7296077def83f6d2c179813a1ae2191842b11c",
+    "bytes": 581417,
+    "width": 1000,
+    "height": 714,
+    "codec": "VP9",
+    "pixel_format": "yuv444p",
+    "nominal_fps": 24,
+    "duration_seconds": 4,
+    "frame_count": 96,
+    "physical_time": "i/95",
+    "presentation_time": "i/24",
+    "tick_seconds": 0.001,
+    "max_pts_error_seconds": 0.00033333333333340764,
+    "decoded_rgb_hash_records": 96,
+    "all_raw_decoded_frames_retained": false
+  },
+  "visual_review": {
+    "reviewer": "root",
+    "selected_frames": [
+      0,
+      47,
+      48,
+      95
+    ],
+    "status": "FOUR_SELECTED_SAMPLES_INSPECTED",
+    "original_result_marker": "pending",
+    "original_result_unchanged": true,
+    "sidecar_sha256": "174bbf92c0c3df9c826fa57d72f511a1660ee9584bf20f7d0b48458a2dff67da",
+    "sheet_sha256": "14d02668783a829c427b59c33e83da3aa3bb3880170bc06d847c8dad32c6c242",
+    "finding": "The four selected decoded samples showed the intended changes in position and orientation, with no visibly blank or clipped selected sample.",
+    "scope": "Separate later root inspection, not all-frame visual review or browser playback."
+  },
+  "evidence_sha256": {
+    "raw_result": "54458a712fa35716af4165902975ed363888184b2bef4076688864f75b2e6fba",
+    "workspace_receipt": "ca6892ef1a7e24b41517ffd5d0a9af374569106ae50be7123461819584a23811",
+    "original_tool_envelope": "556aab69381b25271846997066cdff76c018c1df37245886f99f07c3b4e86677",
+    "original_supervisor": "b92c29678f6929ca385cf29e86ad0e30adf5602556fd6bf29945a74ed621a2ec",
+    "path_adapted_supervisor": "057c6af926d7fdc8d450efdbacb18656901c79017000bcfbd9ffde29aa8a318a",
+    "preserved_evidence_archive": "cb5af0d7744581e476092d79950256485720901dbc409c2711bd114b4bb95ef8"
+  },
+  "independent_receiving": {
+    "mode": "Read-only original-byte and saved-record inspection; no producer imports or scientific reruns.",
+    "checks": 50,
+    "all_checks_passed": true,
+    "scope": [
+      "86 source payload hashes and package member hashes/CRC",
+      "source and input before/after identities",
+      "retained SVG and sequence identities and normalized targets",
+      "helper roundtrip/project identities",
+      "existing-output preservation and five unsupported-artwork failure directories",
+      "recorded command stream hashes",
+      "import-to-export project, scene and movie identities",
+      "96 timing records reparsed from original decode stderr",
+      "four selected decoded PNG file hashes"
+    ],
+    "limit": "Full decoded RGB hashes were not recomputed because raw frames were streamed and not all retained."
+  },
+  "publication_scope": "Evidence summary and identifiers, not a replacement for the preserved raw archive. Ordinary source integration is separate; no Release, deployment, submission, unrelated caller adoption, general SVG, continuous-fit, pixel-identity or broad artistic qualification."
+}
