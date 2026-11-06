@@ -1,0 +1,70 @@
+{
+  "format": "shadow-stage-offline-receiving-v1",
+  "fixtures": {
+    "single.json": "06bfd4581d55d02c6cd9f7d5a1d20a9fa0190446bc42d94e9bc636c08812bc86",
+    "crossing.json": "cc21d2b30a1b1664a7c9a3607b3692fbd685d892242b8d2ff452eb618f7a2ddc",
+    "missing-scene.json": "951c1967357e6b87ca9c12e677b452bcfe017aeeb9076d71db06923105571df9"
+  },
+  "movies": [
+    {
+      "name": "single",
+      "frames": 24,
+      "duration": 1
+    },
+    {
+      "name": "crossing",
+      "frames": 25,
+      "duration": 1.05
+    }
+  ],
+  "profile": {
+    "width": 1000,
+    "height": 714,
+    "fps": 24,
+    "frame_count": "max(2,floor(duration*24+0.5))",
+    "physical_time": "i/(N-1)",
+    "presentation_time": "i/24",
+    "supersampling": 2,
+    "downsample": "Pillow LANCZOS",
+    "encoder": "libvpx-vp9",
+    "lossless": true,
+    "pixel_format": "yuv444p",
+    "threads": 1,
+    "deadline": "good",
+    "cpu_used": 4
+  },
+  "gates": {
+    "boundary_exclusion_pixels": 3,
+    "minimum_outside_accuracy": 0.995,
+    "frame_count": "exact",
+    "dimensions": "exact",
+    "pts_error": "<= one observed stream time-base tick",
+    "duration_error": "<= one observed stream time-base tick",
+    "overlap": "all overlap interior classified foreground",
+    "projected_vertices": "independent analytic camera-coordinate error <=1e-10 pixels",
+    "time_base": "0 < tick <=0.001 seconds",
+    "timestamps": "strictly increasing and finite"
+  },
+  "course": {
+    "successful_encodes": 2,
+    "decoded_frames": 49,
+    "refusals": [
+      "missing scene",
+      "existing output directory"
+    ],
+    "producer_imports_by_oracle": 0
+  },
+  "evidence": {
+    "retain_encoded": true,
+    "retain_decoded_rgb": true,
+    "retain_metrics_before_gates": true,
+    "source_rgb_hashes": "producer provenance; not decoded RGB identity",
+    "preview_rgb": "three retained RGB PNG frames per movie must hash to their producer source-frame hashes"
+  },
+  "execution": "Not authorized by this protocol alone; await root source freeze and admission.",
+  "execution_limits": {
+    "command_seconds": 60,
+    "successful_encodes": 2,
+    "decode_passes": 2
+  }
+}
