@@ -8,7 +8,7 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
 FILES = (
-    'docs/geometry-quality.json',
+    'docs/geometry-quality.json', 'docs/RECEIVING-video-visibility-9b2ff121.md',
     'src/articulated.js',
     'src/scene-proposals.js',
     'src/runtime.js',
@@ -18,7 +18,7 @@ FILES = (
     'src/transition.js', 'src/transition-ui.js', 'tests/transition.test.js', 'tests/transition-receiving.mjs',
     'tests/comparison.test.js', 'tests/comparison-receiving.mjs', 'tests/comparison-browser.mjs',
     'tests/video-scene-receiving.mjs', 'tests/video-production-receiving.mjs', 'tests/video-browser.mjs',
-    'tests/video-probe.mjs',
+    'tests/video-probe.mjs', 'tests/video-visibility.test.js',
     'tests/articulated.test.js',
     'tests/articulated-receiving.test.js',
     'tests/scene-proposals.test.js',

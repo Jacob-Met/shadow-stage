@@ -1,0 +1,36 @@
+{
+  "scope": "Source and simulated lifecycle receiving; real browser remains pending",
+  "base_commit": "a08c90590e1aba0f1f827f034bfbb0344c220ff2",
+  "video_sha256": "6607476be6c647d462de9b1069ff09c94f7533d746d21efd9f2943c984c6da80",
+  "test_sha256": "5e5a734b0af3a17e09df336a4397516d480da12bbf33b664802a8acb0df4c64d",
+  "baseline_video_sha256": "7492acb043d7cc126bd2db9e9c96fc121347f5056ffb5bf4f164db00a7f0d45a",
+  "author_focused": {
+    "tests": 1,
+    "passed": 1,
+    "scope": "six grouped simulated lifecycle cases"
+  },
+  "root_baseline": {
+    "exit": 1,
+    "expected_failure": "Missing expected rejection at hidden start",
+    "later_cases_executed": false,
+    "source_identity_note": "Raw runner hash map identified outer candidate; supplementary retained-file readback verified executed baseline original bytes. Original receipt preserved unchanged."
+  },
+  "root_native_suite": {
+    "tests": 79,
+    "passed": 79,
+    "failed": 0,
+    "exit": 0,
+    "source_unchanged": true
+  },
+  "package": {
+    "sha256": "bdb1f1c04d688433aeebcf3bb3dce5a482eac2730ac69e1368baceb2c06dc522",
+    "bytes": 422912,
+    "source_files": 45,
+    "extracted_manifest_matches": true,
+    "maintained_http_paths_verified": 17,
+    "server_exited_cleanly": true,
+    "scope": "Exact source bytes served from extracted package; no browser execution"
+  },
+  "browser_receiving": "pending",
+  "public_release_deployment_submission": "held"
+}
