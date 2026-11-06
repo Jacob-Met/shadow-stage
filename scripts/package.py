@@ -9,6 +9,8 @@ import zipfile
 ROOT = Path(__file__).resolve().parent.parent
 FILES = (
     'docs/geometry-quality.json',
+    'docs/RECEIVING-video-visibility-9b2ff121.md',
+    'tests/video-visibility.test.js',
     'docs/OFFLINE_VIDEO_RECEIVING.md', 'tests/offline-video/results.json',
     'tools/export_video.py',
     'tools/project_frames.mjs',
