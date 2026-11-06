@@ -1,0 +1,216 @@
+{
+  "schema": "shadow-stage.svg-pieces.receiving-summary-v1",
+  "status": "ORIGINAL_INTEGRATION_COURSE_PASSED_WITH_SEPARATE_FRAMEWISE_VISUAL_REVIEW",
+  "sourceFreeze": "adddabfb475e96a5a3a98a946dd9a67f7438653d",
+  "sourceBase": "407ab4bd2bc31cb86c429b79859ee769f785f514",
+  "owner": "estate-astra-9b2ff121-749a-437f-bda0-d3aa5bfced7e",
+  "task": "shadow-stage-svg-pieces-9b2ff121",
+  "claim": "https://github.com/Jacob-Met/shadow-stage/issues/1#issuecomment-6697177873",
+  "originalExecution": {
+    "label": "estate-9b2ff121-svg-pieces-original-course-01",
+    "initialChunk": "8e1cd3",
+    "terminalChunk": "6b2313",
+    "exit": 0,
+    "sessionState": "closed",
+    "courseCount": 1,
+    "successfulImports": 2,
+    "helperFits": 2,
+    "preFitOptionRefusals": 3,
+    "encodes": 1,
+    "completeDecodes": 1,
+    "oldBaselineFitReplays": 0,
+    "priorRegressionCourseReplays": 0,
+    "fitCountSemantics": "Selected fixed helper control flow and mode-specific receipts; not independent dynamic tracing."
+  },
+  "comparison": {
+    "method": {
+      "authoredTimes": [
+        0,
+        1
+      ],
+      "window": [
+        -1.6,
+        1.6,
+        -1.2,
+        1.2
+      ],
+      "grid": [
+        256,
+        192
+      ],
+      "cellSide": 0.0125,
+      "method": "Independent point-light projection at authored keys; cell-center point-in-polygon classification with half-open y and strict x crossing; Boolean union over projected pieces.",
+      "score": "XOR cell count divided by union cell count between predicted and target masks.",
+      "containment": "Every target and predicted polygon vertex must be inside the observation window; no outside-window clipping credit.",
+      "meanImprovementMinimum": 0.02,
+      "perKeyWorseningMaximum": 0.02,
+      "thresholdMeaning": "Prechosen practical two-percentage-point improvement and per-key guard, not a floating-point tolerance or promised outcome.",
+      "nativeReportComparison": false,
+      "configurationLimit": "Original single construction used lightShare .65; the new pieces construction uses fixed light with share zero. This compares whole constructions, not the isolated causal effect of piece count.",
+      "artifacts": "Retain raw 0/1 byte masks, projected polygon coordinates, occupancy, XOR and union counts for target, original single and new pieces at both authored keys."
+    },
+    "rows": [
+      {
+        "t": 0,
+        "original_single": {
+          "xor": 0,
+          "union": 16384,
+          "target_occupied": 16384,
+          "predicted_occupied": 16384,
+          "error": 0.0,
+          "mask_sha256": "b9d8037bff8b3d130be4903e11b44e7a1eef5d8f7658380bcef7b06e374c98b0"
+        },
+        "pieces": {
+          "xor": 0,
+          "union": 16384,
+          "target_occupied": 16384,
+          "predicted_occupied": 16384,
+          "error": 0.0,
+          "mask_sha256": "b9d8037bff8b3d130be4903e11b44e7a1eef5d8f7658380bcef7b06e374c98b0"
+        }
+      },
+      {
+        "t": 1,
+        "original_single": {
+          "xor": 3131,
+          "union": 10050,
+          "target_occupied": 8192,
+          "predicted_occupied": 8777,
+          "error": 0.31154228855721394,
+          "mask_sha256": "931d060eee23ac17c540b5e5570b3180956f09e8809c90466bd11713e214efb8"
+        },
+        "pieces": {
+          "xor": 296,
+          "union": 8308,
+          "target_occupied": 8192,
+          "predicted_occupied": 8128,
+          "error": 0.03562831006259028,
+          "mask_sha256": "c8f130c7f731e0368d32c16fb7832fc395cb9b0358a0020241fc6660b5c99ac9"
+        }
+      }
+    ],
+    "originalMean": 0.15577114427860697,
+    "piecesMean": 0.01781415503129514,
+    "improvement": 0.13795698924731184,
+    "bothPrechosenCriteriaPassed": true,
+    "complexity": {
+      "original_pieces": 1,
+      "original_vertices": 4,
+      "new_pieces": 21,
+      "new_vertices": 84
+    },
+    "oldLightShare": 0.65,
+    "newLightShare": 0
+  },
+  "defaultMode": {
+    "constructionOptionOmitted": true,
+    "lightShare": 0.65,
+    "maximumCorrespondingVertexError": 1.1188630228279524e-16,
+    "authoredKeyRms": 5.0008026794837356e-17,
+    "scope": "One new compatible triangle translation fixture; not a replay or general regression qualification."
+  },
+  "piecesNativeReport": {
+    "authoredMaskError": 0.017965587044534412,
+    "interpolatedMaskError": 0.21604180286420127,
+    "scope": "The maintained fitter uses its own measurement setup. This report is distinct from the shared independent authored-key comparison. Intermediate boundary morph is an authoring choice, not observed ground truth."
+  },
+  "movie": {
+    "frames": 96,
+    "width": 1000,
+    "height": 714,
+    "fps": 24,
+    "durationSeconds": 4,
+    "codec": "VP9",
+    "pixelFormat": "yuv444p",
+    "physicalTime": "i/95",
+    "presentationTime": "i/24",
+    "maximumDecodedPtsErrorSeconds": 0.00033333333333340764,
+    "all96GeometryBoundsPassed": true,
+    "all96ThresholdedNonblankAndOffEdgePassed": true,
+    "foregroundMinimumPixels": 85856,
+    "foregroundCriterion": "Pillow luminance <128, nonempty and no classified foreground at image edges.",
+    "selectedFrames": [
+      0,
+      47,
+      48,
+      95
+    ]
+  },
+  "identities": {
+    "projectSha256": "8ba9ce4e3d238a3948354bd6b5d94b210aa3275a96bade3d0a7e747b01b0abb7",
+    "sceneSha256": "18a6bcad894c6a46a7a9c191410c582fd18ba97da1c9e255dae7c7628dcb8410",
+    "movieSha256": "ae687538241ee8f62de6e148233fbc09f33c1217f76046e350dea11ed7046a81",
+    "defaultProjectSha256": "e9e7956d4f3f2c9548a09abe2b46426ca966817b88aee0ede8cf8c1d30c87edf",
+    "baselineProjectSha256": "cc603666e269ad6b5bd94d4e6bce58f8f7cdcd5ee87f28c8a1009dd7b7cbcdb7",
+    "originalResultSha256": "56006c83d8aa785341cee398780280dc657967ff7e205d8c47dab1cd83b312bc",
+    "originalToolRecordSha256": "5bd6d05fb2a57b56070a9258242f0b24dc69462fccb59d8b37e188e980abfe87",
+    "sourceManifestSha256": "026a7f6c70e8d5bd554fe315afb24a9df36cc8269ebdfcce4c4efb47080654f1",
+    "supervisorSourceSha256": "a3cff9226ad8e36c57c3cf1d64626ce89048db55d953fd4e2a003332e652d065",
+    "supervisorResultSha256": "302e8c44a3d87af942c6049787515da67933beb55b12480be3feb13472f71752",
+    "independentDataReviewSha256": "acc93d7218a604ea8219bc54241785f4650bc5d7b60c269db357a2b4105acf2d",
+    "rootVisualReviewSha256": "d7e98a9ec9779621af3a3ea2372f937271f08ac56865e4d82523aea5441a0e5d",
+    "independentVisualReviewSha256": "d856e7e5744e7e5b1711e5ac3e41605d547189ff85122c8fb2d54da7bd82d88c",
+    "originalEvidenceArchiveSha256": "4f3ff4f8b548c044c136ee341826770f5a7d9ee24cd0e119817d56bebc4d59fe",
+    "originalEvidenceArchiveBytes": 654565
+  },
+  "independentDataReview": {
+    "passed": true,
+    "checks": 42,
+    "scope": "Recounted all retained binary masks; verified 108 staged source hashes, before/after records, baseline, retained inputs, mode/refusal receipts, command streams, project/scene/movie hash chain, saved 96-frame geometry/schedules, original timing log, selected PNG and contact-sheet hashes.",
+    "limits": "Did not regenerate masks from polygons or decode the movie again. Full decoded RGB was not retained; per-frame RGB hashes and foreground measurements remain original receiver observations."
+  },
+  "visualReview": {
+    "root": {
+      "scope": "All 96 consecutive decoded thumbnails in four contact sheets and full frame 95.",
+      "observed": "The square progressively narrows into a recognizable triangular outline with visible square-cover stair steps. No blank, disappearing, clipped or abruptly displaced thumbnail was observed.",
+      "methodLimit": "Framewise inspection, not real-time playback or full-resolution acceptance of every frame."
+    },
+    "model_research": {
+      "scope": "All 96 consecutive decoded thumbnails in four ordered contact sheets and full frames 0,47,48,95.",
+      "observed": "Accepted with visible approximation: no blank/disappearing or visibly clipped thumbnail, no abrupt whole-shape jump, consistent progression across frames 47/48, and a solid union in selected full frames. Final sides have pronounced stair steps and the apex is slightly flat.",
+      "methodLimit": "Framewise inspection, not real-time playback or continuous-time framing."
+    }
+  },
+  "sourcePreservation": {
+    "stagedFiles": 108,
+    "fullFrozenTreeBlobs": 143,
+    "allStagedFilesMatchFrozenGitBlobs": true,
+    "sourcesAndBaselineUnchangedDuringCourse": true,
+    "originalStatusRecordsPreserved": "The pre-execution protocol remains prospective historical source. The original raw result keeps its pending visual-review marker; later reviews are separate."
+  },
+  "limits": [
+    "One finite fixture and fixed observation grid do not establish universal SVG improvement or continuous geometry equivalence.",
+    "Original single used lightShare .65 and new pieces used zero; this does not isolate the causal effect of piece count.",
+    "Twenty-one pieces and 84 vertices replace one piece and four vertices. Authored shape improvement comes with greater physical complexity.",
+    "The final triangle remains a stepped approximation and intermediate target mismatch remains substantial.",
+    "Finite frame bounds and luminance tests do not establish continuous framing, perceptual smoothness, collision clearance or fabrication feasibility.",
+    "Lossless YUV encoding does not imply RGB or browser pixel identity.",
+    "No browser gate, performance benchmark, model inference or public Release is established by this course."
+  ],
+  "contactSheets": [
+    {
+      "file": "contact-000-023.png",
+      "first_frame": 0,
+      "last_frame": 23,
+      "sha256": "380be7ca9efae77466c4a7c48521530cbfe371231b8abe40a3a167477b949d95"
+    },
+    {
+      "file": "contact-024-047.png",
+      "first_frame": 24,
+      "last_frame": 47,
+      "sha256": "a8319cc486df73457f367f6c693582fca1f6fb9a6acb61126a1a3255fdc807ac"
+    },
+    {
+      "file": "contact-048-071.png",
+      "first_frame": 48,
+      "last_frame": 71,
+      "sha256": "4ac2311ac438b24e8fb129d6ae8ae15ee2ede27d0c03ce33ea244ddcdf443ece"
+    },
+    {
+      "file": "contact-072-095.png",
+      "first_frame": 72,
+      "last_frame": 95,
+      "sha256": "9a5357ad00bcbcaf791cc2971a83c7ed9532bd40e45cc6b7b44b82e6bde66c42"
+    }
+  ]
+}

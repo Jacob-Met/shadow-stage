@@ -1,0 +1,17 @@
+{
+  "format": "shadow-stage/svg-sequence-v1",
+  "title": "Square to triangle with pieces",
+  "duration": 4,
+  "stageWidth": 3.2,
+  "lightShare": 0,
+  "moments": [
+    {
+      "t": 0,
+      "file": "square.svg"
+    },
+    {
+      "t": 1,
+      "file": "triangle.svg"
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "schema": "shadow-stage.svg-pieces.receiving-protocol-v1",
+  "status": "PROSPECTIVE_BEFORE_FIRST_PRODUCT_CONSUMPTION",
+  "owner": "estate-astra-9b2ff121-749a-437f-bda0-d3aa5bfced7e",
+  "nativeTask": "shadow-stage-svg-pieces-9b2ff121",
+  "sourceBase": "407ab4bd2bc31cb86c429b79859ee769f785f514",
+  "implementationHead": "36155d3ff43262019d9092adf2814461e8e88748",
+  "claim": "https://github.com/Jacob-Met/shadow-stage/issues/1#issuecomment-6697177873",
+  "purpose": "Receive the optional SVG pieces construction through the existing project/export path and compare one incompatible authored pair against its preserved original single-cutout result.",
+  "fixtures": {
+    "receiver.py": "9a5644c1ca98a55a51938fdbcbd13466eb30fff1",
+    "expected.json": "b486cfc0aa13eada7ec97fea4e613d02792b2910",
+    "default-start.svg": "eb8e65c9f3278c8b699a5ce78fc331d37eb094fd",
+    "default-end.svg": "361a3adb49129fbc06489108e043baa3b3ef0101",
+    "default-sequence.json": "799d63f202315ec91149f13e3f014dfb9e608b2d",
+    "pieces-sequence.json": "53856a1c5158a5944c3869810066582575c06799",
+    "square.svg": "aa6da81f3d729c824b6ccbb985768212e5fcedc5",
+    "triangle.svg": "5810416252b525782505e7257ac5396070e47047",
+    "single-baseline-project.json": "b7d445e70ac0007fe801313d67cfda0ef9c32fc7"
+  },
+  "producers": {
+    "tools/import_svg.py": "9621e5d1b01066b11cd7be86937e52329b705b28",
+    "tools/fit_svg_targets.mjs": "dd8fa0ee8a12886f413aa727a00b29b2b3be73f8",
+    "tools/export_video.py": "cef1897d0ba47d391b60ef873937f6e34e702fd8",
+    "tools/project_frames.mjs": "24be81ca49c590f9be48ba24c122a340ad847c0d",
+    "src/core.js": "5b3206608002873d8ce918692ecc48e8f0127efa",
+    "src/project.js": "0c532e0b508a00a906aa7e636e95a4ba4a70202e",
+    "src/runtime.js": "17d9b2ee47ccb843a0267640de5608c66995cb38",
+    "src/articulated.js": "cd1e967b802f4a03294cd7a8bd6f58fe84ab683d"
+  },
+  "guide": "4518079bd3a9155ac76f36b768f306c1de69277a",
+  "course": {
+    "successfulImports": 2,
+    "helperFits": 2,
+    "preFitOptionRefusals": 3,
+    "exports": 1,
+    "encodes": 1,
+    "completeDecodes": 1,
+    "frames": 96,
+    "oldBaselineFitReplays": 0,
+    "priorRegressionCourses": 0,
+    "fitCountSemantics": "Selected fixed helper control flow and mode-specific successful receipts; not independent dynamic tracing.",
+    "defaultCase": {
+      "manifest": "default-sequence.json",
+      "construction": "omitted",
+      "lightShare": 0.65,
+      "durationSeconds": 1,
+      "export": false
+    },
+    "piecesCase": {
+      "manifest": "pieces-sequence.json",
+      "construction": "pieces",
+      "maxPieces": 24,
+      "resolution": 32,
+      "coverageTolerance": 0.01,
+      "lightShare": 0,
+      "durationSeconds": 4
+    },
+    "refusals": [
+      {
+        "case": "single plus --max-pieces 2",
+        "expected": "--max-pieces requires --construction pieces.",
+        "stageCreated": false
+      },
+      {
+        "case": "pieces plus --max-pieces 25",
+        "expected": "Pieces construction requires an integer --max-pieces from 1 through 24.",
+        "stageCreated": false
+      },
+      {
+        "case": "pieces with default-sequence lightShare .65",
+        "expected": "Pieces construction requires lightShare=0 because the maintained engine uses a fixed light.",
+        "stageCreated": true,
+        "fitInvoked": false
+      }
+    ],
+    "commandWallSeconds": {
+      "eachRefusal": 10,
+      "defaultImport": 30,
+      "piecesImport": 60,
+      "export": 90,
+      "decode": 45
+    },
+    "outerWallSeconds": 240,
+    "cpuSecondsPerProcess": 120,
+    "regularFileBytesPerFile": 536870912,
+    "executionCpus": 1,
+    "niceIncrement": 10,
+    "aggregateCpuLimit": false,
+    "rssOrAddressSpaceLimit": false,
+    "aggregateOutputLimit": false
+  },
+  "baseline": {
+    "path": "single-baseline-project.json",
+    "bytes": 1733,
+    "sha256": "cc603666e269ad6b5bd94d4e6bce58f8f7cdcd5ee87f28c8a1009dd7b7cbcdb7",
+    "originalCourse": "estate-9b2ff121-svg-original-receiving-01",
+    "originalFrozenSource": "e1b292ee64f78dac6343cc84b73db0ef7f13fbb5",
+    "originalSceneSha256": "c9543fdeca3b316770479da9ebb90ef3a1c741f47a83bb17685b3ed03ec4f943",
+    "lightShare": 0.65,
+    "use": "Read, hash and copy the original saved project; never refit it."
+  },
+  "admission": {
+    "freshWorkDirectory": true,
+    "sourceIdentity": "Every staged file must match the Git source-freeze manifest before launch.",
+    "minimumDiskFreeBytes": 1073741824,
+    "minimumHostMemAvailableBytes": 1073741824,
+    "load1Maximum": "max(6,1.5*availableAffinityCount)",
+    "capacityLimit": "Host MemAvailable and process affinity are observations of this route, not cgroup capacity guarantees."
+  },
+  "comparison": {
+    "authoredTimes": [
+      0,
+      1
+    ],
+    "window": [
+      -1.6,
+      1.6,
+      -1.2,
+      1.2
+    ],
+    "grid": [
+      256,
+      192
+    ],
+    "cellSide": 0.0125,
+    "method": "Independent point-light projection at authored keys; cell-center point-in-polygon classification with half-open y and strict x crossing; Boolean union over projected pieces.",
+    "score": "XOR cell count divided by union cell count between predicted and target masks.",
+    "containment": "Every target and predicted polygon vertex must be inside the observation window; no outside-window clipping credit.",
+    "meanImprovementMinimum": 0.02,
+    "perKeyWorseningMaximum": 0.02,
+    "thresholdMeaning": "Prechosen practical two-percentage-point improvement and per-key guard, not a floating-point tolerance or promised outcome.",
+    "nativeReportComparison": false,
+    "configurationLimit": "Original single construction used lightShare .65; the new pieces construction uses fixed light with share zero. This compares whole constructions, not the isolated causal effect of piece count.",
+    "artifacts": "Retain raw 0/1 byte masks, projected polygon coordinates, occupancy, XOR and union counts for target, original single and new pieces at both authored keys."
+  },
+  "criteria": {
+    "normalizedMaximumCorrespondingVertexEuclideanError": 1e-12,
+    "defaultAuthoredMaximumCorrespondingVertexEuclideanError": 1e-8,
+    "piecesMinimumExclusive": 1,
+    "piecesMaximum": 24,
+    "uniquePersistentIds": true,
+    "verticesPerPiece": 4,
+    "pieceKeyTimes": [
+      0,
+      1
+    ],
+    "fixedLight": {
+      "t": 0,
+      "x": 0,
+      "y": 0,
+      "z": 5
+    },
+    "geometryPixelBounds": [
+      1,
+      998,
+      1,
+      712
+    ],
+    "decodedForeground": "Pillow luminance <128, nonempty and no classified foreground on image edges for all 96 frames.",
+    "width": 1000,
+    "height": 714,
+    "codec": "vp9",
+    "durationSeconds": 4,
+    "physicalTime": "i/95",
+    "presentationTime": "i/24",
+    "ptsMaximumAbsoluteErrorSeconds": 0.001,
+    "selectedDecodedFrames": [
+      0,
+      47,
+      48,
+      95
+    ],
+    "contactSheets": "Four ordered 24-frame sheets from the same complete decode; no additional encode or decode.",
+    "projectSceneIdentityPreserved": true,
+    "sourceAndBaselineUnchanged": true,
+    "intermediateTargetEquality": false
+  },
+  "evidence": {
+    "ordering": "Produce and decode the pieces movie before applying practical-benefit gates, so an adverse comparison retains downstream evidence.",
+    "retained": [
+      "Source-freeze manifest and protocol",
+      "Original launch request and initial/final tool responses",
+      "Admission, child PID and terminal supervisor state",
+      "Original importer/exporter/decoder receipts and stdout/stderr",
+      "Input copies and generated projects",
+      "Raw comparison masks and projected coordinates",
+      "All-frame geometry, timing, decoded hashes and foreground bounds",
+      "Four selected decoded PNGs and four complete contact sheets",
+      "Separate static, data and visual reviews with their actual scope"
+    ],
+    "fullDecodedRgbRetained": false,
+    "visualReview": "Review retained contact sheets and selected frames separately; do not edit the original receiver result to replace its pending-review marker."
+  },
+  "integration": {
+    "afterReceiving": "Preserve the original observations; document actual results and limitations, add the necessary package entries and public receiving summary, then build and verify the final package once. Do not replay the product course for packaging.",
+    "publicRelease": false,
+    "browserReceiving": "Separate held PR11 browser gate is unchanged.",
+    "unresolvedReadout": "Original readout custody is separate; no replay."
+  },
+  "limits": [
+    "Fixed-grid estimates do not establish continuous geometry equivalence or arbitrary SVG fidelity.",
+    "The piece cap does not bound all solver work; the maintained fitter also measures its report.",
+    "Finite geometry and luminance observations do not establish continuous framing, perceptual smoothness or fabrication safety.",
+    "Lossless YUV encoding does not imply exact RGB or browser pixel identity.",
+    "The chosen fixture and practical threshold do not establish a universal improvement or performance claim."
+  ]
+}

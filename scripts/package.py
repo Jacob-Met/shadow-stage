@@ -80,6 +80,17 @@ FILES = (
     'examples/paper-swallow/sequence.json',
     'examples/paper-swallow/start.svg',
     'examples/paper-swallow/turn.svg',
+    'tests/svg-pieces/PROTOCOL.json',
+    'tests/svg-pieces/RECEIVING.json',
+    'tests/svg-pieces/default-end.svg',
+    'tests/svg-pieces/default-sequence.json',
+    'tests/svg-pieces/default-start.svg',
+    'tests/svg-pieces/expected.json',
+    'tests/svg-pieces/pieces-sequence.json',
+    'tests/svg-pieces/receiver.py',
+    'tests/svg-pieces/single-baseline-project.json',
+    'tests/svg-pieces/square.svg',
+    'tests/svg-pieces/triangle.svg',
 )
 
 

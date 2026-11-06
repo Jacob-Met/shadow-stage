@@ -1,0 +1,17 @@
+{
+  "format": "shadow-stage/svg-sequence-v1",
+  "title": "Default single translation",
+  "duration": 1,
+  "stageWidth": 3.2,
+  "lightShare": 0.65,
+  "moments": [
+    {
+      "t": 0,
+      "file": "default-start.svg"
+    },
+    {
+      "t": 1,
+      "file": "default-end.svg"
+    }
+  ]
+}

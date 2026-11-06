@@ -127,12 +127,20 @@ def publish(stage,destination):
     if rename(-100,os.fsencode(stage),-100,os.fsencode(destination),1):
         number=ctypes.get_errno();raise OSError(number,os.strerror(number),str(destination))
 
-def run(sequence,destination):
+def run(sequence,destination,*,construction='single',max_pieces=None):
+    if construction not in ('single','pieces'):raise ValueError('Construction must be single or pieces.')
+    if construction=='single':
+        if max_pieces is not None:raise ValueError('--max-pieces requires --construction pieces.')
+        selected={'mode':'single','maxPieces':1}
+    else:
+        budget=24 if max_pieces is None else max_pieces
+        if type(budget) is not int or not 1<=budget<=24:raise ValueError('Pieces construction requires an integer --max-pieces from 1 through 24.')
+        selected={'mode':'pieces','maxPieces':budget}
     sequence=sequence.resolve();destination=destination.absolute()
     if os.path.lexists(destination):raise ValueError('Output already exists; choose a new directory.')
     if not destination.parent.is_dir():raise ValueError('Output parent directory must exist.')
     stage=Path(tempfile.mkdtemp(prefix='.'+destination.name+'.partial-',dir=destination.parent));(stage/'inputs').mkdir()
-    receipt={'status':'preparing','fitInvoked':False,'inputs':[]}
+    receipt={'status':'preparing','fitInvoked':False,'inputs':[],'requestedConstruction':selected}
     try:
         source_names=['tools/import_svg.py','tools/fit_svg_targets.mjs','src/core.js','src/project.js','src/articulated.js']
         before={name:sha((ROOT/name).read_bytes()) for name in source_names}
@@ -145,6 +153,7 @@ def run(sequence,destination):
         if type(data['title']) is not str or len(data['title'])>300:raise ValueError('Title must be a string of at most 300 characters.')
         duration=finite(data['duration'],'duration');width=finite(data['stageWidth'],'stageWidth');share=finite(data['lightShare'],'lightShare')
         if not 0<duration<=120 or not 0<width<=100 or not 0<=share<=1:raise ValueError('Require duration (0,120], stageWidth (0,100], lightShare [0,1].')
+        if construction=='pieces' and share!=0:raise ValueError('Pieces construction requires lightShare=0 because the maintained engine uses a fixed light.')
         moments=data['moments']
         if type(moments) is not list or not 2<=len(moments)<=16:raise ValueError('Require 2–16 moments.')
         targets=[];box=None;previous=-1;total=0
@@ -171,6 +180,8 @@ def run(sequence,destination):
         if targets[0]['t']!=0 or targets[-1]['t']!=1:raise ValueError('Moments must include endpoints 0 and 1.')
         write(stage/'targets.json',targets)
         admitted={k:data[k] for k in ('title','duration','lightShare')};admitted['targets']=targets
+        # Omission preserves the legacy single-cutout helper input exactly.
+        if construction=='pieces':admitted['construction']=selected
         write(stage/'admitted.json',admitted)
         node=shutil.which('node')
         if not node:raise ValueError('Node is required; nothing is installed automatically.')
@@ -195,8 +206,14 @@ def run(sequence,destination):
         print('Import failed; evidence retained at '+str(stage),file=sys.stderr);raise
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('sequence',type=Path);parser.add_argument('output',type=Path);args=parser.parse_args()
-    try:print(run(args.sequence,args.output))
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('sequence',type=Path);parser.add_argument('output',type=Path)
+    parser.add_argument('--construction',choices=('single','pieces'),default='single',
+                        help='Use one fixed cutout (default), or a bounded construction of persistent square pieces.')
+    parser.add_argument('--max-pieces',type=int,metavar='N',
+                        help='Pieces-mode budget from 1 through 24 (default 24); requires --construction pieces.')
+    args=parser.parse_args()
+    try:print(run(args.sequence,args.output,construction=args.construction,max_pieces=args.max_pieces))
     except Exception as error:print(str(error),file=sys.stderr);return 1
     return 0
 if __name__=='__main__':raise SystemExit(main())

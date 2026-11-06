@@ -6,7 +6,21 @@ From the repository root, run:
 python3 tools/import_svg.py sequence.json new-output-directory
 ```
 
-This opt-in local utility maps authored silhouettes into stage targets, calls the unchanged single-cutout fitter once, and writes a normal saved project containing its actual physical scene and fit report. It requires Python and Node already installed, plus Linux `renameat2` for atomic no-overwrite publication. No browser, model provider or package installation is involved.
+This opt-in local utility maps authored silhouettes into stage targets, calls one selected unchanged fitter once, and writes a normal saved project containing its actual physical scene and fit report. It requires Python and Node already installed, plus Linux `renameat2` for atomic no-overwrite publication. No browser, model provider or package installation is involved.
+
+## Choosing a construction
+
+The default command above keeps the existing single-cutout behavior. For an explicit bounded construction of persistent rigid square pieces, use:
+
+```sh
+python3 tools/import_svg.py sequence.json new-output-directory --construction pieces --max-pieces 24
+```
+
+Pieces mode accepts an integer budget from 1 through 24 and defaults to 24 when `--max-pieces` is omitted. It requires the sequence's `lightShare` to be exactly 0: the maintained pieces engine uses a fixed light. It does not silently ignore a nonzero light share. `--max-pieces` with the default or explicit `--construction single` is refused. These are command options; do not add construction fields to the sequence JSON.
+
+Pieces mode calls `fitArticulated` with the selected budget, fixed `resolution: 32`, fixed `coverageTolerance: 0.01`, and the sequence duration. The budget is a maximum, not a promised piece count or achieved error. The unchanged engine approximates each silhouette with squares and assigns persistent physical cutouts across moments. It does not make a single polygon deform or guarantee an exact silhouette, collision clearance, fabrication feasibility, or intermediate target agreement. The [bounded receiving record](../tests/svg-pieces/RECEIVING.json) covers one square-to-triangle fixture. On a shared independent 256 × 192 observation grid, mean authored union-mask error decreased from 0.15577114427860697 for the saved single-cutout baseline to 0.01781415503129514 for 21 pieces. The baseline used lightShare 0.65 and the new construction used 0, so this is a whole-construction comparison, not an isolated piece-count effect. The triangle remains an approximate stepped silhouette.
+
+Endpoint improvement does not establish intermediate target equality. The new pieces engine's native report records intermediate mask error 0.21604180286420127 against its chosen boundary morph; that morph is not observed intermediate ground truth. This native intermediate report uses its own measurement setup and is not the shared authored-key comparison above. The result is bounded fixture evidence, not a universal improvement or a native RMS-versus-mask comparison.
 
 ## Sequence contract
 
@@ -50,11 +64,13 @@ For viewBox `(minX,minY,width,height)`, SVG point `(svgX,svgY)` maps to:
 
 Both coordinates use the same width-derived scale, preserving aspect ratio while flipping SVG's downward y direction. No per-image recentering, stretching or score-based choice is performed.
 
-All SVG files are parsed and mapped before the helper is invoked. The helper then applies unchanged `validateTargets`, calls unchanged `fitScene` with the supplied lightShare and duration, and roundtrips the resulting single-cutout project through unchanged `serializeProject`/`parseProject`. Incompatible shapes can retain nonzero residual. `fit-report.json` is the actual fitter report, not an invented success score or pixel/visual certificate. Interpolated target boundaries are an authoring choice, not observed intermediate ground truth.
+All SVG files are parsed and mapped before the helper is invoked. The helper applies unchanged `validateTargets`, then calls either unchanged `fitScene` with the supplied lightShare and duration (single mode) or unchanged `fitArticulated` with the fixed options above (pieces mode). It roundtrips the resulting normal project through unchanged `serializeProject`/`parseProject`, retaining `construction: {mode, maxPieces}` and the actual physical scene. The sequence limit remains 16 moments in both modes.
+
+Incompatible shapes can retain nonzero residual. `fit-report.json` is the actual selected fitter's report, not an invented success score or pixel/visual certificate. The single fitter's boundary RMS and the pieces fitter's finite-resolution raster union symmetric-difference error are different metrics and must not be compared numerically as if they measured the same quantity. A fair comparison needs the same independently specified measurement on both saved scenes. The pieces fitting grid resolution of 32 is distinct from the unchanged engine's final report measurement resolution. Interpolated target boundaries are an authoring choice, not observed intermediate ground truth.
 
 ## Output and failure evidence
 
-The complete bundle contains `project.json`, `targets.json`, `fit-report.json`, `admitted.json`, retained raw input bytes under `inputs/`, helper stdout/stderr and `receipt.json`. Receipts include input/source hashes, helper exit, project/scene identities, roundtrip outcome and fixed-helper fit-call accounting. These counts describe control flow, not independent dynamic instrumentation. Sources are checked before and after fitting. A helper invocation can fail target validation before reaching the fit.
+The complete bundle contains `project.json`, `targets.json`, `fit-report.json`, `admitted.json`, retained raw input bytes under `inputs/`, helper stdout/stderr and `receipt.json`. Receipts include input/source hashes, helper exit, project/scene identities, roundtrip outcome and fixed-helper fit-call accounting. They also record `requestedConstruction`, the selected `construction`, `fitEngine` (`fitScene` or `fitArticulated`) and the exact `fitOptions` passed to that engine. These counts describe control flow, not independent dynamic instrumentation. Sources are checked before and after fitting. A helper invocation can fail target validation before reaching the fit. Invalid mode/budget combinations are refused before a temporary bundle is created; a nonzero pieces-mode light share is refused after sequence admission but before SVG parsing or helper invocation, retaining a failed receipt.
 
 The destination must not exist and its parent must exist. A sibling temporary directory holds intermediate evidence; successful publication is atomic and does not replace even an empty destination created concurrently. Failure retains its temporary directory with a failed receipt and available raw inputs/logs. A failed late publication preserves the prior prepared receipt separately. The helper has a 120-second timeout. Process interruption outside Python cleanup may leave incomplete evidence. No power-loss durability guarantee is made.
 
