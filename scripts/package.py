@@ -9,6 +9,16 @@ import zipfile
 ROOT = Path(__file__).resolve().parent.parent
 FILES = (
     'docs/geometry-quality.json',
+    'docs/OFFLINE_VIDEO_RECEIVING.md', 'tests/offline-video/results.json',
+    'tools/export_video.py',
+    'tools/project_frames.mjs',
+    'tools/OFFLINE_VIDEO.md',
+    'tests/offline-video/receive.py',
+    'tests/offline-video/protocol.json',
+    'tests/offline-video/PROTOCOL.md',
+    'tests/offline-video/single.json',
+    'tests/offline-video/crossing.json',
+    'tests/offline-video/missing-scene.json',
     'src/articulated.js',
     'src/scene-proposals.js',
     'src/runtime.js',

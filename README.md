@@ -230,3 +230,16 @@ Both scripts require the receiving host's Playwright installation, preserve the
 Chromium sandbox, and accept an existing Chrome binary through
 `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`. No browser dependency is needed to run the
 studio itself.
+
+
+## Offline fixed-frame video
+
+Authors with a saved project and a physical scene can render a WebM without keeping a browser tab open:
+
+```sh
+python3 tools/export_video.py saved-project.json new-movie-directory
+```
+
+This opt-in Linux command requires Node 20+, Python with Pillow, and FFmpeg/ffprobe with VP9 support. It uses the existing physical projection and camera at 1000 × 714 and 24 frames per second. Both endpoint poses are sampled; the frame count rounds the requested duration, and the receipt records that difference. The output directory must be new. A successful bundle contains `performance.webm`, three original-frame previews, the frozen scene, frame schedule and a receipt. Failure leaves diagnostic evidence without replacing an existing movie.
+
+See [the offline video guide](tools/OFFLINE_VIDEO.md) for the fixed rendering profile and limits. Browser-canvas antialiasing, pixel identity, continuous-motion safety and artistic quality are separate questions. The browser export and studio controls are unchanged.
