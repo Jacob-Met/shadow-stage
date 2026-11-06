@@ -36,6 +36,14 @@ python3 tools/import_svg.py examples/paper-swallow/sequence.json paper-swallow-p
 
 Choose **Open** and select the generated `paper-swallow-project/project.json`. The importer supports one filled straight-edged silhouette per SVG with a shared explicit `viewBox`. It preserves that coordinate frame and reports the actual fitter residual; changing silhouettes may retain mismatch. See the [SVG import guide](tools/SVG_IMPORT.md) for the complete supported subset and requirements.
 
+For silhouettes that one fixed cutout cannot match, opt into a bounded construction of persistent square pieces:
+
+```sh
+python3 tools/import_svg.py sequence.json new-pieces-project --construction pieces --max-pieces 24
+```
+
+Set `lightShare` to 0 in that sequence. The budget accepts 1–24 pieces and defaults to 24; the original command remains single-cutout fitting. The [bounded receiving record](tests/svg-pieces/RECEIVING.json) reports one square-to-triangle comparison using 21 pieces, including its remaining stepped boundary and intermediate mismatch. See the [SVG import guide](tools/SVG_IMPORT.md#choosing-a-construction) for options and evidence limits.
+
 The included example was imported and rendered through the offline tools. Its [receiving record](examples/paper-swallow/RECEIVING.json) distinguishes authored-pose agreement, intermediate mismatch and framewise visual review. To render a saved physical scene without a browser tab:
 
 ```sh
