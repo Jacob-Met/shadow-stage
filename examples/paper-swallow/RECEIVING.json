@@ -1,0 +1,120 @@
+{
+  "schema": "shadow-stage.paper-swallow.receiving-summary-v1",
+  "status": "ORIGINAL_CREATIVE_COURSE_PASSED_WITH_SEPARATE_FRAMEWISE_VISUAL_REVIEW",
+  "sourceFreeze": "091c1258d4a7e8eb117b9b859ec5ea4dcfaf2d73",
+  "sourceBase": "3181635b09544a2481c78ecf4625313c34f6ab8c",
+  "task": "shadow-stage-paper-swallow-9b2ff121",
+  "owner": "estate-astra-9b2ff121-749a-437f-bda0-d3aa5bfced7e",
+  "originalExecution": {
+    "label": "estate-9b2ff121-paper-swallow-original-course-01",
+    "initialChunk": "798f79",
+    "terminalChunk": "ad35a1",
+    "exit": 0,
+    "sessionState": "closed",
+    "courseCount": 1,
+    "imports": 1,
+    "helperFits": 1,
+    "encodes": 1,
+    "fullDecodes": 1,
+    "refusalCases": 0,
+    "fitCountSemantics": "Fixed unchanged helper control flow and successful receipt, not external dynamic tracing."
+  },
+  "observed": {
+    "authoredMaximumCorrespondingVertexError": 1.7554167342883506e-16,
+    "authoredKeyRms": 6.011848623432987e-17,
+    "interpolatedTargetRms": 0.012919459632490351,
+    "frames": 144,
+    "width": 1000,
+    "height": 714,
+    "fps": 24,
+    "durationSeconds": 6,
+    "codec": "VP9",
+    "pixelFormat": "yuv444p",
+    "physicalTime": "i/143",
+    "presentationTime": "i/24",
+    "maximumDecodedPtsErrorSeconds": 0.00033333333333340764,
+    "all144GeometricBoundsPassed": true,
+    "all144ThresholdedNonblankAndOffEdgePassed": true,
+    "foregroundMinimumPixels": 15459,
+    "foregroundCriterion": "Pillow L <128: nonempty; no foreground at image edges.",
+    "selectedFrames": [
+      0,
+      43,
+      93,
+      143
+    ],
+    "firstAndLastDecodedRgbHashEqual": true
+  },
+  "identities": {
+    "projectSha256": "28150629bf9229e34828861f71dd911ea1ef29c5d34a591619e44c9285d1b792",
+    "sceneSha256": "a911817944776b7b11d2b87392f3eec2029059df4490607de2bcb22f349f25af",
+    "movieSha256": "d6f442810cce4f8a6340283d2b8d176b9ea455e9f9ebaba718740d87a3f9ced2",
+    "originalResultSha256": "87963bc99f54c9207df9b7252cba2d108fc270114170379dad36d9b3f8b76485",
+    "originalToolRecordSha256": "eedfce8864391c5af3b13ad9a82670afae48e18f30130f2ec4eef544e6a8a252",
+    "sourceManifestSha256": "2dc5c2ea2ee0a40e59bddd945240b0983421727725d18459529cd6b1f2824fd0",
+    "supervisorSourceSha256": "4384629ad01ff055d6d4912fd926d4d9a42fa3192c417d674103121ab9c0ba7d",
+    "supervisorResultSha256": "25b183cc035d1b61d01c5877a51359aa722a64efa04acd1ad11f5a788344c315",
+    "independentDataReviewSha256": "caa5dcb7a91b07089ba447d2d70376b43dcdb22dd44f16a3d33b2d66d950bd20",
+    "independentVisualReviewSha256": "50b03102f703f23e313e7be148858d3ff3aab826a790ede451febea0246df802",
+    "originalEvidenceArchiveSha256": "e601826d92498beaab910d5c1550e7d624b1199b6b50ef0eed43ff8ae4be8ac2",
+    "originalEvidenceArchiveBytes": 1893559
+  },
+  "independentDataReview": {
+    "passed": true,
+    "checks": 29,
+    "scope": "Exact 96 staged sources, manifests, original requests/responses and command streams, input/project/scene/movie identity, parser roundtrip, saved geometry and original timing logs, PNG/contact hashes. No product execution repeated.",
+    "limit": "Full decoded RGB was not retained. All-frame pixel counts, bounds and RGB hashes remain original receiver observations; the reviewer verified saved records and retained PNG/contact file hashes."
+  },
+  "visualReview": {
+    "reviewers": [
+      "root",
+      "model_research"
+    ],
+    "scope": "All 144 consecutive decoded thumbnails in four ordered contact sheets plus full-size frames 0 and 93.",
+    "observed": "The cutout remains visible and broadly framed. The sequence depicts a down-and-right dip, an upward bank and a return. No blank, disappearing, visibly clipped or abruptly displaced frame was observed.",
+    "artisticLimit": "A stylized paper-bird study; the rigid angular silhouette can also read as a paper aircraft. Species recognition, biological flight and natural motion are not claimed.",
+    "methodLimit": "Framewise contact-sheet inspection, not real-time playback or full-resolution visual acceptance of every frame."
+  },
+  "sourcePreservation": {
+    "stagedFiles": 96,
+    "allMatchFrozenGitBlobs": true,
+    "sourceUnchangedDuringCourse": true,
+    "generatedProject": "project.json is the original imported output, preserved byte for byte.",
+    "historicalDocuments": "geometry.json, expected.json and receiving-plan.json retain their pre-execution source status. The original raw result's pending-visual marker is preserved; later visual reviews are separate."
+  },
+  "limits": [
+    "This is ordinary creative use of the merged tools, not a new general producer qualification or benchmark.",
+    "Near-exact authored poses do not imply exact intermediate target interpolation; the nonzero metric above is retained.",
+    "Finite movie samples do not establish continuous-time framing or collision/fabrication safety.",
+    "Lossless YUV encoding does not imply exact RGB or browser pixels.",
+    "Matching endpoint RGB hashes do not establish seamless real-time looping; the maintained player stops at the end.",
+    "Real-browser opening/playback was not exercised in this course. The separate held visibility PR11 gate is unaffected.",
+    "This public file summarizes the original evidence. It does not contain all raw private execution records or movie bytes."
+  ],
+  "contactSheets": [
+    {
+      "file": "contact-000-035.png",
+      "first_frame": 0,
+      "last_frame": 35,
+      "sha256": "4f39478602ac7a6f0e8c3b5b443428f079804681f0e5a9479a5c3a7ecd6c5eb7"
+    },
+    {
+      "file": "contact-036-071.png",
+      "first_frame": 36,
+      "last_frame": 71,
+      "sha256": "104e1c8f3623dc3885adbefbde0b5fa5a0f648efc6a7e4b74392e61f428b735e"
+    },
+    {
+      "file": "contact-072-107.png",
+      "first_frame": 72,
+      "last_frame": 107,
+      "sha256": "b75a8422e284cf185e808a7b282c80d47cc7538c57ae502ed1034614afdf0cd5"
+    },
+    {
+      "file": "contact-108-143.png",
+      "first_frame": 108,
+      "last_frame": 143,
+      "sha256": "d059fcb4b71482fc6d334ecc2e7cb6b94d32e4c81755bc4a0b06901cd3634f38"
+    }
+  ]
+}

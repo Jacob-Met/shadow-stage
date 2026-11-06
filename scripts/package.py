@@ -68,6 +68,18 @@ FILES = (
     'tools/SVG_IMPORT.md',
     'tools/fit_svg_targets.mjs',
     'tools/import_svg.py',
+    'examples/paper-swallow/README.md',
+    'examples/paper-swallow/RECEIVING.json',
+    'examples/paper-swallow/dip.svg',
+    'examples/paper-swallow/expected.json',
+    'examples/paper-swallow/geometry.json',
+    'examples/paper-swallow/project.json',
+    'examples/paper-swallow/receiving-plan.json',
+    'examples/paper-swallow/receiving.py',
+    'examples/paper-swallow/return.svg',
+    'examples/paper-swallow/sequence.json',
+    'examples/paper-swallow/start.svg',
+    'examples/paper-swallow/turn.svg',
 )
 
 
