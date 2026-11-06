@@ -83,3 +83,7 @@ Practical advice: derive compatible moments from one outline with corresponding 
 3. **Intermediate/rendered behavior:** the default report samples 25 normalized times. Its interpolated targets are constructed from aligned 64-point boundaries with smoothstep interpolation (`core.js:92–108`); these are an authoring choice, not observed ground truth. Physical position/depth tracks interpolate separately and angle uses shortest wrapped increments (`core.js:48–59`). Projection is nonlinear in depth, so exact key fits do not imply exact intermediate agreement or a prescribed number of spins. Finite temporal samples do not certify every instant. Rasterization, antialiasing, video sample times, framing and YUV conversion add differences outside the reported stage-coordinate metric.
 
 Use the actual fit report to identify approximation, then inspect the resulting motion and framing when execution is admitted. Neither low sampled residual nor this source analysis establishes fabrication, collision clearance, every-frame accuracy, browser equivalence or artistic success.
+
+## Scale transitions and continuous framing
+
+The companion [motion notes](SVG_MOTION_NOTES.md) derive an intermediate-origin drift that can occur during scale changes, explain the conditional `lightShare=0` authoring choice, and give a sufficient continuous geometric framing bound. These are source-derived results; the frozen importer and receiving course remain unchanged.
