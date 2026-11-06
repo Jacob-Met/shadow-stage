@@ -64,6 +64,10 @@ The existing [offline exporter](https://github.com/Jacob-Met/shadow-stage/blob/e
 
 When counts differ, `core.js:69–90` resamples both boundaries at 64 equal perimeter intervals, then tries only integer cyclic sample shifts. This can make the fit depend on an otherwise irrelevant SVG starting point or collinear vertex.
 
+![Equal square outlines with different vertex encodings and sample grids offset by half a step](illustrations/svg-correspondence.svg)
+
+*Analytical schematic, with Cartesian y upward. It illustrates correspondence samples rather than an executed fit; SVG-to-stage mapping flips y as described above.*
+
 **Unexecuted analytical example:** two SVG polygons in the same unit viewBox, with `stageWidth=1`, are
 
 `[(0,0),(1,0),(1,1),(0,1)]`
