@@ -34,6 +34,7 @@ FILES = (
     'tests/scene-proposals.test.js',
     'README.md', 'package.json', 'server.mjs', 'index.html', 'styles.css', 'app.js',
     'src/core.js', 'src/project.js', 'src/proposals.js', 'src/target-history.js',
+    'examples/parallax-leaves/project.json', 'examples/parallax-leaves/README.md',
     'tests/target-history.test.js', 'tests/target-history-receiving.mjs', 'tests/target-history-baseline.mjs',
     'scripts/package.py', 'tests/core.test.js', 'tests/receiving.test.js',
     'tests/project.test.js', 'tests/proposals.test.js', 'tests/server.test.js', 'tests/browser-receiving.mjs',
