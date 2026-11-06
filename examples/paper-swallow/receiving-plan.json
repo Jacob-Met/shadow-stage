@@ -1,0 +1,118 @@
+{
+  "schema": "shadow-stage.paper-swallow.receiving-plan-v1",
+  "status": "PROSPECTIVE_BEFORE_FIRST_PRODUCT_CONSUMPTION",
+  "owner": "estate-astra-9b2ff121-749a-437f-bda0-d3aa5bfced7e",
+  "nativeTask": "shadow-stage-paper-swallow-9b2ff121",
+  "sourceBase": "3181635b09544a2481c78ecf4625313c34f6ab8c",
+  "claim": "https://github.com/Jacob-Met/shadow-stage/issues/1#issuecomment-6694653818",
+  "purpose": "Use the merged SVG workflow to author one original editable paper-cutout performance, then inspect its actual geometry and complete six-second movie.",
+  "authored": {
+    "start.svg": "4d5dde41daf7ef9a19a5658c01fd3ef1df1ec9ec",
+    "dip.svg": "00084830c685589697ae5fcfc241107e683c42d2",
+    "turn.svg": "002f3f1b09425dfda4726b1542fd56e90263e63b",
+    "return.svg": "4d5dde41daf7ef9a19a5658c01fd3ef1df1ec9ec",
+    "sequence.json": "3ff6377457434ed44b6a829368829b4ca662cc69",
+    "geometry.json": "5ecc9012952d1b90e5f56925befad107315141a9",
+    "README.md": "b1b9451f8df34be25681f832ea4f4ef6fd32164d",
+    "expected.json": "e85bfc2735e044acc2c053984e6577daf338daa2",
+    "receiving.py": "e7bf0122ffdce105c725453f640b6b3a49b2332a"
+  },
+  "producers": {
+    "tools/import_svg.py": "0b76a83158c035e339ef70697dc5c31df74416c7",
+    "tools/fit_svg_targets.mjs": "ded83710125570f65b1d9839b576ad67462140dd",
+    "tools/export_video.py": "cef1897d0ba47d391b60ef873937f6e34e702fd8",
+    "tools/project_frames.mjs": "24be81ca49c590f9be48ba24c122a340ad847c0d",
+    "src/core.js": "5b3206608002873d8ce918692ecc48e8f0127efa",
+    "src/project.js": "0c532e0b508a00a906aa7e636e95a4ba4a70202e",
+    "src/runtime.js": "17d9b2ee47ccb843a0267640de5608c66995cb38"
+  },
+  "course": {
+    "imports": 1,
+    "helperFits": 1,
+    "exports": 1,
+    "encodes": 1,
+    "completeDecodes": 1,
+    "frames": 144,
+    "refusals": 0,
+    "priorRegressionCourses": 0,
+    "fitCountSemantics": "Unchanged fixed helper control flow and successful receipts; not independent dynamic tracing.",
+    "commandWallSeconds": {
+      "import": 30,
+      "export": 90,
+      "decode": 45
+    },
+    "outerWallSeconds": 180,
+    "cpuSecondsPerProcess": 120,
+    "regularFileBytesPerFile": 536870912,
+    "executionCpus": 1,
+    "niceIncrement": 10,
+    "aggregateCpuLimit": false,
+    "rssOrAddressSpaceLimit": false,
+    "aggregateOutputLimit": false
+  },
+  "admission": {
+    "freshWorkDirectory": true,
+    "sourceIdentity": "Every staged file must match the source-freeze manifest before launch.",
+    "minimumDiskFreeBytes": 1073741824,
+    "minimumHostMemAvailableBytes": 1073741824,
+    "load1Maximum": "max(6,1.5*availableAffinityCount)",
+    "supplementaryCapacity": "cgroup limits not exposed by current route; host memory is not a cgroup observation."
+  },
+  "criteria": {
+    "normalizedMaximumCorrespondingVertexEuclideanError": 1e-12,
+    "authoredMaximumCorrespondingVertexEuclideanError": 1e-8,
+    "vertices": 12,
+    "authoredTimes": [
+      0,
+      0.3,
+      0.65,
+      1
+    ],
+    "geometryPixelBounds": [
+      1,
+      998,
+      1,
+      712
+    ],
+    "decodedForeground": "Pillow luminance <128, nonempty and no classified foreground on image edges for all 144 frames.",
+    "width": 1000,
+    "height": 714,
+    "codec": "vp9",
+    "durationSeconds": 6,
+    "physicalTime": "i/143",
+    "presentationTime": "i/24",
+    "ptsMaximumAbsoluteErrorSeconds": 0.001,
+    "selectedDecodedFrames": [
+      0,
+      43,
+      93,
+      143
+    ],
+    "contactSheets": "Four ordered 36-frame sheets from the same complete decode; no additional encode/decode.",
+    "sourceAndInputUnchanged": true,
+    "projectSceneIdentityPreserved": true,
+    "intermediateTargetEquality": false
+  },
+  "evidence": [
+    "Exact source freeze and staged manifest",
+    "Original supervisor command and tool responses",
+    "Admission and child status",
+    "Importer/exporter raw receipts, stdout/stderr, retained inputs and scene",
+    "Full projected geometry and per-frame source/decoded hashes",
+    "One decoder's original log and timing",
+    "Four selected decoded PNGs and four complete contact sheets",
+    "Separate visual review with its actual scope"
+  ],
+  "integration": {
+    "afterReceiving": "Retain the actual generated project.json, update usage/status with observed evidence, add only necessary README discoverability and package entries, build and verify the final package once. No product-course replay for packaging.",
+    "publicRelease": false,
+    "browserReceiving": "Separate held PR11 gate remains unrun.",
+    "unresolvedReadout": "Original readout custody is separate; no replay."
+  },
+  "limits": [
+    "A creative consumer course does not requalify the full producers.",
+    "Finite movie samples and a simple foreground threshold do not establish arbitrary continuous framing or artistic quality.",
+    "Lossless YUV encoding does not imply RGB or browser pixel identity.",
+    "The complete sequence will be visually reviewed from retained decoded contact sheets; real-time playback is not implied by contact-sheet inspection."
+  ]
+}

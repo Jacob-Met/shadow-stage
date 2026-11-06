@@ -24,6 +24,26 @@ Open `http://127.0.0.1:4318`. The server binds to loopback by default; `HOST` an
 
 Solving runs in a module worker. A new project, incoming import, changed target, physical edit or lock change cancels older work. Completion also checks the dispatch generation and the captured project contents before committing.
 
+## Turn SVG artwork into an editable performance
+
+[Paper Swallow — Dip and Return](examples/paper-swallow/README.md) is a six-second study with four authored silhouettes: one fixed paper shape dips, banks and returns. Choose **Open** in the studio header and select `examples/paper-swallow/project.json` to inspect or edit the included physical performance. The play button (**Play performance**) and **Performance timeline** expose its motion; **Save project** downloads your edited version.
+
+To make a new project from its SVG artwork, run this from the repository root with a new output directory:
+
+```sh
+python3 tools/import_svg.py examples/paper-swallow/sequence.json paper-swallow-project
+```
+
+Choose **Open** and select the generated `paper-swallow-project/project.json`. The importer supports one filled straight-edged silhouette per SVG with a shared explicit `viewBox`. It preserves that coordinate frame and reports the actual fitter residual; changing silhouettes may retain mismatch. See the [SVG import guide](tools/SVG_IMPORT.md) for the complete supported subset and requirements.
+
+The included example was imported and rendered through the offline tools. Its [receiving record](examples/paper-swallow/RECEIVING.json) distinguishes authored-pose agreement, intermediate mismatch and framewise visual review. To render a saved physical scene without a browser tab:
+
+```sh
+python3 tools/export_video.py paper-swallow-project/project.json paper-swallow-video
+```
+
+Use another new output directory and follow the [offline video guide](tools/OFFLINE_VIDEO.md) for dependencies and timing limits.
+
 ## Two construction methods
 
 ### One persistent cutout
