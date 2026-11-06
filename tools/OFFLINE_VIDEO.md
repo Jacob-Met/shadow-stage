@@ -17,3 +17,5 @@ The receipt records source and executable identities, frame/sample times, actual
 The completed bundle is an opt-in export artifact. It does not change maintained browser export, editing, project schema, rendering source, motion, history or solver behavior. It does not certify collision clearance, fabrication, artistic quality or general browser equivalence. The independent finite whole-movie receiver lives under `tests/offline-video`; its prospective protocol and actual execution evidence are separate from this usage description.
 
 The fixed encoder command also selects `-deadline good -cpu-used 4`; these settings were chosen before receiving, not from measured outcomes. The receipt includes requested duration, frame-derived duration and their signed difference. If final publication fails after an encoder receipt was prepared, that original is retained as `prepublication-receipt.json`; `receipt.json` and `failure.json` record the failed operation.
+
+Observed results for the finite two-movie course, including edge mismatch, duration rounding and limitations, are in [offline video receiving](../docs/OFFLINE_VIDEO_RECEIVING.md).
