@@ -1,0 +1,21 @@
+{
+  "format": "shadow-stage/svg-sequence-v1",
+  "title": "Paper Kite",
+  "duration": 4,
+  "stageWidth": 3.2,
+  "lightShare": 0.65,
+  "moments": [
+    {
+      "t": 0.0,
+      "file": "start.svg"
+    },
+    {
+      "t": 0.5,
+      "file": "rise.svg"
+    },
+    {
+      "t": 1.0,
+      "file": "settle.svg"
+    }
+  ]
+}

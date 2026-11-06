@@ -1,0 +1,98 @@
+{
+  "format": "shadow-stage-svg-import-receiving-v1",
+  "counts": {
+    "successful_imports": 2,
+    "fitScene_calls": 2,
+    "encode_processes": 1,
+    "decoded_frames": 96,
+    "full_decode_processes": 1,
+    "prefit_refusals": 6
+  },
+  "count_evidence": "Reviewed fixed source call sites and actual command/receipt outcomes; not a dynamic function-call trace.",
+  "gates": {
+    "target_coordinate_absolute_error": 1e-12,
+    "compatible_authored_boundary_max_error": 1e-08,
+    "incompatible_authoredKeyRms_min_exclusive": 0.0001,
+    "incompatible_independent_boundary_distance_min_exclusive": 0.0001,
+    "movie_frames": 96,
+    "width": 1000,
+    "height": 714,
+    "codec": "vp9",
+    "duration": 4,
+    "time_base_tick_max": 0.001,
+    "pts_error": "<=observed tick",
+    "timestamps": "finite strictly increasing",
+    "selected_decoded_frames": [
+      0,
+      47,
+      48,
+      95
+    ]
+  },
+  "refusals": [
+    "existing output",
+    "quadratic curve",
+    "transform attribute",
+    "multiple visible polygons",
+    "malformed comma placement",
+    "non-ASCII numeric digits"
+  ],
+  "resources": {
+    "outer_wall_seconds": 120,
+    "command_wall_seconds": 60,
+    "decode_wall_seconds": 60,
+    "affinity_cpus": 1,
+    "encoder_threads": 1,
+    "decoder_threads": 1
+  },
+  "limits": [
+    "No repeated full-frame exporter geometry/mask qualification.",
+    "No general SVG/browser/artistic support claim.",
+    "No historical data, provider calls or private model assets."
+  ],
+  "status": "Prospective; do not run before root freeze.",
+  "fixture_sha256": {
+    "incompatible-expected.json": "292a628c3f09925341a1eb07696083d62b9100bdd4b712c5ee283040035d15b5",
+    "incompatible-sequence.json": "8a8ae52322b8feab36015eadee1b97320fab3c159ae82dfacbd17ff7c23d8f17",
+    "incompatible-square.svg": "070f9ebf5de67a8738dabb20d1a3d3cb73d979df7c3fb5b8b87efb6ac84b3c15",
+    "incompatible-triangle.svg": "8acf90cbd7cb3a135eaa85bc99f437e57e4dcb1678618a58340555573bee5cc7",
+    "paper-kite/expected.json": "4d57b040d248db8c448ec7c2329296c734e51de77bb05e1948171ecadbe6e3d9",
+    "paper-kite/rise.svg": "5dd0fba6e4f771b7e5ed95f5492035961ea30faf96fc47a07c7ccfc09601fbba",
+    "paper-kite/sequence.json": "858c4b8623070e634dbe40c668882f8c3fadc3023855d15faaf2e7b291061863",
+    "paper-kite/settle.svg": "5790dde3f40ba39eae62d6a50da1cf9d41308d9a54b6e10449ffd863347370d0",
+    "paper-kite/start.svg": "e6b3009779536e0c20aa3949adf37e022bb5506df1780c9a6fa26e16acea1d43",
+    "refusal-comma.json": "824400b2f05861f6c1eedb8cd5122bcd07427b6f135cdf1604d7ee0a9cec4cae",
+    "refusal-curve.json": "dd3930f20089d2bd216ebf490a799c17a01191b46f8a2cfb10530caa3daa3fdb",
+    "refusal-multiple.json": "43740a97f4fdb95357d8d96508f9ab5bb57ce472f58adb6e3372cd6941be91d1",
+    "refusal-transform.json": "56af07c98fee77894564310e58a1e58a198d0a8d0d67ad48d48755b83d4b851f",
+    "refusal-unicode-digits.json": "9d9ba333cafc27847d3ba123680ca8a100d56f77089db987f837deeb031406d8",
+    "unsupported-comma.svg": "e069cbc228c033c6cd45221f012e28296c8025edd38d9036f4e28533eb2ddb3f",
+    "unsupported-curve.svg": "1e35cef83b36fb511ce6b3f179a1add1fa3d87ae336ea80c690a8ccb7137ef8e",
+    "unsupported-multiple.svg": "7b52e4582ed79dec3c2efc070d01c27f4bb92afc7b5de733abccbbec6972a942",
+    "unsupported-transform.svg": "fc9ff073b506cb5aa48fa759fc8fcd04c542a6553c9123171722d8b121b91aba",
+    "unsupported-unicode-digits.svg": "ffbca38ee2ad29ce2db1570e0c185c291c16ffd6ad9bc3fb41ef7c2d465e1139"
+  },
+  "receiving_sha256": "de2ef0d4c3ef71f2fc6f321b58582673502e7e17d66d9562c89c6855be5cdd7b",
+  "fixture_revision": "Source-only before first execution: square and triangle converted to equivalent straight paths; expected normalized geometry unchanged.",
+  "grammar_success_coverage": [
+    "relative initial m",
+    "h",
+    "v",
+    "H",
+    "V",
+    "exact explicit closing point plus z",
+    "initial M with implicit L coordinate pairs",
+    "relative l",
+    "Z"
+  ],
+  "pre_freeze_equivalent_path_revisions": {
+    "incompatible-square.svg": {
+      "before_sha256": "64b6d6b2570af25ed23e066a8046d90d442fca45bdef95dcef47bd088559d267",
+      "after_sha256": "070f9ebf5de67a8738dabb20d1a3d3cb73d979df7c3fb5b8b87efb6ac84b3c15"
+    },
+    "incompatible-triangle.svg": {
+      "before_sha256": "f969832e289f5fa44b23ef89ca64bb19fb726d86f9f9c5a0e2b26fbcfd4a86d2",
+      "after_sha256": "8acf90cbd7cb3a135eaa85bc99f437e57e4dcb1678618a58340555573bee5cc7"
+    }
+  }
+}

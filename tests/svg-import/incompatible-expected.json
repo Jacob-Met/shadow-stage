@@ -1,0 +1,1 @@
+{"targets":[{"t":0,"polygon":[[-0.8,0.8],[0.8,0.8],[0.8,-0.8],[-0.8,-0.8]]},{"t":1,"polygon":[[-0.8,-0.8],[0.8,-0.8],[0,0.8]]}],"reason":"Uniform 3.2/400 scaling about (200,150), inverted y; square to triangle is not a similarity transform."}
