@@ -1,0 +1,70 @@
+{
+  "title": "Paper Kite",
+  "oracle_sha256": "93878c8d4dc072dbc3c0a1ff89c72193bcffb95047774aaf44ebc50989b7a7c1",
+  "construction": "Authored before producer execution; Decimal arithmetic on declared stage-space base and transforms. No parser/fitter imports.",
+  "targets": [
+    {
+      "t": 0.0,
+      "polygon": [
+        [
+          -0.2001,
+          0.3532
+        ],
+        [
+          -0.1389,
+          -0.3302
+        ],
+        [
+          -0.6761,
+          -0.5648
+        ],
+        [
+          -0.7458,
+          -0.0344
+        ]
+      ]
+    },
+    {
+      "t": 0.5,
+      "polygon": [
+        [
+          -0.342,
+          0.544
+        ],
+        [
+          0.462,
+          0.616
+        ],
+        [
+          0.738,
+          -0.016
+        ],
+        [
+          0.114,
+          -0.098
+        ]
+      ]
+    },
+    {
+      "t": 1.0,
+      "polygon": [
+        [
+          -0.3874,
+          0.2532
+        ],
+        [
+          0.3254,
+          0.1128
+        ],
+        [
+          0.4046,
+          -0.5028
+        ],
+        [
+          -0.1552,
+          -0.4164
+        ]
+      ]
+    }
+  ]
+}
