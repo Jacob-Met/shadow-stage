@@ -1,0 +1,25 @@
+{
+  "format": "shadow-stage/svg-sequence-v1",
+  "title": "Paper Bloom \u2014 Bud, Flower, Fold",
+  "duration": 6,
+  "stageWidth": 3.2,
+  "lightShare": 0,
+  "moments": [
+    {
+      "t": 0,
+      "file": "bud.svg"
+    },
+    {
+      "t": 0.3,
+      "file": "flower.svg"
+    },
+    {
+      "t": 0.65,
+      "file": "fold.svg"
+    },
+    {
+      "t": 1,
+      "file": "return.svg"
+    }
+  ]
+}
