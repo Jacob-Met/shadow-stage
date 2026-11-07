@@ -1,0 +1,85 @@
+{
+  "schema": "shadow-stage.svg-target-export.original-course-v1",
+  "status": "FROZEN_PLAN_BEFORE_PRODUCT_EXECUTION",
+  "base": "f7d0cc4e79ffdc048b2cda1635fda06bda1f20ab",
+  "owner": "estate-astra-9b2ff121-749a-437f-bda0-d3aa5bfced7e",
+  "sourceClaim": "https://github.com/Jacob-Met/shadow-stage/issues/1#issuecomment-6700306468",
+  "nativeRegistration": {
+    "state": "unconfirmed",
+    "originalSourceImport": "estate-9b2ff121-svg-target-export-source-01",
+    "limit": "Automatic permission-review deadline; metadata-only observation operation_not_found does not establish nonexecution. No import replay/create/claim."
+  },
+  "objective": "Export saved authored target artwork to an editable supported SVG sequence and consume it through the unchanged importer. Saved physical geometry is deliberately different from the requested silhouettes.",
+  "fixture": {
+    "project": "project.json",
+    "independentOracle": "expected.json",
+    "title": "Cut-paper L — Three moments",
+    "duration": 2,
+    "times": [
+      0,
+      0.5,
+      1
+    ],
+    "verticesPerTarget": 6,
+    "savedLightShare": 0.25,
+    "physicalScene": "Fixed triangle, distinct from the concave L targets; no fit used to author this input."
+  },
+  "counts": {
+    "successfulExports": 2,
+    "exporterRefusals": 7,
+    "exporterProcessAttempts": 9,
+    "unchangedImporterCalls": 1,
+    "helperFits": 1,
+    "maintainedParserReceiverProcesses": 1,
+    "projectsParsedAndRoundtripped": 7,
+    "movieEncodes": 0,
+    "movieDecodes": 0,
+    "oldCourseReplays": 0
+  },
+  "successCases": [
+    "Export saved physical project with saved lightShare0.25; independently inspect exact SVG and sequence metadata.",
+    "Export valid missing-share project with explicit0, without reimporting or fitting that second export.",
+    "Consume first exported sequence through unchanged default single importer once, preserving authored targets/metadata and producing a newly fitted physical project."
+  ],
+  "refusalCases": [
+    "duration121 with valid general-project scene duration121",
+    "missing authored endpoint0",
+    "129 valid polygon vertices",
+    "missing lightShare without explicit option",
+    "attempted override of saved lightShare",
+    "numeric edge shortened below maintained validation tolerance by actual serialized SVG inverse arithmetic",
+    "existing destination with exact sentinel preserved and no staging"
+  ],
+  "independentChecks": [
+    "Compare all18 emitted SVG vertex pairs to preauthored Fraction oracle; invert them independently with rational arithmetic.",
+    "Verify exact target times/order/title/duration/share, fixed shared viewBox and generated filenames.",
+    "Verify source/input/output hashes and unchanged sources; importer retained bytes must equal actual exported bytes.",
+    "Compare imported target coordinates to independent target oracle with maximum component error1e-12.",
+    "Validate six ordinary-project source fixtures and the actual received project with maintained parse/serialize, no fitting in that receiver helper.",
+    "Every refusal must have exact expected error, absent final output and retained partial receipt when staging occurred; verify existing destination bytes, inode,size,mtime unchanged."
+  ],
+  "commandTimeoutsSeconds": {
+    "export": 20,
+    "reimport": 60,
+    "parserReceiver": 20
+  },
+  "outerLimits": {
+    "wallSeconds": 120,
+    "cpuSecondsPerProcess": 60,
+    "regularFileBytesPerFile": 67108864,
+    "cpuAffinityCount": 1,
+    "niceIncrement": 10,
+    "threadEnvironment": 1,
+    "aggregateCpuOrOutputLimit": false,
+    "addressSpaceOrRssLimit": false
+  },
+  "admission": "Fresh work path, complete staged-source identities, host MemAvailable≥1GiB, diskfree≥1GiB,load1≤max(6,1.5×available affinity CPUs). Host observation is not a cgroup capacity claim.",
+  "publication": "Linux renameat2 RENAME_NOREPLACE through direct-argv Python3, bounded by exporter10seconds; actual directory output reviewed. No overwrite or retry on uncertain publication.",
+  "evidence": "Retain original stdout/stderr, command announcements/actualstarts/exits, partial directories, generatedSVG/sequences/projects, receipts and independent coordinate observations. A failed course remains failed and is not silently rerun.",
+  "limits": [
+    "One new authored fixture and selected refusals; no universal input or portability guarantee.",
+    "No physical scene,locks,IDs,proposals or evidence restoration on reimport.",
+    "No real-browser interaction, vector-editor-save roundtrip, movie, benchmark or concurrent publication-race test.",
+    "Fit counts are fixed selected control flow plus receipts, not external dynamic tracing."
+  ]
+}

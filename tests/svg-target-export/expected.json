@@ -1,0 +1,395 @@
+{
+  "schema": "shadow-stage.svg-target-export.independent-oracle-v1",
+  "status": "AUTHORED_BEFORE_PRODUCT_EXECUTION",
+  "source_project_sha256": "cb56bb2fa7f79812b83cc4a679734bb814571057aa2a43bd26ffd828f6686a2b",
+  "source_base": "f7d0cc4e79ffdc048b2cda1635fda06bda1f20ab",
+  "viewBox": [
+    0,
+    0,
+    400,
+    300
+  ],
+  "stageWidth": 3.2,
+  "title": "Cut-paper L — Three moments",
+  "duration": 2,
+  "saved_lightShare": 0.25,
+  "fallback_lightShare": 0,
+  "base_rational": [
+    [
+      "-3/8",
+      "-1/4"
+    ],
+    [
+      "1/4",
+      "-1/4"
+    ],
+    [
+      "1/4",
+      "-1/16"
+    ],
+    [
+      "-1/8",
+      "-1/16"
+    ],
+    [
+      "-1/8",
+      "3/8"
+    ],
+    [
+      "-3/8",
+      "3/8"
+    ]
+  ],
+  "translations_rational": [
+    [
+      "0",
+      "0"
+    ],
+    [
+      "1/8",
+      "1/16"
+    ],
+    [
+      "1/4",
+      "1/8"
+    ]
+  ],
+  "mapping": "SVG x=200+125*stage x; SVG y=150-125*stage y",
+  "moments": [
+    {
+      "t": 0,
+      "target": [
+        [
+          -0.375,
+          -0.25
+        ],
+        [
+          0.25,
+          -0.25
+        ],
+        [
+          0.25,
+          -0.0625
+        ],
+        [
+          -0.125,
+          -0.0625
+        ],
+        [
+          -0.125,
+          0.375
+        ],
+        [
+          -0.375,
+          0.375
+        ]
+      ],
+      "svg": [
+        [
+          153.125,
+          181.25
+        ],
+        [
+          231.25,
+          181.25
+        ],
+        [
+          231.25,
+          157.8125
+        ],
+        [
+          184.375,
+          157.8125
+        ],
+        [
+          184.375,
+          103.125
+        ],
+        [
+          153.125,
+          103.125
+        ]
+      ],
+      "target_rational": [
+        [
+          "-3/8",
+          "-1/4"
+        ],
+        [
+          "1/4",
+          "-1/4"
+        ],
+        [
+          "1/4",
+          "-1/16"
+        ],
+        [
+          "-1/8",
+          "-1/16"
+        ],
+        [
+          "-1/8",
+          "3/8"
+        ],
+        [
+          "-3/8",
+          "3/8"
+        ]
+      ],
+      "svg_rational": [
+        [
+          "1225/8",
+          "725/4"
+        ],
+        [
+          "925/4",
+          "725/4"
+        ],
+        [
+          "925/4",
+          "2525/16"
+        ],
+        [
+          "1475/8",
+          "2525/16"
+        ],
+        [
+          "1475/8",
+          "825/8"
+        ],
+        [
+          "1225/8",
+          "825/8"
+        ]
+      ]
+    },
+    {
+      "t": 0.5,
+      "target": [
+        [
+          -0.25,
+          -0.1875
+        ],
+        [
+          0.375,
+          -0.1875
+        ],
+        [
+          0.375,
+          0.0
+        ],
+        [
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.4375
+        ],
+        [
+          -0.25,
+          0.4375
+        ]
+      ],
+      "svg": [
+        [
+          168.75,
+          173.4375
+        ],
+        [
+          246.875,
+          173.4375
+        ],
+        [
+          246.875,
+          150.0
+        ],
+        [
+          200.0,
+          150.0
+        ],
+        [
+          200.0,
+          95.3125
+        ],
+        [
+          168.75,
+          95.3125
+        ]
+      ],
+      "target_rational": [
+        [
+          "-1/4",
+          "-3/16"
+        ],
+        [
+          "3/8",
+          "-3/16"
+        ],
+        [
+          "3/8",
+          "0"
+        ],
+        [
+          "0",
+          "0"
+        ],
+        [
+          "0",
+          "7/16"
+        ],
+        [
+          "-1/4",
+          "7/16"
+        ]
+      ],
+      "svg_rational": [
+        [
+          "675/4",
+          "2775/16"
+        ],
+        [
+          "1975/8",
+          "2775/16"
+        ],
+        [
+          "1975/8",
+          "150"
+        ],
+        [
+          "200",
+          "150"
+        ],
+        [
+          "200",
+          "1525/16"
+        ],
+        [
+          "675/4",
+          "1525/16"
+        ]
+      ]
+    },
+    {
+      "t": 1,
+      "target": [
+        [
+          -0.125,
+          -0.125
+        ],
+        [
+          0.5,
+          -0.125
+        ],
+        [
+          0.5,
+          0.0625
+        ],
+        [
+          0.125,
+          0.0625
+        ],
+        [
+          0.125,
+          0.5
+        ],
+        [
+          -0.125,
+          0.5
+        ]
+      ],
+      "svg": [
+        [
+          184.375,
+          165.625
+        ],
+        [
+          262.5,
+          165.625
+        ],
+        [
+          262.5,
+          142.1875
+        ],
+        [
+          215.625,
+          142.1875
+        ],
+        [
+          215.625,
+          87.5
+        ],
+        [
+          184.375,
+          87.5
+        ]
+      ],
+      "target_rational": [
+        [
+          "-1/8",
+          "-1/8"
+        ],
+        [
+          "1/2",
+          "-1/8"
+        ],
+        [
+          "1/2",
+          "1/16"
+        ],
+        [
+          "1/8",
+          "1/16"
+        ],
+        [
+          "1/8",
+          "1/2"
+        ],
+        [
+          "-1/8",
+          "1/2"
+        ]
+      ],
+      "svg_rational": [
+        [
+          "1475/8",
+          "1325/8"
+        ],
+        [
+          "525/2",
+          "1325/8"
+        ],
+        [
+          "525/2",
+          "2275/16"
+        ],
+        [
+          "1725/8",
+          "2275/16"
+        ],
+        [
+          "1725/8",
+          "175/2"
+        ],
+        [
+          "1475/8",
+          "175/2"
+        ]
+      ]
+    }
+  ],
+  "refusal_fixture_reasoning": {
+    "missing-endpoint.json": "General project permits first t=1/8; importer sequence requires0.",
+    "duration-121.json": "General project duration121 is valid but exceeds exporter/importer120.",
+    "vertices-129.json": "128 ascending distinct points (x,x^2-1/4), x=(2i-127)/256, plus(0,1/2). Strictly convex lower chain closed via upper apex is simple, positive-area, in stage bounds;129 exceeds exporter/importer128 while maintained core allows512.",
+    "missing-share.json": "Valid project with omitted optional light preference; refuses without fallback, succeeds export-only with explicit0.",
+    "saved-share override": "Use project.json with --light-share0; saved.25 must not be silently replaced.",
+    "existing destination": "Receiver creates sentinel; source fixture is unchanged project.json.",
+    "numerical-edge.json": "Simple unit-square boundary with two extra collinear bottom-edge vertices x=.5 and .5000000001. Area1; original adjacent edge1.000000082740371e-10 exceeds core minimum1e-10. SVG x=200+125*x then importer inverse (svgX-200)*3.2/400 changes that edge to9.999989725173464e-11, so reimport validation would reject. Exporter must refuse this inverse-mapped geometry before publication. Scalar arithmetic analysis only; maintained parser validity is checked in the one frozen original course."
+  },
+  "scope": "Exact authored-coordinate arithmetic only; no maintained imports, CLI, fitter, renderer or tests executed.",
+  "oracle_revision": 3,
+  "previous_expected_sha256": "e3c0c38ff443f8cb0b8ad53515388a8caa6906dbe35568474130aa1fb8291c2b",
+  "numerical_edge_source_sha256": "48ee5822fda5a9d6ea4cf5294e218a9afff4b8fe35dc6d99f142a43c6d7b7e1b",
+  "source_scene_rationale": "Input is a saved physical project with a deliberately different fixed triangle scene. Export must preserve the authored concave L targets, not project the triangle. Scene local vertices±1/8 at depth1 under lightheight5 project at magnification5/4; no scene fitting or projection executed."
+}

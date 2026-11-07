@@ -103,6 +103,19 @@ FILES = (
     'examples/paper-bloom/receiving.py',
     'examples/paper-bloom/return.svg',
     'examples/paper-bloom/sequence.json',
+    'tools/export_svg_targets.mjs',
+    'tools/SVG_TARGET_EXPORT.md',
+    'tests/svg-target-export/PROTOCOL.json',
+    'tests/svg-target-export/RECEIVING.json',
+    'tests/svg-target-export/duration-121.json',
+    'tests/svg-target-export/expected.json',
+    'tests/svg-target-export/missing-endpoint.json',
+    'tests/svg-target-export/missing-share.json',
+    'tests/svg-target-export/numerical-edge.json',
+    'tests/svg-target-export/project.json',
+    'tests/svg-target-export/receiver.py',
+    'tests/svg-target-export/validate-projects.mjs',
+    'tests/svg-target-export/vertices-129.json',
 )
 
 

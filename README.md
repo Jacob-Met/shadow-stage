@@ -54,6 +54,22 @@ python3 tools/export_video.py paper-swallow-project/project.json paper-swallow-v
 
 Use another new output directory and follow the [offline video guide](tools/OFFLINE_VIDEO.md) for dependencies and timing limits.
 
+## Edit saved target artwork as SVG
+
+Export a saved project's authored silhouettes into a shared SVG coordinate frame:
+
+```sh
+node tools/export_svg_targets.mjs saved-project.json editable-targets
+```
+
+Edit the supported polygons, then create a new fitted project with:
+
+```sh
+python3 tools/import_svg.py editable-targets/sequence.json refitted-project
+```
+
+The SVGs contain the requested target artwork; keep the original project to retain its physical construction. Both destinations must be new. Export requires Node, Python3 and Linux; the [target SVG export guide](tools/SVG_TARGET_EXPORT.md) explains the fixed stage window, supported subset, missing light-setting choice and receiving evidence.
+
 ## Two construction methods
 
 ### One persistent cutout
