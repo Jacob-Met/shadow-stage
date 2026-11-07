@@ -1,0 +1,165 @@
+{
+  "schema": "shadow-stage.paper-bloom.receiving-summary-v1",
+  "status": "ORIGINAL_CREATIVE_COURSE_PASSED_WITH_VISIBLE_INTERMEDIATE_SEPARATION",
+  "sourceFreeze": "6975ef148ad81d5643b34d8a5fe75cce2aae74b3",
+  "sourceBase": "bb53198481f7178d8560d84886d49f49ae78eb26",
+  "task": "shadow-stage-paper-bloom-9b2ff121",
+  "owner": "estate-astra-9b2ff121-749a-437f-bda0-d3aa5bfced7e",
+  "originalExecution": {
+    "label": "estate-9b2ff121-paper-bloom-original-course-01",
+    "initialChunk": "261960",
+    "terminalChunk": "677616",
+    "exit": 0,
+    "sessionState": "closed",
+    "courseCount": 1,
+    "imports": 1,
+    "helperFits": 1,
+    "encodes": 1,
+    "fullDecodes": 1,
+    "refusalCases": 0,
+    "oldFitReplays": 0,
+    "fitCountSemantics": "Fixed selected helper control flow and successful receipt, not dynamic tracing."
+  },
+  "observed": {
+    "persistentPieces": 16,
+    "fixedVertices": 64,
+    "constructionBudget": 24,
+    "lightShare": 0,
+    "authoredMaskGrid": [
+      256,
+      192
+    ],
+    "authoredMaskWindow": [
+      -1.6,
+      1.6,
+      -1.2,
+      1.2
+    ],
+    "boundaryRule": "Cell centers; half-open y and strict x crossing; Boolean union.",
+    "authoredMasks": [
+      {
+        "t": 0.0,
+        "xor": 0,
+        "union": 4608,
+        "error": 0.0
+      },
+      {
+        "t": 0.3,
+        "xor": 0,
+        "union": 7680,
+        "error": 0.0
+      },
+      {
+        "t": 0.65,
+        "xor": 0,
+        "union": 4864,
+        "error": 0.0
+      },
+      {
+        "t": 1.0,
+        "xor": 0,
+        "union": 4608,
+        "error": 0.0
+      }
+    ],
+    "authoredMeanError": 0.0,
+    "authoredMaximumError": 0.0,
+    "prechosenCriteria": {
+      "per_authored_maximum": 0.08,
+      "mean_maximum": 0.05
+    },
+    "nativeIntermediateMaskError": 0.14311100325455303,
+    "frames": 144,
+    "width": 1000,
+    "height": 714,
+    "fps": 24,
+    "durationSeconds": 6,
+    "codec": "VP9",
+    "pixelFormat": "yuv444p",
+    "physicalTime": "i/143",
+    "presentationTime": "i/24",
+    "maximumDecodedPtsErrorSeconds": 0.00033333333333340764,
+    "all144GeometricBoundsPassed": true,
+    "all144ThresholdedNonblankAndOffEdgePassed": true,
+    "foregroundMinimumPixels": 41184,
+    "foregroundCriterion": "Pillow L <128: nonempty; no foreground at image edges.",
+    "selectedFrames": [
+      0,
+      43,
+      93,
+      143
+    ]
+  },
+  "identities": {
+    "projectSha256": "2dadd5dd0969c797d2875d6e04e3f7f4241d522803863ec87a02937f0053f24a",
+    "sceneSha256": "095fc9b3e6307368b8130b247c1ce9239054972dfeb676d8c5bbdc3b4956d034",
+    "movieSha256": "13d7a1c26d7da612efd6f91c5eabde8a9824db19c138c22a96ad661122accab9",
+    "originalResultSha256": "595d130fff0d497366d3247ca5e301875e8ee2e044d775c784bf410bbe603598",
+    "originalToolRecordSha256": "92c48bea7af896ee18cd2b1a3f6305bddbdf7c0444fefc4976782eeb2ff602e7",
+    "sourceManifestSha256": "3c8f929bd4e004623b7279f23172fb9feab0bdd09c889e6a4b54c550d4147c5b",
+    "supervisorSourceSha256": "cf306df80b204bf6df55e58b8826906eed2859046917b22fbb1979ce79a58645",
+    "supervisorResultSha256": "828d9fb4207bcb803d32c56bb33e301a13dee4854326d271b74a84e6827d404a",
+    "independentDataReviewSha256": "4837ddea0308c6e8ac3ce6bf06d1615b39a1dc348e22f2d2a15e4957486eb666",
+    "modelVisualReviewSha256": "40c526af57707abae7c6cea295e85f1c0f266be7699ee2545891594942b896b9",
+    "rootVisualReviewSha256": "325b6513900de2e2598e46afadfaa33c7f43319a3546c2ddc30e29b62e84655f",
+    "originalEvidenceArchiveSha256": "c18de4e8d67c54a0abdf5822845d6b65b8f053ad920e95556988004bb1bdff4a",
+    "originalEvidenceArchiveBytes": 624103
+  },
+  "independentDataReview": {
+    "passed": true,
+    "checks": 30,
+    "scope": "Frozen 119 source hashes, retained input/project/scene/movie bytes and receipts, independently recounted raw masks, saved frame geometry, original showinfo timing, retained PNG/contact hashes. No product execution.",
+    "limit": "Full decoded RGB was not retained. All-frame RGB hashes and foreground measurements remain original receiver observations."
+  },
+  "visualReview": {
+    "rootScope": "All 144 consecutive thumbnails and full frames 43 and 93.",
+    "modelResearchScope": "All 144 consecutive thumbnails and full frames 0, 43, 93 and 143.",
+    "observed": "The authored progression reads as bud, broad bloom, right-folded head and returning bud. No blank frame, complete disappearance, obvious clipping or whole-scene jump was observed.",
+    "materialCaveat": "Squares visibly detach during transitions. A square above the left bloom separates around frames 45\u201367; gaps between head and stem and in lower structure occur through parts of frames 54\u201380. The returning head separates from the stem during part of frames 108\u2013135. These approximate ranges are visual observations, not a connected-component measurement.",
+    "artisticDescription": "Angular block-art assembly and reconfiguration. The flower is not continuously connected.",
+    "methodLimit": "Framewise saved-image inspection, not real-time playback or full-resolution visual acceptance of every frame."
+  },
+  "sourcePreservation": {
+    "stagedFiles": 119,
+    "allMatchFrozenGitBlobs": true,
+    "sourceUnchangedDuringCourse": true,
+    "generatedProject": "Included project.json is the original generated output, byte for byte.",
+    "historicalRecords": "geometry.json, expected.json and receiving-plan.json retain their pre-execution status. Original result pending-visual marker is preserved; subsequent visual reviews are separate."
+  },
+  "contactSheets": [
+    {
+      "file": "contact-000-035.png",
+      "first_frame": 0,
+      "last_frame": 35,
+      "sha256": "418f406a88d88a17d4cabbe8dc2940f746dbc29d0ba8000e4dafd28415eaaf69"
+    },
+    {
+      "file": "contact-036-071.png",
+      "first_frame": 36,
+      "last_frame": 71,
+      "sha256": "6cf6d1b8620fc64c8ab0bda8727796c24d81f6ad0ef0430f0928eb0b50dea0f4"
+    },
+    {
+      "file": "contact-072-107.png",
+      "first_frame": 72,
+      "last_frame": 107,
+      "sha256": "f75f46e660b0b663abd54456ea01f4e6b050a65f5a57302dbfcfe456c086b511"
+    },
+    {
+      "file": "contact-108-143.png",
+      "first_frame": 108,
+      "last_frame": 143,
+      "sha256": "428f9dfaac21ad88546316b4ef589ad17dc6e4e6e5b9cb87bfd5bd00c5229c04"
+    }
+  ],
+  "limits": [
+    "This is one ordinary creative use of merged tools, not a general producer qualification or benchmark.",
+    "Zero authored-mask XOR means equality on one finite grid, not exact continuous silhouettes or intermediate target equality.",
+    "The intermediate target boundary morph is an authoring choice, not observed ground truth.",
+    "Finite frame observations do not establish continuous framing, collision clearance or fabrication feasibility.",
+    "Lossless YUV encoding does not imply exact RGB or browser pixels.",
+    "A returning endpoint silhouette does not establish a seamless temporal loop; the maintained player stops at the end.",
+    "Real-browser opening and playback were not exercised. The separate visibility PR11 hold is unchanged.",
+    "This public summary does not include all raw execution records or movie bytes."
+  ]
+}

@@ -91,6 +91,18 @@ FILES = (
     'tests/svg-pieces/single-baseline-project.json',
     'tests/svg-pieces/square.svg',
     'tests/svg-pieces/triangle.svg',
+    'examples/paper-bloom/README.md',
+    'examples/paper-bloom/RECEIVING.json',
+    'examples/paper-bloom/bud.svg',
+    'examples/paper-bloom/expected.json',
+    'examples/paper-bloom/flower.svg',
+    'examples/paper-bloom/fold.svg',
+    'examples/paper-bloom/geometry.json',
+    'examples/paper-bloom/project.json',
+    'examples/paper-bloom/receiving-plan.json',
+    'examples/paper-bloom/receiving.py',
+    'examples/paper-bloom/return.svg',
+    'examples/paper-bloom/sequence.json',
 )
 
 

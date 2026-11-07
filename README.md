@@ -44,7 +44,9 @@ python3 tools/import_svg.py sequence.json new-pieces-project --construction piec
 
 Set `lightShare` to 0 in that sequence. The budget accepts 1–24 pieces and defaults to 24; the original command remains single-cutout fitting. The [bounded receiving record](tests/svg-pieces/RECEIVING.json) reports one square-to-triangle comparison using 21 pieces, including its remaining stepped boundary and intermediate mismatch. See the [SVG import guide](tools/SVG_IMPORT.md#choosing-a-construction) for options and evidence limits.
 
-The included example was imported and rendered through the offline tools. Its [receiving record](examples/paper-swallow/RECEIVING.json) distinguishes authored-pose agreement, intermediate mismatch and framewise visual review. To render a saved physical scene without a browser tab:
+[Paper Bloom — Bud, Flower, Fold](examples/paper-bloom/README.md) is an original six-second example made from 16 persistent square pieces. Choose **Open** and select `examples/paper-bloom/project.json` to inspect its bud, open bloom, right-folded head and return. The block-art assembly includes visible detached squares and head/stem gaps during transitions; its [receiving record](examples/paper-bloom/RECEIVING.json) distinguishes exact agreement on the sampled authored grids from intermediate mismatch.
+
+Paper Swallow was imported and rendered through the offline tools. Its [receiving record](examples/paper-swallow/RECEIVING.json) distinguishes authored-pose agreement, intermediate mismatch and framewise visual review. To render a saved physical scene without a browser tab:
 
 ```sh
 python3 tools/export_video.py paper-swallow-project/project.json paper-swallow-video
