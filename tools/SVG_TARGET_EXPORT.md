@@ -92,4 +92,6 @@ Publication uses a direct-argument Python3 subprocess with Linux `RENAME_NOREPLA
 
 ## Receiving status
 
-The exporter and its focused receiving course are prospective. No successful receiving result is claimed here. Original course outcomes will be documented after the frozen course runs; this guide does not establish portability beyond the eventual tested Linux/Python3 route.
+The [original receiving summary](../tests/svg-target-export/RECEIVING.json) records one bounded Linux/Python3 course. It exported three concave L targets from a saved project whose physical cutout was a triangle. Both successful exports matched the independently authored SVG coordinates exactly: one preserved saved light share 0.25, and the other used explicit fallback 0. One reimport through the unchanged importer retained all 18 authored vertices and their metadata on this fixture and created a new physical scene.
+
+Seven selected refusals covered duration, endpoint and vertex limits, missing or overridden light preference, a numerical validity boundary, and an existing destination. The numerical-edge input was accepted by the general project parser but refused after SVG inverse validation. Retained outputs and errors received independent data review; no product course was repeated. This evidence does not qualify other platforms, concurrent publication races, external editor behavior or preservation of the original physical construction.

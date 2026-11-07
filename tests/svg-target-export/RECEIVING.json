@@ -1,0 +1,155 @@
+{
+  "schema": "shadow-stage.svg-target-export.receiving-summary-v1",
+  "status": "ORIGINAL_TARGET_ARTWORK_CONSUMER_COURSE_PASSED",
+  "owner": "estate-astra-9b2ff121-749a-437f-bda0-d3aa5bfced7e",
+  "sourceFreeze": "c6856c510844214f84bd2b463621fd9a1c9a5061",
+  "sourceTree": "412ad0035e37f833b012bc511b3c3905ac935d02",
+  "sourceBase": "f7d0cc4e79ffdc048b2cda1635fda06bda1f20ab",
+  "sourceClaim": "https://github.com/Jacob-Met/shadow-stage/issues/1#issuecomment-6700306468",
+  "nativeCoordination": {
+    "state": "registration_unconfirmed",
+    "originalSourceImport": "estate-9b2ff121-svg-target-export-source-01",
+    "limitation": "Automatic permission-review deadline without native receipt. Scoped metadata operation_not_found is not nonexecution proof. No import replay, task create or claim."
+  },
+  "originalExecution": {
+    "label": "estate-9b2ff121-svg-target-export-original-course-01",
+    "initialChunk": "8057fd",
+    "closedSession": 85000,
+    "terminalChunk": "5c968e",
+    "exit": 0,
+    "successfulExports": 2,
+    "refusals": 7,
+    "exporterProcessesStarted": 9,
+    "totalCommandRecords": 11,
+    "unchangedImporterCalls": 1,
+    "helperFits": 1,
+    "maintainedParserReceiverProcesses": 1,
+    "projectsValidatedAndRoundtripped": 7,
+    "movieEncodes": 0,
+    "movieDecodes": 0,
+    "oldCourseReplays": 0,
+    "fitCountSemantics": "Reviewed fixed helper control flow plus original receipts and command records; not independent dynamic tracing."
+  },
+  "observed": {
+    "inputDistinction": {
+      "physical_cutout_vertices": 3,
+      "authored_vertices_per_moment": 6,
+      "authored_moments": 3,
+      "targets_exported_not_scene": true,
+      "source_project_sha256": "cb56bb2fa7f79812b83cc4a679734bb814571057aa2a43bd26ffd828f6686a2b"
+    },
+    "authoredMoments": 3,
+    "verticesPerMoment": 6,
+    "uniqueAuthoredVertexPairs": 18,
+    "svgVertexPairsAcrossTwoExports": 36,
+    "svgCoordinatesMatchIndependentRationalOracle": true,
+    "independentInverseCoordinateMaximumError": 0,
+    "reimportedTargetMaximumComponentError": 0,
+    "savedLightShare": 0.25,
+    "missingShareExplicitFallback": 0,
+    "titleDurationTimesPreserved": true,
+    "reimportCreatesNewScene": true,
+    "nativeFitReport": {
+      "authoredKeyRms": 4.6346345929177557e-17,
+      "interpolatedTargetRms": 0.00021835492458944966,
+      "scope": "Original maintained fitter report retained as context; not an exporter geometry metric or proof of physical-scene preservation."
+    }
+  },
+  "refusals": [
+    {
+      "name": "duration",
+      "message": "SVG sequence duration must not exceed 120 seconds.",
+      "finalOutputPublished": false,
+      "partialRetained": true
+    },
+    {
+      "name": "endpoint",
+      "message": "SVG sequence targets must include endpoints 0 and 1.",
+      "finalOutputPublished": false,
+      "partialRetained": true
+    },
+    {
+      "name": "vertices",
+      "message": "SVG target exceeds 128 vertices.",
+      "finalOutputPublished": false,
+      "partialRetained": true
+    },
+    {
+      "name": "missing-share",
+      "message": "Project lacks lightShare; supply --light-share explicitly.",
+      "finalOutputPublished": false,
+      "partialRetained": true
+    },
+    {
+      "name": "saved-share",
+      "message": "Saved lightShare cannot be overridden; omit --light-share.",
+      "finalOutputPublished": false,
+      "partialRetained": true
+    },
+    {
+      "name": "numerical-edge",
+      "message": "SVG roundtrip geometry refused: Polygon has a repeated adjacent vertex.",
+      "finalOutputPublished": false,
+      "partialRetained": true
+    },
+    {
+      "name": "existing",
+      "message": "Output already exists; choose a new directory.",
+      "finalOutputPublished": "Preexisting destination preserved",
+      "partialRetained": false
+    }
+  ],
+  "numericalBoundary": {
+    "inputIsValidGeneralProject": true,
+    "emittedInverseGeometryValid": false,
+    "error": "SVG roundtrip geometry refused: Polygon has a repeated adjacent vertex.",
+    "meaning": "The exporter refuses a numerically invalid serialized/inverse-mapped polygon instead of changing the artwork."
+  },
+  "identities": {
+    "originalResultSha256": "ff1bebb7d91b9f1dc9b7c9493374fc5a371c55f4c06f1d5e857712d1f70f3e86",
+    "originalToolRecordSha256": "2082837cde2833c3c1b002d1a08fe2c12829cf5aec01abc1ee8462b94724a93f",
+    "sourceManifestSha256": "0d424c5894116c209a9ff30c4e04b124d4ecd5c194c9204dda43786ae8748429",
+    "supervisorSourceSha256": "dee6d7a2e4cb9b87d29dda3274f707d392be2bcbb6bcfeba1aebc686a6f783fe",
+    "supervisorResultSha256": "3da7564526a111725e535d78a4c8935be66e7a3ac942b2cbcff9cbd96b4ca1fe",
+    "inputProjectSha256": "cb56bb2fa7f79812b83cc4a679734bb814571057aa2a43bd26ffd828f6686a2b",
+    "mainExportReceiptSha256": "b022e31010f5e200e8e60893beb3b1aac453ff29d39e5ab3a131419dfe3ab762",
+    "mainSequenceSha256": "50599436b49a3ece5240bb0d04f02359af3ea78b9402ebd348329b89a3d78960",
+    "fallbackExportReceiptSha256": "b6e7d2141c7122fd6b0cff52a1616cebfb296997022fbe67aaaf945ddbebb9ee",
+    "fallbackSequenceSha256": "eea3c7430ee47093e86f28601e40454d1065825597a2ced0223fdbdd0fd0dea5",
+    "reimportedProjectSha256": "847c88955787109a83566e21885aa169994921e8d0100633a86576a3c0a1327f",
+    "independentDataReviewSha256": "afab912a6f81e2e1d114f19e12503ca7e2efe1b3083128406e26ec3f56605e35",
+    "independentRefusalReviewSha256": "3aa0b2e1731913c9d39e8f28a9761ad3d8426b690ff10c33e27d465830d4acc4",
+    "originalEvidenceArchiveSha256": "ef5e37c24a5417be361d1c36fd7e42cc560a13064bb4f48bb1b8f9e1a0afc255",
+    "originalEvidenceArchiveBytes": 84939
+  },
+  "mainSvgOutputs": [
+    {
+      "file": "moment-00.svg",
+      "bytes": 195,
+      "sha256": "cebed1c79b9ba79120bdb29beb71cc2b0aecf1561416f7c7cd3642b3d1cfde31"
+    },
+    {
+      "file": "moment-01.svg",
+      "bytes": 181,
+      "sha256": "6c3632d59efb093852879ea4e303ca3b0400badfd67f38d9fb0b314d2c64dc77"
+    },
+    {
+      "file": "moment-02.svg",
+      "bytes": 189,
+      "sha256": "8a204f3f3d6aeb46f8d321688e9ba75c1f4d1e10666371c947dfda5e26b2df6e"
+    }
+  ],
+  "independentReview": {
+    "dataChecks": 43,
+    "dataScope": "All 133 frozen staged sources, original operation and command records, exported SVG bytes recomputed with Fraction arithmetic, importer retained input bytes and authored targets, seven parser observations and selected refusals. No product execution repeated.",
+    "refusalScope": "Seven saved refusal outcomes, error/path/source identities, partial directories and actual successful export receipts. Historical sentinel inode/mtime preservation is supported by original receiver assertions, not reconstructed afterward."
+  },
+  "limits": [
+    "One bounded Linux/Python3 consumer course, not universal input or platform qualification.",
+    "Three concave authored targets from a saved physical triangle establish target-only behavior on this fixture.",
+    "Reimport creates a new fitted physical scene; original IDs, tracks, locks, construction settings and authoring evidence are not restored.",
+    "The exporter inverse-validation guard is arithmetic/validation, not a Python reimport or a fitting guarantee for every input.",
+    "No external vector-editor save, real-browser interaction, movie, performance benchmark or concurrent publication-race test.",
+    "Native registration remains unconfirmed and is separate from the observed implementation and receiving outcome."
+  ]
+}
