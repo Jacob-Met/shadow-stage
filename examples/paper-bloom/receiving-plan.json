@@ -1,0 +1,208 @@
+{
+  "schema": "shadow-stage.paper-bloom.receiving-plan-v1",
+  "status": "PROSPECTIVE_BEFORE_FIRST_PRODUCT_CONSUMPTION",
+  "owner": "estate-astra-9b2ff121-749a-437f-bda0-d3aa5bfced7e",
+  "nativeTask": "shadow-stage-paper-bloom-9b2ff121",
+  "sourceBase": "bb53198481f7178d8560d84886d49f49ae78eb26",
+  "initialArtworkHead": "411477478a62f1377036e51f237abbb83d5c82de",
+  "claim": "https://github.com/Jacob-Met/shadow-stage/issues/1#issuecomment-6699105184",
+  "purpose": "Create and receive one original editable multi-piece performance whose angular bud, open bloom, fold and return use changing authored silhouettes.",
+  "authored": {
+    "README.md": "282b8533b329d12a096da69d1af48060703fa963",
+    "bud.svg": "df955bc723e905df4278f70b5162cb4ed8cb2b80",
+    "flower.svg": "719957d6894d02bf8d831569ca2e53417a975bba",
+    "fold.svg": "edf555dd06ed0db496b8273fcefe93ff78a842b6",
+    "return.svg": "df955bc723e905df4278f70b5162cb4ed8cb2b80",
+    "geometry.json": "e47b4032cc97078cb2c2d0ad8caddff232f74161",
+    "sequence.json": "2d100022cdc725f6268510c4e6c72a8530f97540",
+    "expected.json": "e8bf2a64bc0cfc09e7c5ed72a7e951d856a1a986",
+    "receiving.py": "9d2b44294e45d06bb14e0fc22268360ce0f26576"
+  },
+  "producers": {
+    "tools/import_svg.py": "9621e5d1b01066b11cd7be86937e52329b705b28",
+    "tools/fit_svg_targets.mjs": "dd8fa0ee8a12886f413aa727a00b29b2b3be73f8",
+    "tools/export_video.py": "cef1897d0ba47d391b60ef873937f6e34e702fd8",
+    "tools/project_frames.mjs": "24be81ca49c590f9be48ba24c122a340ad847c0d",
+    "src/core.js": "5b3206608002873d8ce918692ecc48e8f0127efa",
+    "src/project.js": "0c532e0b508a00a906aa7e636e95a4ba4a70202e",
+    "src/runtime.js": "17d9b2ee47ccb843a0267640de5608c66995cb38",
+    "src/articulated.js": "cd1e967b802f4a03294cd7a8bd6f58fe84ab683d"
+  },
+  "geometry": {
+    "viewBox": [
+      0,
+      0,
+      400,
+      300
+    ],
+    "stageWidth": 3.2,
+    "authoredTimes": [
+      0,
+      0.3,
+      0.65,
+      1
+    ],
+    "outlines": [
+      "bud",
+      "flower",
+      "fold",
+      "bud"
+    ],
+    "vertices": [
+      20,
+      36,
+      26,
+      20
+    ],
+    "independentMapping": "Exact rational x=(svgX-200)/125; y=(150-svgY)/125, derived from the authored geometry before fitting.",
+    "independentGeometryReviewSha256": "a5ee8bcb7d0b514e84c730e23bf5834a64be48575772ff446ee01539992a35e8",
+    "simpleOutlines": true,
+    "nonadjacentEdgePairsChecked": 1063,
+    "signedStageAreas": {
+      "bud": "-18/25",
+      "flower": "-6/5",
+      "fold": "-19/25"
+    },
+    "authoredBounds": [
+      -0.8,
+      0.8,
+      -0.8,
+      0.8
+    ],
+    "framingLimit": "These bounds describe the authored targets only; fitted and sampled intermediate pieces are checked separately.",
+    "preFitArtworkPreviews": "Two direct polygon-coordinate draft previews were inspected during authoring. They did not invoke the maintained importer, fitter or movie exporter. The final authored source is pinned above."
+  },
+  "course": {
+    "imports": 1,
+    "helperFits": 1,
+    "exports": 1,
+    "encodes": 1,
+    "completeDecodes": 1,
+    "frames": 144,
+    "refusals": 0,
+    "priorRegressionCourses": 0,
+    "oldBaselineFitReplays": 0,
+    "fitCountSemantics": "Selected fixed helper control flow and successful receipts; not independent dynamic tracing.",
+    "construction": {
+      "mode": "pieces",
+      "maxPieces": 24
+    },
+    "lightShare": 0,
+    "durationSeconds": 6,
+    "commandWallSeconds": {
+      "import": 90,
+      "export": 120,
+      "decode": 60
+    },
+    "outerWallSeconds": 360,
+    "cpuSecondsPerProcess": 180,
+    "regularFileBytesPerFile": 536870912,
+    "executionCpus": 1,
+    "niceIncrement": 10,
+    "aggregateCpuLimit": false,
+    "rssOrAddressSpaceLimit": false,
+    "aggregateOutputLimit": false
+  },
+  "admission": {
+    "freshWorkDirectory": true,
+    "sourceIdentity": "Every staged file must match its frozen Git blob and SHA256 manifest before launch.",
+    "minimumDiskFreeBytes": 1073741824,
+    "minimumHostMemAvailableBytes": 1073741824,
+    "load1Maximum": "max(6,1.5*availableAffinityCount)",
+    "capacityLimit": "Host memory and process affinity are observations of this route, not a cgroup capacity guarantee.",
+    "earlyFailureCustody": "Output-directory setup and initial source hashing precede the receiver's main failure handler; the outer supervisor retains their launch/failure status."
+  },
+  "criteria": {
+    "normalizedMaximumCorrespondingVertexEuclideanError": 1e-12,
+    "perAuthoredMaskErrorMaximum": 0.08,
+    "meanAuthoredMaskErrorMaximum": 0.05,
+    "qualityGateMeaning": "Prechosen finite-grid creative-consumer limits, not exact fidelity or a universal quality criterion.",
+    "meanWeighting": "Equal weight for all four authored moments, including the repeated bud at return.",
+    "piecesMinimumExclusive": 1,
+    "piecesMaximum": 24,
+    "verticesPerPiece": 4,
+    "persistentUniqueIds": true,
+    "pieceKeyTimes": [
+      0,
+      0.3,
+      0.65,
+      1
+    ],
+    "fixedLight": {
+      "t": 0,
+      "x": 0,
+      "y": 0,
+      "z": 5
+    },
+    "observation": {
+      "window": [
+        -1.6,
+        1.6,
+        -1.2,
+        1.2
+      ],
+      "grid": [
+        256,
+        192
+      ],
+      "cellSide": 0.0125,
+      "rule": "Cell centers, half-open y and strict x ray crossing; Boolean union of independently projected physical pieces.",
+      "score": "XOR cell count / union cell count against the authored target; all polygon vertices must lie inside the observation window.",
+      "retained": "Four raw target masks, four raw prediction masks, all projected authored polygons, counts and scores."
+    },
+    "geometryPixelBounds": [
+      1,
+      998,
+      1,
+      712
+    ],
+    "decodedForeground": "Pillow luminance <128, nonempty and no classified foreground at image edges for every one of 144 frames.",
+    "width": 1000,
+    "height": 714,
+    "codec": "vp9",
+    "durationSeconds": 6,
+    "physicalTime": "i/143",
+    "presentationTime": "i/24",
+    "ptsMaximumAbsoluteErrorSeconds": 0.001,
+    "selectedDecodedFrames": [
+      0,
+      43,
+      93,
+      143
+    ],
+    "contactSheets": "Four ordered 36-frame sheets from the same complete decode.",
+    "sourceAndInputUnchanged": true,
+    "projectSceneIdentityPreserved": true,
+    "intermediateTargetEquality": false,
+    "seamlessLoop": false
+  },
+  "evidence": {
+    "ordering": "Render and decode the ordinary movie before applying authored-mask quality gates, retaining downstream artifacts even if the quality criterion fails.",
+    "retained": [
+      "Frozen Git source and staged manifest",
+      "Original launch request and initial/final tool responses",
+      "Fresh admission, child status and terminal supervisor record",
+      "Original importer/exporter/decoder receipts, stdout/stderr and input copies",
+      "Independent authored masks and projected coordinates",
+      "All-frame geometry/timing/foreground observations and hashes",
+      "Four full selected PNGs and four complete contact sheets",
+      "Separate geometry, source, data and visual reviews with their actual scope"
+    ],
+    "fullDecodedRgbRetained": false,
+    "visualReview": "Actual retained contact sheets and selected frames will be inspected separately. Preserve the original result's pending-visual marker."
+  },
+  "integration": {
+    "afterReceiving": "Retain the actual project.json unchanged; document observed silhouette error and motion limitations, add README discoverability and the necessary package entries, then build and inspect the final package once without replaying the creative course.",
+    "producerChanges": false,
+    "publicRelease": false,
+    "browserReceiving": "Held PR11 remains separate.",
+    "unresolvedReadout": "Original readout custody remains separate; no replay."
+  },
+  "limits": [
+    "This is ordinary creative use of the merged tools, not a new general solver or importer qualification.",
+    "Finite grid estimates and sampled framing do not establish continuous geometry or continuous-time safety.",
+    "A returned silhouette need not close every individual physical track; seamless looping is not asserted.",
+    "Intentional block-like outlines and square-cover motion are a stylized paper-flower study; botanical realism is not claimed.",
+    "Collision clearance, physical fabrication, browser pixel identity and performance benefits are not established."
+  ]
+}
